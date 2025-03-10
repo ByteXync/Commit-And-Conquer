@@ -123,7 +123,7 @@ function AdminLoginPage() {
               <a href="/forgot-password" className="font-medium text-primary hover:underline">
                 Forgot password?
               </a>
-              <a href="/register" className="font-medium text-primary hover:underline">
+              <a href="/admin/register" className="font-medium text-primary hover:underline">
                 Request admin access
               </a>
             </div>
