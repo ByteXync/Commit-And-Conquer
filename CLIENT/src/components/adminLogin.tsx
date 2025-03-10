@@ -15,7 +15,7 @@ function AdminLoginPage() {
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = async (e:React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     // Reset error state
@@ -32,28 +32,36 @@ function AdminLoginPage() {
 
     try {
       // This is where you would typically make an API call to authenticate
-      // For example:
-      // const response = await fetch('/api/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ username, password, adminKey }),
-      // });
+      const response = await fetch('http://127.0.0.1:8000/user/adminauth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: username, password, admin_code: adminKey }),
+      })
 
-      // Simulate API call with timeout
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // Check if the response is okay (status 200-299)
+      if (!response.ok) {
+        throw new Error('Invalid credentials')
+      }
 
-      // If login is successful, you could redirect or update state
-      // window.location.href = '/dashboard';
+      // Parse the JSON response
+      const data = await response.json()
+      console.log("Response Data:", data); 
 
-      console.log("Login submitted:", { username, password, adminKey })
-
-      // For demo purposes, we'll just show a success message
-      setIsLoading(false)
-      setError("")
+      // Check if data has the 'success' property
+      if (data && data.token) {
+        setIsLoading(false)
+        setError("") // Reset error if successful
+        console.log("Login successful:", data)
+        // Redirect to the dashboard or wherever appropriate
+        window.location.href = '/dashboard' // You can update this URL as per your needs
+      } else {
+        // Handle failed login
+        throw new Error(data.message || 'Login failed')
+      }
     } catch (err) {
       // Handle login error
       setIsLoading(false)
-      setError("Invalid credentials")
+      setError(err.message || 'An error occurred during login')
       console.error("Login error:", err)
     }
   }
@@ -135,4 +143,3 @@ function AdminLoginPage() {
 }
 
 export default AdminLoginPage
-
