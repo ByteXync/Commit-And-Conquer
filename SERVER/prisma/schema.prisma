@@ -16,6 +16,7 @@ model User {
   password String
   role ROLE @default(USER)
   blogs Blog[]
+  upvotes number
 }
 
 model Internship {
