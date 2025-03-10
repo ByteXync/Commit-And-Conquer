@@ -1,19 +1,21 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search, Filter } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search, Filter } from "lucide-react";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import { motion } from "framer-motion";
+import { UserNav } from "@/components/dashboard/user-nav";
 
 export function BlogHeader() {
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div className="space-y-4">
@@ -64,6 +66,5 @@ export function BlogHeader() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

@@ -1,9 +1,7 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Calendar, User, Eye } from "lucide-react"
+import { useEffect, useState } from "react";
+import { BlogCard } from "@/components/blogs/blog-card";
 
 const DUMMY_BLOGS = [
   {
@@ -53,52 +51,46 @@ const DUMMY_BLOGS = [
 ]
 
 export function BlogGrid() {
-  const [blogs] = useState(DUMMY_BLOGS)
+  const [blogs] = useState(DUMMY_BLOGS);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {blogs.map((blog) => (
-        <Card key={blog.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+        <div key={blog.id} className="overflow-hidden hover:shadow-lg transition-shadow">
           <div className="relative h-48 overflow-hidden">
-            <img 
-              src={blog.image} 
+            <img
+              src={blog.image}
               alt={blog.title}
               className="w-full h-full object-cover transition-transform hover:scale-105"
             />
           </div>
-          <CardHeader>
+          <div className="p-4">
             <div className="flex items-center justify-between mb-2">
-              <Badge variant="secondary" className="bg-blue-100 text-blue-700 hover:bg-blue-200">
+              <span className="bg-blue-100 text-blue-700 px-2 py-1 text-xs rounded-md">
                 {blog.category}
-              </Badge>
+              </span>
               <span className="text-sm text-gray-500">{blog.readTime}</span>
             </div>
-            <CardTitle className="line-clamp-2 hover:text-blue-600 cursor-pointer">
+            <h3 className="text-xl font-semibold line-clamp-2 hover:text-blue-600 cursor-pointer">
               {blog.title}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+            </h3>
             <p className="text-gray-600 line-clamp-3 mb-4">
               {blog.excerpt}
             </p>
             <div className="flex items-center justify-between text-sm text-gray-500">
               <div className="flex items-center gap-2">
-                <User className="h-4 w-4" />
                 <span>{blog.author}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4" />
                 <span>{new Date(blog.date).toLocaleDateString()}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Eye className="h-4 w-4" />
-                <span>{blog.views}</span>
+                <span>{blog.views} views</span>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       ))}
     </div>
-  )
+  );
 }
-
