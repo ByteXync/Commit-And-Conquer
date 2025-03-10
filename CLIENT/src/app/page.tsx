@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RocketIcon, ShieldCheckIcon, UsersIcon, ArrowRightIcon, BarChartIcon, CodeIcon } from 'lucide-react';
-
+//
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-green-50 dark:from-blue-950 dark:via-slate-900 dark:to-green-950">

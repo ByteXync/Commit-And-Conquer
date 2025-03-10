@@ -8,7 +8,7 @@ const FeaturesPage = () => {
         <h1 className="text-4xl font-extrabold text-gray-900 dark:text-gray-50 text-center mb-12">
           🚀 Explore Our Internship Portal Features
         </h1>
-
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Feature 1 */}
           <div className="bg-gradient-to-br from-blue-200 to-blue-50 dark:from-gray-700 dark:to-gray-800 rounded-2xl shadow-xl p-8 transform hover:-translate-y-3 transition duration-300">
