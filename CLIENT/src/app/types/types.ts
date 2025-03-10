@@ -1,11 +1,15 @@
 export interface Internship {
   id: number;
   title: string;
-  description: string;
   company: string;
   location: string;
+  description: string;
   stipend: number;
   duration: number;
+  admin?: {
+    name: string;
+    email: string;
+  };
 }
 
 export interface Blog {
