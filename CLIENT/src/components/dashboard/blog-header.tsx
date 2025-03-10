@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Search } from "lucide-react"
-import { UserNav } from "@/components/dashboard/user-nav"
+// import { UserNav } from "@/components/dashboard/user-nav" // Remove this import
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
@@ -36,7 +36,7 @@ export function BlogHeader() {
             <SelectItem value="popular">Most Popular</SelectItem>
           </SelectContent>
         </Select>
-        <UserNav />
+        {/* <UserNav /> */} {/* Remove this line */}
       </div>
     </div>
   )
