@@ -114,19 +114,19 @@ export default function AdminSignUp() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Admin Sign Up</CardTitle>
-          <CardDescription className="text-center">Create an admin account to access the dashboard</CardDescription>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 p-4">
+      <Card className="w-full max-w-md shadow-lg rounded-lg border border-gray-300 bg-white transition-transform hover:scale-105 duration-300">
+        <CardHeader className="space-y-1 p-6">
+          <CardTitle className="text-3xl font-bold text-center text-gray-800">Admin Sign Up</CardTitle>
+          <CardDescription className="text-center text-gray-600">Create an admin account to access the dashboard</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           {isSuccess ? (
             <div className="flex flex-col items-center justify-center py-4 text-center">
               <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
               <h3 className="text-xl font-semibold">Registration Successful!</h3>
               <p className="text-muted-foreground mt-2">Your admin account has been created successfully.</p>
-              <Button className="mt-6" onClick={() => router.push('/admin/login')}>
+              <Button className="mt-6 bg-blue-600 hover:bg-blue-700 text-white" onClick={() => router.push('/admin/login')}>
                 Navigate to Admin Login
               </Button>
             </div>
@@ -134,19 +134,19 @@ export default function AdminSignUp() {
             <form onSubmit={handleSubmit}>
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name</Label>
+                  <Label htmlFor="fullName" className="block text-gray-700">Full Name</Label>
                   <Input
                     id="fullName"
                     name="fullName"
                     placeholder="John Doe"
                     value={formData.fullName}
                     onChange={handleChange}
-                    className={errors.fullName ? "border-destructive" : ""}
+                    className={`border ${errors.fullName ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-blue-500`}
                   />
-                  {errors.fullName && <p className="text-sm text-destructive">{errors.fullName}</p>}
+                  {errors.fullName && <p className="text-sm text-red-500">{errors.fullName}</p>}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email" className="block text-gray-700">Email</Label>
                   <Input
                     id="email"
                     name="email"
@@ -154,12 +154,12 @@ export default function AdminSignUp() {
                     placeholder="admin@example.com"
                     value={formData.email}
                     onChange={handleChange}
-                    className={errors.email ? "border-destructive" : ""}
+                    className={`border ${errors.email ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-blue-500`}
                   />
-                  {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+                  {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password" className="block text-gray-700">Password</Label>
                   <div className="relative">
                     <Input
                       id="password"
@@ -168,22 +168,22 @@ export default function AdminSignUp() {
                       placeholder="••••••••"
                       value={formData.password}
                       onChange={handleChange}
-                      className={errors.password ? "border-destructive pr-10" : "pr-10"}
+                      className={`border ${errors.password ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-blue-500`}
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600"
                       aria-label={showPassword ? "Hide password" : "Show password"}
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
                   </div>
-                  {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
-                  <p className="text-xs text-muted-foreground">Password must be at least 8 characters long</p>
+                  {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
+                  <p className="text-xs text-gray-500">Password must be at least 8 characters long</p>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="adminKey">Admin Key</Label>
+                  <Label htmlFor="adminKey" className="block text-gray-700">Admin Key</Label>
                   <div className="relative">
                     <Input
                       id="adminKey"
@@ -192,15 +192,15 @@ export default function AdminSignUp() {
                       placeholder="Enter admin key"
                       value={formData.adminKey}
                       onChange={handleChange}
-                      className={errors.adminKey ? "border-destructive pl-10" : "pl-10"}
+                      className={`border ${errors.adminKey ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-blue-500`}
                     />
-                    <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                   </div>
-                  {errors.adminKey && <p className="text-sm text-destructive">{errors.adminKey}</p>}
+                  {errors.adminKey && <p className="text-sm text-red-500">{errors.adminKey}</p>}
                 </div>
               </div>
-              <CardFooter>
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
+              <CardFooter className="flex justify-center">
+                <Button type="submit" className={`w-full bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} disabled={isSubmitting}>
                   {isSubmitting ? "Creating Admin Account..." : "Create Admin Account"}
                 </Button>
               </CardFooter>

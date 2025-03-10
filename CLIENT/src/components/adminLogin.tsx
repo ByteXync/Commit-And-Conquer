@@ -15,10 +15,8 @@ function AdminLoginPage() {
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = async (e:React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    // Reset error state
     setError("")
 
     // Validate form
@@ -27,31 +25,16 @@ function AdminLoginPage() {
       return
     }
 
-    // Show loading state
     setIsLoading(true)
 
     try {
-      // This is where you would typically make an API call to authenticate
-      // For example:
-      // const response = await fetch('/api/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ username, password, adminKey }),
-      // });
-
       // Simulate API call with timeout
       await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // If login is successful, you could redirect or update state
-      // window.location.href = '/dashboard';
-
       console.log("Login submitted:", { username, password, adminKey })
-
-      // For demo purposes, we'll just show a success message
       setIsLoading(false)
       setError("")
+      // Handle successful login here
     } catch (err) {
-      // Handle login error
       setIsLoading(false)
       setError("Invalid credentials")
       console.error("Login error:", err)
@@ -59,21 +42,21 @@ function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-md">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-12 sm:px-6 lg:px-8">
+      <Card className="w-full max-w-md shadow-2xl rounded-lg border border-gray-300 bg-white">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold tracking-tight">Admin Sign In</CardTitle>
-          <CardDescription>Enter your credentials to access the admin panel</CardDescription>
+          <CardTitle className="text-3xl font-bold tracking-tight text-gray-800 text-center">Admin Sign In</CardTitle>
+          <CardDescription className="text-center text-gray-600">Enter your credentials to access the admin panel</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             {error && (
-              <Alert variant="destructive">
+              <Alert variant="destructive" className="bg-red-100 border border-red-200 text-red-600">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
             <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username" className="font-semibold text-gray-700">Username</Label>
               <Input
                 id="username"
                 type="text"
@@ -82,10 +65,11 @@ function AdminLoginPage() {
                 placeholder="Enter your username"
                 disabled={isLoading}
                 required
+                className="border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="font-semibold text-gray-700">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -94,10 +78,11 @@ function AdminLoginPage() {
                 placeholder="••••••••"
                 disabled={isLoading}
                 required
+                className="border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="admin-key">Admin Key</Label>
+              <Label htmlFor="admin-key" className="font-semibold text-gray-700">Admin Key</Label>
               <Input
                 id="admin-key"
                 type="password"
@@ -105,27 +90,26 @@ function AdminLoginPage() {
                 onChange={(e) => setAdminKey(e.target.value)}
                 placeholder="Enter admin key"
                 disabled={isLoading}
+                className="border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
               />
+
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className={`bg-blue-600 hover:bg-blue-700 text-white font-semibold w-full transition duration-150 ease-in-out ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`} disabled={isLoading}>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <br></br>
                   Signing in...
                 </>
               ) : (
                 "Sign in"
               )}
             </Button>
-            <div className="flex justify-between w-full text-sm">
-              <a href="/forgot-password" className="font-medium text-primary hover:underline">
-                Forgot password?
-              </a>
-              <a href="/register" className="font-medium text-primary hover:underline">
-                Request admin access
-              </a>
+            <div className="flex justify-between w-full text-sm text-gray-500">
+              <a href="/forgot-password" className="hover:underline hover:text-blue-600 transition duration-200">Forgot password?</a>
+              <a href="/register" className="hover:underline hover:text-blue-600 transition duration-200">Request admin access</a>
             </div>
           </CardFooter>
         </form>
@@ -134,5 +118,4 @@ function AdminLoginPage() {
   )
 }
 
-export default AdminLoginPage
-
+export default AdminLoginPage;
