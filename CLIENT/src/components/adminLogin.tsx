@@ -59,7 +59,7 @@ function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold tracking-tight">Admin Sign In</CardTitle>
@@ -119,7 +119,7 @@ function AdminLoginPage() {
                 "Sign in"
               )}
             </Button>
-            <div className="flex justify-between w-full text-sm">
+            <div className="flex justify-between w-full text-sm text-foreground">
               <a href="/forgot-password" className="font-medium text-primary hover:underline">
                 Forgot password?
               </a>
@@ -135,4 +135,3 @@ function AdminLoginPage() {
 }
 
 export default AdminLoginPage
-

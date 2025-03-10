@@ -114,7 +114,7 @@ export default function AdminSignUp() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 p-4">
+    <div className="flex justify-center items-center min-h-screen bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Admin Sign Up</CardTitle>
@@ -192,21 +192,23 @@ export default function AdminSignUp() {
                       placeholder="Enter admin key"
                       value={formData.adminKey}
                       onChange={handleChange}
-                      className={errors.adminKey ? "border-destructive pl-10" : "pl-10"}
+                      className={errors.adminKey ? "border-destructive" : "pl-10"}
                     />
                     <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   </div>
                   {errors.adminKey && <p className="text-sm text-destructive">{errors.adminKey}</p>}
                 </div>
               </div>
-              <CardFooter>
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? "Creating Admin Account..." : "Create Admin Account"}
-                </Button>
-              </CardFooter>
             </form>
           )}
         </CardContent>
+        {!isSuccess && (
+          <CardFooter>
+            <Button type="submit" className="w-full" onClick={handleSubmit} disabled={isSubmitting}>
+              {isSubmitting ? "Creating Admin Account..." : "Create Admin Account"}
+            </Button>
+          </CardFooter>
+        )}
       </Card>
     </div>
   )
