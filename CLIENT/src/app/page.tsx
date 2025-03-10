@@ -44,7 +44,7 @@ const LandingPage = () => {
     }
   };
 
-  const titleText = "Welcome to Our Platform";
+  const titleText = "Welcome to Commit and Conquer";
   const subtitleText = "A seamless experience for both admins and users.";
 
   return (
