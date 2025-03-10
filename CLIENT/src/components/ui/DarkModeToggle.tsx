@@ -9,13 +9,24 @@ const DarkModeToggle = () => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
       setTheme(savedTheme);
-      document.documentElement.classList.toggle("dark", savedTheme === "dark");
+      if (savedTheme === "system") {
+        const systemPrefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        document.documentElement.classList.toggle("dark", systemPrefersDark);
+      } else {
+        document.documentElement.classList.toggle(
+          "dark",
+          savedTheme === "dark"
+        );
+      }
     } else if (
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
       document.documentElement.classList.add("dark");
       setTheme("system");
+      localStorage.setItem("theme", "system");
     }
   }, []);
 
