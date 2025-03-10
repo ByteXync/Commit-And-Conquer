@@ -79,8 +79,8 @@ repo-root/
 1. **Fork the repository** and clone it locally:
    
    ```sh
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
+   git clone https://github.com/ByteXync/Commit-And-Conquer.git
+   cd Commit-And-Conquer
    ```
 4. Make your changes in the `main` branch of your fork.
 5. Commit your changes with a structured message:
