@@ -1,7 +1,7 @@
 # Commit And Conquer
 
 ## Overview
-The repository contains a full-stack application with a **Next.js** frontend and a **FastAPI** backend, with connection to a postgresql (use of neondb is recommended).
+The repository contains a full-stack application with a **Next.js** frontend and a **FastAPI** backend, with connection to a postgresql (use of neondb is recommended)...
 
 ## Folder Structure
 ```
@@ -122,73 +122,76 @@ repo-root/
 ## LeaderBoard 🏆
 
 <!-- LEADERBOARD_START -->
-1. PR RANGERS: 11
+1. Talaash : 1
 2. CypherSquad: 0
 3. Abenders: 0
 4. DeVvoyagers: 0
 5. 404 Not Found : 0
 6. Anveshika: 0
-7. Talaash : 0
-8. Low Day: 0
-9. BitbyBit: 0
-10. Codestorm : 0
-11. Bototrons: 0
-12. Anveshika : 0
-13. Team : 0
-14. SayGex: 0
-15. Gitify: 0
-16. Thund3rbird : 0
-17. Clueless : 0
-18. Aquaman: 0
-19. what is git?: 0
-20. Quark Script: 0
-21. Team 201: 0
-22. Team Mast Orbiters: 0
-23. Team UNO: 0
-24. Yeagerists: 0
-25. Kisi ka laptop kisi ka code: 0
-26. Bottle cap: 0
-27. Code phatt gya: 0
-28. oggy & the cockroaches : 0
-29. Non Coders: 0
-30. Kshitij Prasad : 0
-31. Merge Masters : 0
-32. Alpha four: 0
-33. OpnSrc: 0
-34. Code 404: 0
-35. Merge Masters: 0
-36. code overflow: 0
-37. Dora team: 0
-38. Error : 0
-39. Tech Titans : 0
-40. Super queens: 0
-41. Codepushers: 0
-42. Ctrl + c & Ctrl + v: 0
-43. Strive Squad : 0
-44. Game changers: 0
-45. DQueen: 0
-46. RedEye: 0
-47. Aatu Jhaatu: 0
-48. Ace: 0
-49. Binary: 0
-50. Tech Titans: 0
-51. Cyber_Coders: 0
-52. Batch D2: 0
-53. Code-Cartel: 0
-54. Hackity: 0
-55. AS: 0
-56. Ujwal Kumar B R : 0
-57. SYNTAX ERROR: 0
-58. Hack: 0
-59. TEAM NDC: 0
-60. Vinith Chavan : 0
-61. Sujeet: 0
-62. BugSync: 0
-63. Byte Jinx: 0
-64. Caffeine Overdose : 0
-65. Dev cardio: 0
-66. Tech Titans : 0
-67. It'sworkingsomehow : 0
-68. Hacktivate: 0
+7. Low Day: 0
+8. BitbyBit: 0
+9. Codestorm : 0
+10. Bototrons: 0
+11. Anveshika : 0
+12. Team : 0
+13. SayGex: 0
+14. Gitify: 0
+15. Thund3rbird : 0
+16. Clueless : 0
+17. Aquaman: 0
+18. what is git?: 0
+19. Quark Script: 0
+20. Team 201: 0
+21. Team Mast Orbiters: 0
+22. Team UNO: 0
+23. Yeagerists: 0
+24. Kisi ka laptop kisi ka code: 0
+25. Bottle cap: 0
+26. Code phatt gya: 0
+27. oggy & the cockroaches : 0
+28. Non Coders: 0
+29. Kshitij Prasad : 0
+30. Merge Masters : 0
+31. Alpha four: 0
+32. OpnSrc: 0
+33. Code 404: 0
+34. Merge Masters: 0
+35. code overflow: 0
+36. Dora team: 0
+37. Error : 0
+38. Tech Titans : 0
+39. Super queens: 0
+40. Codepushers: 0
+41. Ctrl + c & Ctrl + v: 0
+42. Strive Squad : 0
+43. Game changers: 0
+44. DQueen: 0
+45. RedEye: 0
+46. Aatu Jhaatu: 0
+47. Ace: 0
+48. Binary: 0
+49. Tech Titans: 0
+50. Cyber_Coders: 0
+51. Batch D2: 0
+52. Code-Cartel: 0
+53. Hackity: 0
+54. AS: 0
+55. Ujwal Kumar B R : 0
+56. SYNTAX ERROR: 0
+57. Hack: 0
+58. TEAM NDC: 0
+59. Vinith Chavan : 0
+60. Sujeet: 0
+61. BugSync: 0
+62. Byte Jinx: 0
+63. Caffeine Overdose : 0
+64. Dev cardio: 0
+65. Tech Titans : 0
+66. It'sworkingsomehow : 0
+67. Hacktivate: 0
+68. PR RANGERS: 0
+69. Leviathan Squad: 0
+70. Octagram: 0
+71. Gitcoders: 0
 <!-- LEADERBOARD_END -->
 
