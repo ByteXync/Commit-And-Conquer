@@ -60,15 +60,22 @@ repo-root/
    ```sh
    pip install -r requirements.txt
    ```
-5. Generate Prisma client:
+5. Set up environment variables:
+   - Create a `.env` file in the SERVER directory
+   - Add your DATABASE_URL:
+     ```
+     DATABASE_URL="postgresql://user:password@host:port/database"
+     ```
+   - Replace the connection details with your actual database credentials
+6. Generate Prisma client:
    ```sh
    prisma generate
    ```
-6. Start the FastAPI server:
+7. Start the FastAPI server:
    ```sh
    uvicorn main:app --reload
    ```
-7. The backend should now be running at `http://localhost:8000`
+8. The backend should now be running at `http://localhost:8000`
 
 ---
 
