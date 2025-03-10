@@ -10,32 +10,38 @@ generator client {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  fullName String
-  email String @unique
-  password String
-  role ROLE @default(USER)
-  blogs Blog[]
+  id        Int     @id @default(autoincrement())
+  fullName  String
+  email     String  @unique
+  password  String
+  role      ROLE    @default(USER)
+  blogs     Blog[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Internship {
-  id Int @id @default(autoincrement())
-  title String
+  id          Int     @id @default(autoincrement())
+  title       String
   description String
-  company String
-  location String
-  stipend Int
-  duration Int
+  company     String
+  location    String
+  stipend     Int
+  duration    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Blog {
-  id Int @id @default(autoincrement())
-  user_id Int
-  title String
-  content Json
-  author String
-  date DateTime
-  user User @relation(fields: [user_id], references: [id])   
+  id        Int     @id @default(autoincrement())
+  user_id   Int
+  title     String
+  content   Json
+  author    String
+  date      DateTime @default(now())
+  user      User     @relation(fields: [user_id], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum ROLE {

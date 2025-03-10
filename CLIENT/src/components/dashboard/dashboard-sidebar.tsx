@@ -1,3 +1,5 @@
+
+// BasicSidebar.js
 "use client"
 
 import Link from "next/link"
@@ -5,7 +7,7 @@ import { usePathname } from "next/navigation"
 import { Briefcase, FileText, LogOut, Newspaper, User } from "lucide-react"
 
 export function BasicSidebar() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <div className="fixed inset-y-0 left-0 z-30 w-64 bg-gray-900 text-white shadow-lg">
@@ -14,8 +16,8 @@ export function BasicSidebar() {
           <h1 className="text-xl font-bold">Dashboard</h1>
         </div>
         <div className="flex items-center p-4 border-b border-gray-700">
-          <User  className="h-8 w-8 mr-2" />
-          <span className="font-semibold">User  Name</span>
+          <User className="h-8 w-8 mr-2" />
+          <span className="font-semibold">User Name</span>
         </div>
         <nav className="flex-1 p-4">
           <ul className="space-y-2">
@@ -49,3 +51,4 @@ export function BasicSidebar() {
     </div>
   )
 }
+

@@ -113,14 +113,14 @@ export default function SignupPage() {
         const data = await response.json()
         setErrors((prev) => ({
           ...prev,
-          email: data.error || "An error occurred",
+          email: data.error || "An error occurred", // Update with actual error message returned
         }))
       }
     } catch (error) {
       console.error("Signup error:", error)
       setErrors((prev) => ({
         ...prev,
-        email: "An error occurred",
+        email: "An error occurred while attempting to sign up.", // General error message
       }))
     } finally {
       setIsSubmitting(false)
@@ -207,7 +207,12 @@ export default function SignupPage() {
         </CardContent>
         {!isSuccess && (
           <CardFooter>
-            <Button className={`w-full bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} type="button" onClick={handleSubmit} disabled={isSubmitting}>
+            <Button
+              className={`w-full bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+              type="submit"
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Creating Account..." : "Sign Up"}
             </Button>
           </CardFooter>

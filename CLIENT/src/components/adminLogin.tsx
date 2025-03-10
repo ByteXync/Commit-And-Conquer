@@ -42,7 +42,7 @@ function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-green-400 to-blue-500 px-4 py-12 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md shadow-2xl rounded-lg border border-gray-300 bg-white">
         <CardHeader className="space-y-1">
           <CardTitle className="text-3xl font-bold tracking-tight text-gray-800 text-center">Admin Sign In</CardTitle>
@@ -65,7 +65,7 @@ function AdminLoginPage() {
                 placeholder="Enter your username"
                 disabled={isLoading}
                 required
-                className="border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
+                className="border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 ease-in-out"
               />
             </div>
             <div className="space-y-2">
@@ -78,7 +78,7 @@ function AdminLoginPage() {
                 placeholder="••••••••"
                 disabled={isLoading}
                 required
-                className="border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
+                className="border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 ease-in-out"
               />
             </div>
             <div className="space-y-2">
@@ -90,17 +90,15 @@ function AdminLoginPage() {
                 onChange={(e) => setAdminKey(e.target.value)}
                 placeholder="Enter admin key"
                 disabled={isLoading}
-                className="border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out"
+                className="border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 ease-in-out"
               />
-
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className={`bg-blue-600 hover:bg-blue-700 text-white font-semibold w-full transition duration-150 ease-in-out ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`} disabled={isLoading}>
+            <Button type="submit" className={`bg-green-600 hover:bg-green-700 text-white font-semibold w-full transition duration-150 ease-in-out ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`} disabled={isLoading}>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  
                   Signing in...
                 </>
               ) : (
@@ -108,8 +106,8 @@ function AdminLoginPage() {
               )}
             </Button>
             <div className="flex justify-between w-full text-sm text-gray-500">
-              <a href="/forgot-password" className="hover:underline hover:text-blue-600 transition duration-200">Forgot password?</a>
-              <a href="/register" className="hover:underline hover:text-blue-600 transition duration-200">Request admin access</a>
+              <a href="/forgot-password" className="hover:underline hover:text-green-600 transition duration-200">Forgot password?</a>
+              <a href="/register" className="hover:underline hover:text-green-600 transition duration-200">Request admin access</a>
             </div>
           </CardFooter>
         </form>

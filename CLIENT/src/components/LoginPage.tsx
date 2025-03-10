@@ -43,7 +43,7 @@ function LoginPage() {
         setError(data.error || "An error occurred");
       }
     } catch (err) {
-      setError("An error occurred");
+      setError("An error occurred while trying to log in.");
     } finally {
       setIsLoading(false);
     }
@@ -73,7 +73,7 @@ function LoginPage() {
                 placeholder="Enter your email"
                 disabled={isLoading}
                 required
-                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               />
             </div>
             <div className="space-y-2">
@@ -91,12 +91,12 @@ function LoginPage() {
                 placeholder="••••••••"
                 disabled={isLoading}
                 required
-                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
               />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
-            <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md disabled:bg-gray-400">
+            <Button type="submit" className={`w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition duration-300 ease-in-out ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`} disabled={isLoading}>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

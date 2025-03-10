@@ -114,7 +114,7 @@ export default function AdminSignUp() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 p-4">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-teal-500 to-blue-600 p-4">
       <Card className="w-full max-w-md shadow-lg rounded-lg border border-gray-300 bg-white transition-transform hover:scale-105 duration-300">
         <CardHeader className="space-y-1 p-6">
           <CardTitle className="text-3xl font-bold text-center text-gray-800">Admin Sign Up</CardTitle>
@@ -126,7 +126,7 @@ export default function AdminSignUp() {
               <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
               <h3 className="text-xl font-semibold">Registration Successful!</h3>
               <p className="text-muted-foreground mt-2">Your admin account has been created successfully.</p>
-              <Button className="mt-6 bg-blue-600 hover:bg-blue-700 text-white" onClick={() => router.push('/admin/login')}>
+              <Button className="mt-6 bg-teal-600 hover:bg-teal-700 text-white" onClick={() => router.push('/admin/login')}>
                 Navigate to Admin Login
               </Button>
             </div>
@@ -141,7 +141,7 @@ export default function AdminSignUp() {
                     placeholder="John Doe"
                     value={formData.fullName}
                     onChange={handleChange}
-                    className={`border ${errors.fullName ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-blue-500`}
+                    className={`border ${errors.fullName ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-teal-500`}
                   />
                   {errors.fullName && <p className="text-sm text-red-500">{errors.fullName}</p>}
                 </div>
@@ -154,7 +154,7 @@ export default function AdminSignUp() {
                     placeholder="admin@example.com"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`border ${errors.email ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-blue-500`}
+                    className={`border ${errors.email ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-teal-500`}
                   />
                   {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
                 </div>
@@ -168,7 +168,7 @@ export default function AdminSignUp() {
                       placeholder="••••••••"
                       value={formData.password}
                       onChange={handleChange}
-                      className={`border ${errors.password ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-blue-500`}
+                      className={`border ${errors.password ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-teal-500`}
                     />
                     <button
                       type="button"
@@ -192,7 +192,7 @@ export default function AdminSignUp() {
                       placeholder="Enter admin key"
                       value={formData.adminKey}
                       onChange={handleChange}
-                      className={`border ${errors.adminKey ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-blue-500`}
+                      className={`border ${errors.adminKey ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:ring-2 focus:ring-teal-500`}
                     />
                     <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                   </div>
@@ -200,7 +200,7 @@ export default function AdminSignUp() {
                 </div>
               </div>
               <CardFooter className="flex justify-center">
-                <Button type="submit" className={`w-full bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} disabled={isSubmitting}>
+                <Button type="submit" className={`w-full bg-teal-600 hover:bg-teal-700 text-white transition duration-300 ease-in-out ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} disabled={isSubmitting}>
                   {isSubmitting ? "Creating Admin Account..." : "Create Admin Account"}
                 </Button>
               </CardFooter>
