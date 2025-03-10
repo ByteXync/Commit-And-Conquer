@@ -23,6 +23,8 @@ export default function AdminSignUp() {
     email: "",
     password: "",
     adminKey: "",
+    network: "",
+    server: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
@@ -91,7 +93,12 @@ export default function AdminSignUp() {
           }),
         })
 
-        if (response.ok) {
+        if (!response.ok) {
+          // Handle non-2xx status codes
+          const errorData = await response.json()
+          console.error("Registration error:", errorData)
+          setErrors({ ...errors, server: errorData.message || "An error occurred on the server" })
+        } else {
           const data = await response.json()
           console.log("Form submitted successfully:", data)
           setIsSuccess(true)
@@ -101,12 +108,10 @@ export default function AdminSignUp() {
             password: "",
             adminKey: "",
           })
-        } else {
-          const errorData = await response.json()
-          console.error("Registration error:", errorData)
         }
       } catch (error) {
-        console.error("Registration error:", error)
+        console.error("Network error:", error)
+        setErrors({ ...errors, network: "Failed to communicate with the server" })
       } finally {
         setIsSubmitting(false)
       }
@@ -199,6 +204,8 @@ export default function AdminSignUp() {
                   {errors.adminKey && <p className="text-sm text-destructive">{errors.adminKey}</p>}
                 </div>
               </div>
+              {errors.network && <p className="text-sm text-destructive">{errors.network}</p>}
+              {errors.server && <p className="text-sm text-destructive">{errors.server}</p>}
               <CardFooter>
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? "Creating Admin Account..." : "Create Admin Account"}

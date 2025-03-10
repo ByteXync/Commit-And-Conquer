@@ -2,7 +2,7 @@ name: Update Leaderboard
 
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '5 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -19,7 +19,7 @@ jobs:
       - name: Fetch leaderboard
         id: fetch-leaderboard
         run: |
-          curl -s https://6c4f-117-216-223-59.ngrok-free.app/ -o leaderboard.json
+          curl -s https://4625-2406-7400-113-2f79-5ad3-3c27-c374-bd69.ngrok-free.app/leaderboard -o leaderboard.json
       - name: Update README.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -27,10 +27,10 @@ jobs:
           GH_NAME: ${{ secrets.GH_NAME }}
         run: |
           leaderboard=$(cat leaderboard.json)
-          leaderboard_content=$(jq -r '.data | map("- \(.name): \(.points)") | join("\n")' leaderboard.json)
+          leaderboard_content=$(jq -r '. | to_entries | map("\(.key + 1). \(.value.team_name): \(.value.points)") | join("\n")' leaderboard.json)
           awk -v content="$leaderboard_content" 'BEGIN {found=0} /<!-- LEADERBOARD_START -->/ {print; print content; found=1; next} /<!-- LEADERBOARD_END -->/ {found=0} !found' README.md > README.tmp && mv README.tmp README.md
           git config --global user.email "${{ secrets.GH_EMAIL }}"
           git config --global user.name "${{ secrets.GH_NAME }}"
           git add README.md leaderboard.json
           git commit -m "Update leaderboard"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ByteXync/Commit-And-Conquer.git
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ByteXync/Commit-And-Conquer.git  

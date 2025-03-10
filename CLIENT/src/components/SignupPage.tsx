@@ -140,7 +140,7 @@ export default function SignupPage() {
               <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
               <h3 className="text-xl font-semibold">Registration Successful!</h3>
               <p className="text-muted-foreground mt-2">Your account has been created successfully.</p>
-              <Button className="mt-6" onClick={() =>{router.push('/login')} }>
+              <Button className="mt-6" onClick={() =>{router.push('/user/login')} }>
                 Navigate to Login Page
               </Button>
             </div>
@@ -216,4 +216,3 @@ export default function SignupPage() {
     </div>
   )
 }
-
