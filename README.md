@@ -1,7 +1,7 @@
 # Commit And Conquer
 
 ## Overview
-The repository contains a full-stack application with a **Next.js** frontend and a **FastAPI** backend, with connection to a postgresql (use of neondb is recommended).
+The repository contains a full-stack application with a **Next.js** frontend and a **FastAPI** backend, with connection to a postgresql (use of neondb is recommended)...
 
 ## Folder Structure
 ```
@@ -122,12 +122,12 @@ repo-root/
 ## LeaderBoard 🏆
 
 <!-- LEADERBOARD_START -->
-1. CypherSquad: 0
-2. Abenders: 0
-3. DeVvoyagers: 0
-4. 404 Not Found : 0
-5. Anveshika: 0
-6. Talaash : 0
+1. Talaash : 1
+2. CypherSquad: 0
+3. Abenders: 0
+4. DeVvoyagers: 0
+5. 404 Not Found : 0
+6. Anveshika: 0
 7. Low Day: 0
 8. BitbyBit: 0
 9. Codestorm : 0
@@ -190,5 +190,8 @@ repo-root/
 66. It'sworkingsomehow : 0
 67. Hacktivate: 0
 68. PR RANGERS: 0
+69. Leviathan Squad: 0
+70. Octagram: 0
+71. Gitcoders: 0
 <!-- LEADERBOARD_END -->
 
