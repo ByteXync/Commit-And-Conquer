@@ -1,5 +1,5 @@
 "use client"
-import Link from "next/link"
+
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -79,9 +79,9 @@ function LoginPage() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <Link href="/forgot-password" className="text-sm font-medium text-primary hover:underline">
+                <a href="/forgot-password" className="text-sm font-medium text-primary hover:underline">
   Forgot password?
-</Link>
+</a>
               </div>
               <Input
                 id="password"
