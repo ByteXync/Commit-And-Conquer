@@ -1,89 +1,85 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { AlertCircle, CheckCircle2 } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import DarkModeToggle from "@/components/DarkModeToggle";
 
 export default function SignupPage() {
-  const router = useRouter()
+  const router = useRouter();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
-  })
+  });
 
   const [errors, setErrors] = useState({
     fullName: "",
     email: "",
     password: "",
-  })
+  });
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }))
+    }));
 
-    // Clear error when user types
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({
         ...prev,
         [name]: "",
-      }))
+      }));
     }
-  }
+  };
 
   const validateForm = () => {
-    let isValid = true
-    const newErrors = { ...errors }
+    let isValid = true;
+    const newErrors = { ...errors };
 
-    // Full name validation
     if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full name is required"
-      isValid = false
+      newErrors.fullName = "Full name is required";
+      isValid = false;
     } else if (formData.fullName.length < 3) {
-      newErrors.fullName = "Full name must be at least 3 characters"
-      isValid = false
+      newErrors.fullName = "Full name must be at least 3 characters";
+      isValid = false;
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
-      isValid = false
+      newErrors.email = "Email is required";
+      isValid = false;
     } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address"
-      isValid = false
+      newErrors.email = "Please enter a valid email address";
+      isValid = false;
     }
 
-    // Password validation
     if (!formData.password) {
-      newErrors.password = "Password is required"
-      isValid = false
+      newErrors.password = "Password is required";
+      isValid = false;
     } else if (formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters"
-      isValid = false
+      newErrors.password = "Password must be at least 8 characters";
+      isValid = false;
     }
 
-    setErrors(newErrors)
-    return isValid
-  }
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!validateForm()) return
+    if (!validateForm()) return;
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
       const response = await fetch("http://localhost:8000/user/register", {
@@ -97,42 +93,42 @@ export default function SignupPage() {
           password: formData.password,
           role: "USER",
         }),
-      })
+      });
 
       if (response.ok) {
-        // Handle successful signup
-        setIsSuccess(true)
-
-        // Reset form after successful submission
+        setIsSuccess(true);
         setFormData({
           fullName: "",
           email: "",
           password: "",
-        })
+        });
       } else {
-        const data = await response.json()
+        const data = await response.json();
         setErrors((prev) => ({
           ...prev,
           email: data.error || "An error occurred",
-        }))
+        }));
       }
     } catch (error) {
-      console.error("Signup error:", error)
+      console.error("Signup error:", error);
       setErrors((prev) => ({
         ...prev,
         email: "An error occurred",
-      }))
+      }));
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">Create an account</CardTitle>
           <CardDescription className="text-center">Enter your details below to create your account</CardDescription>
+          <div className="flex justify-end">
+            <DarkModeToggle />
+          </div>
         </CardHeader>
         <CardContent>
           {isSuccess ? (
@@ -140,7 +136,7 @@ export default function SignupPage() {
               <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
               <h3 className="text-xl font-semibold">Registration Successful!</h3>
               <p className="text-muted-foreground mt-2">Your account has been created successfully.</p>
-              <Button className="mt-6" onClick={() =>{router.push('/login')} }>
+              <Button className="mt-6" onClick={() => { router.push('/login') }}>
                 Navigate to Login Page
               </Button>
             </div>
@@ -214,6 +210,5 @@ export default function SignupPage() {
         )}
       </Card>
     </div>
-  )
+  );
 }
-
