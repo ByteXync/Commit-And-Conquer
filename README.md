@@ -123,9 +123,9 @@ repo-root/
 
 <!-- LEADERBOARD_START -->
 1. SayGex: 35
-2. Talaash : 20
-3. Clueless : 10
-4. Code 404: 10
+2. Code 404: 20
+3. Talaash : 20
+4. Clueless : 10
 5. CypherSquad: 0
 6. Abenders: 0
 7. DeVvoyagers: 0
