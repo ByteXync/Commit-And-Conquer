@@ -1,19 +1,21 @@
-generator client {
-  provider = "prisma-client-py"
-}
-
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+generator client {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = 5
+}
+
 model User {
-  id       Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
   fullName String
-  email    String @unique
+  email String @unique
   password String
-  role     String
-  blogs    Blog[]
+  role ROLE @default(USER)
+  blogs Blog[]
 }
 
 model Internship {
@@ -30,8 +32,13 @@ model Blog {
   id Int @id @default(autoincrement())
   user_id Int
   title String
-  content String
+  content Json
   author String
   date DateTime
   user User @relation(fields: [user_id], references: [id])   
+}
+
+enum ROLE {
+  ADMIN
+  USER
 }
