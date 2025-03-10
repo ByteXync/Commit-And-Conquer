@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { AlertCircle, CheckCircle2 } from "lucide-react"
+import { AlertCircle, CheckCircle2, Mail, User, Lock } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 export default function SignupPage() {
@@ -128,92 +128,125 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Create an account</CardTitle>
-          <CardDescription className="text-center">Enter your details below to create your account</CardDescription>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+      <Card className="w-full max-w-md shadow-lg border-0 overflow-hidden">
+        <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+        <CardHeader className="space-y-2 pb-6 pt-8">
+          <CardTitle className="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">Join Us</CardTitle>
+          <CardDescription className="text-center text-gray-500 text-base">Enter your details below to create your account</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-8">
           {isSuccess ? (
-            <div className="flex flex-col items-center justify-center py-4 text-center">
-              <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
-              <h3 className="text-xl font-semibold">Registration Successful!</h3>
-              <p className="text-muted-foreground mt-2">Your account has been created successfully.</p>
-              <Button className="mt-6" onClick={() =>{router.push('/login')} }>
+            <div className="flex flex-col items-center justify-center py-8 text-center">
+              <div className="rounded-full bg-green-100 p-3 mb-4">
+                <CheckCircle2 className="h-12 w-12 text-green-500" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800">Registration Successful!</h3>
+              <p className="text-gray-500 mt-3 max-w-xs mx-auto">Your account has been created successfully. You can now log in with your credentials.</p>
+              <Button 
+                className="mt-8 w-full max-w-xs h-12 rounded-lg font-medium bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300" 
+                onClick={() => {router.push('/login')}}
+              >
                 Navigate to Login Page
               </Button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="fullName">Full Name</Label>
-                <Input
-                  id="fullName"
-                  name="fullName"
-                  placeholder="John Doe"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  className={errors.fullName ? "border-red-500" : ""}
-                />
+                <Label htmlFor="fullName" className="text-gray-700 font-medium">Full Name</Label>
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="fullName"
+                    name="fullName"
+                    placeholder="John Doe"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    className={`pl-12 h-12 rounded-lg transition-all duration-200 ring-offset-2 focus:ring-2 focus:ring-blue-500 ${
+                      errors.fullName ? "border-red-500 focus:ring-red-500" : "border-gray-200"
+                    }`}
+                  />
+                </div>
                 {errors.fullName && (
                   <div className="flex items-center text-red-500 text-sm mt-1">
-                    <AlertCircle className="h-4 w-4 mr-1" />
-                    <span>{errors.fullName}</span>
+                    <span className="mr-1">•</span> {errors.fullName}
                   </div>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="john.doe@example.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={errors.email ? "border-red-500" : ""}
-                />
+                <Label htmlFor="email" className="text-gray-700 font-medium">Email</Label>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="john.doe@example.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={`pl-12 h-12 rounded-lg transition-all duration-200 ring-offset-2 focus:ring-2 focus:ring-blue-500 ${
+                      errors.email ? "border-red-500 focus:ring-red-500" : "border-gray-200"
+                    }`}
+                  />
+                </div>
                 {errors.email && (
                   <div className="flex items-center text-red-500 text-sm mt-1">
-                    <AlertCircle className="h-4 w-4 mr-1" />
-                    <span>{errors.email}</span>
+                    <span className="mr-1">•</span> {errors.email}
                   </div>
                 )}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className={errors.password ? "border-red-500" : ""}
-                />
+                <Label htmlFor="password" className="text-gray-700 font-medium">Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={`pl-12 h-12 rounded-lg transition-all duration-200 ring-offset-2 focus:ring-2 focus:ring-blue-500 ${
+                      errors.password ? "border-red-500 focus:ring-red-500" : "border-gray-200"
+                    }`}
+                  />
+                </div>
                 {errors.password && (
                   <div className="flex items-center text-red-500 text-sm mt-1">
-                    <AlertCircle className="h-4 w-4 mr-1" />
-                    <span>{errors.password}</span>
+                    <span className="mr-1">•</span> {errors.password}
                   </div>
                 )}
-                <p className="text-xs text-muted-foreground mt-1">Password must be at least 8 characters long</p>
+                <p className="text-xs text-gray-500 mt-1">Password must be at least 8 characters long</p>
               </div>
+              
+              <CardFooter className="px-0 pb-0 pt-4">
+                <Button 
+                  className="w-full h-12 rounded-lg font-medium bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 text-base" 
+                  type="submit" 
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center">
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Creating Account...
+                    </span>
+                  ) : (
+                    "Sign Up"
+                  )}
+                </Button>
+              </CardFooter>
             </form>
           )}
         </CardContent>
-        {!isSuccess && (
-          <CardFooter>
-            <Button className="w-full" type="submit" onClick={handleSubmit} disabled={isSubmitting}>
-              {isSubmitting ? "Creating Account..." : "Sign Up"}
-            </Button>
-          </CardFooter>
-        )}
+        <div className="text-center text-gray-500 text-xs pb-6 px-8">
+          Already have an account? <a href="/login" className="text-blue-600 hover:text-blue-800 font-medium">Sign in</a>
+        </div>
       </Card>
     </div>
   )
 }
-
