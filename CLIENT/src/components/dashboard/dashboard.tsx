@@ -20,7 +20,7 @@ export default function Dashboard() {
         <header className="sticky top-0 z-30 flex h-16 items-center border-b bg-background px-6">
           <Button variant="outline" onClick={() => setSidebarOpen(!sidebarOpen)} className="flex items-center gap-2">
             <Menu className="h-4 w-4" />
-          </Button> */}
+          </Button> */
           <MainNav />
           <div className="ml-auto flex items-center space-x-4">
             <BlogHeader />
@@ -34,7 +34,7 @@ export default function Dashboard() {
               <Filter className="h-4 w-4" />
               Filter
             </Button>
-          </div> */}
+          </div> */
           {filterOpen && (
             <div className="mb-6 p-4 border rounded-lg bg-white shadow-sm">
               {/* Add filter options here */}
@@ -42,7 +42,7 @@ export default function Dashboard() {
             </div>
           )}
           
-          {/* Statistics Section */}
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div className="p-6 bg-white rounded-lg shadow-md">
               <div className="flex items-center justify-between mb-4">
