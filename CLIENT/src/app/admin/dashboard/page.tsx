@@ -1,11 +1,13 @@
-import Dashboard from "@/components/dashboard/dashboard"
+import Dashboard from "@/components/dashboard/dashboard";
+import DarkModeToggle from "@/components/ui/DarkModeToggle";
 
 function page() {
   return (
     <div>
-      <Dashboard/>
+      <DarkModeToggle />
+      <Dashboard />
     </div>
-  )
+  );
 }
 
-export default page
+export default page;
