@@ -124,7 +124,7 @@ repo-root/
 <!-- LEADERBOARD_START -->
 1. SayGex: 15
 2. Clueless : 10
-3. Talaash : 5
+3. Talaash : 10
 4. CypherSquad: 0
 5. Abenders: 0
 6. DeVvoyagers: 0
