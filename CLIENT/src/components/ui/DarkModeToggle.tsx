@@ -1,4 +1,8 @@
 "use client";
+// This is a dark mode toggle component that uses the system's color scheme to determine the theme.
+// It uses the localStorage to save the theme preference.
+// It uses the window.matchMedia to detect the system's color scheme.
+// It uses the document.documentElement.classList to toggle the dark class on the html element.
 
 import React, { useState, useEffect } from "react";
 
