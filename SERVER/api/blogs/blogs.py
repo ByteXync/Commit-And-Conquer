@@ -22,7 +22,8 @@ async def create_blog(blog: Blog):
             "user_id": payload['id'],
             "content": json.dumps(blog.content),
             "author": payload['email'],
-            "date": datetime.utcnow()
+            "date": datetime.utcnow(),
+            "upvote":0
         })
         return {
             "title": prisma_blog.title,
@@ -39,3 +40,15 @@ async def create_blog(blog: Blog):
 async def fetch_blogs():
     blogs = await PrismaBlog.prisma().find_many()
     return blogs
+
+@router.patch("/api/blogupvote/{id}")
+async def upvote(id: str):
+    blog = await PrismaBlog.prisma().find_unique(where={"id": id})
+    if not blog:
+        return {"message": "Blog not found"}
+
+    updated_blog = await PrismaBlog.prisma().update(
+        where={"id": id},
+        data={"upvote": blog.upvote + 1}
+    )
+    return {"message": "Upvote added successfully", "upvote": updated_blog.upvote}
