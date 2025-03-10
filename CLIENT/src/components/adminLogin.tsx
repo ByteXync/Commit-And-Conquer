@@ -1,3 +1,4 @@
+// app/admin-login.tsx
 "use client"
 
 import { useState } from "react"
@@ -15,7 +16,7 @@ function AdminLoginPage() {
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = async (e:React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     // Reset error state
@@ -31,20 +32,10 @@ function AdminLoginPage() {
     setIsLoading(true)
 
     try {
-      // This is where you would typically make an API call to authenticate
-      // For example:
-      // const response = await fetch('/api/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ username, password, adminKey }),
-      // });
-
       // Simulate API call with timeout
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
       // If login is successful, you could redirect or update state
-      // window.location.href = '/dashboard';
-
       console.log("Login submitted:", { username, password, adminKey })
 
       // For demo purposes, we'll just show a success message
@@ -59,7 +50,7 @@ function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center bg-background text-foreground px-4 py-12 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold tracking-tight">Admin Sign In</CardTitle>
@@ -135,4 +126,3 @@ function AdminLoginPage() {
 }
 
 export default AdminLoginPage
-

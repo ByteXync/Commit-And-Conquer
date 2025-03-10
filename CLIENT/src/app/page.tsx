@@ -1,15 +1,17 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+"use client";
+
+// app/landing-page.tsx
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="max-w-4xl w-full">
         <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
           Welcome to Our Platform
         </h1>
-        
+
         <div className="grid md:grid-cols-2 gap-6">
           {/* Admin Section */}
           <Card className="shadow-lg hover:shadow-xl transition-shadow">
