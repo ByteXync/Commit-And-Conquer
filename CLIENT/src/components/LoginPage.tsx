@@ -51,7 +51,7 @@ function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold tracking-tight">Sign in to your account</CardTitle>
@@ -106,7 +106,7 @@ function LoginPage() {
                 "Sign in"
               )}
             </Button>
-            <div className="text-center text-sm">
+            <div className="text-center text-sm text-foreground">
               Don't have an account?{" "}
               <a href="/register" className="font-medium text-primary hover:underline">
                 Create an account
@@ -120,4 +120,3 @@ function LoginPage() {
 }
 
 export default LoginPage
-

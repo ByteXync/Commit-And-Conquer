@@ -2,12 +2,13 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RocketIcon, ShieldCheckIcon, UsersIcon, ArrowRightIcon, BarChartIcon, CodeIcon } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle'; // Import ThemeToggle
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Navbar */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-sm z-50 border-b border-blue-100">
+      <nav className="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 border-b border-blue-100 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center">
@@ -16,13 +17,15 @@ const LandingPage = () => {
             <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 text-transparent bg-clip-text">CommitConquer</div>
           </div>
           <div className="hidden md:flex space-x-1">
-            <Button variant="ghost" className="rounded-full text-gray-600 hover:text-blue-600">Features</Button>
-            <Button variant="ghost" className="rounded-full text-gray-600 hover:text-blue-600">Pricing</Button>
-            <Button variant="ghost" className="rounded-full text-gray-600 hover:text-blue-600">About</Button>
-            <Button variant="ghost" className="rounded-full text-gray-600 hover:text-blue-600">Contact</Button>
+            <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Features</Button>
+            <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Pricing</Button>
+            <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">About</Button>
+            <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Contact</Button>
           </div>
-          <div>
-            <Button className="rounded-full bg-blue-600 hover:bg-blue-700">Get Started</Button>
+          <div className="flex items-center space-x-4">
+            {/* Add ThemeToggle here */}
+            <ThemeToggle />
+            <Button className="rounded-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600">Get Started</Button>
           </div>
         </div>
       </nav>
@@ -30,58 +33,59 @@ const LandingPage = () => {
       {/* Hero Section */}
       <div className="pt-32 pb-16 px-4 relative overflow-hidden">
         {/* Background decorative elements */}
-        <div className="absolute top-40 right-0 w-64 h-64 bg-blue-400 rounded-full opacity-10 -z-10 blur-3xl"></div>
-        <div className="absolute bottom-20 left-10 w-72 h-72 bg-green-400 rounded-full opacity-10 -z-10 blur-3xl"></div>
+        <div className="absolute top-40 right-0 w-64 h-64 bg-blue-400 dark:bg-blue-600 rounded-full opacity-10 -z-10 blur-3xl"></div>
+        <div className="absolute bottom-20 left-10 w-72 h-72 bg-green-400 dark:bg-green-600 rounded-full opacity-10 -z-10 blur-3xl"></div>
         
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
           <div className="md:w-1/2 text-left space-y-6">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900">
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white">
               <span className="block">Simplify Your</span>
               <span className="bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text">Project Workflow</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-xl">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-xl">
               CommitConquer helps teams collaborate, track progress, and deliver projects on time - all in one powerful platform.
             </p>
             <div className="flex space-x-4 pt-4">
-              <Button size="lg" className="rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200">
+              <Button size="lg" className="rounded-full bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200 dark:shadow-blue-900/20">
                 Start Free Trial
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full border-blue-200 text-blue-600 hover:bg-blue-50 flex items-center gap-2">
+              <Button size="lg" variant="outline" className="rounded-full border-blue-200 dark:border-blue-700 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 flex items-center gap-2">
                 Watch Demo <ArrowRightIcon className="w-4 h-4" />
               </Button>
             </div>
           </div>
           <div className="md:w-1/2">
             <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-400 to-green-400 rounded-2xl blur-xl opacity-20"></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-blue-400 to-green-400 dark:from-blue-600 dark:to-green-600 rounded-2xl blur-xl opacity-20"></div>
               <img 
                 src="/api/placeholder/600/400" 
                 alt="Dashboard Preview" 
-                className="rounded-2xl shadow-2xl relative w-full border border-gray-100" 
+                className="rounded-2xl shadow-2xl relative w-full border border-gray-100 dark:border-gray-700" 
               />
             </div>
           </div>
         </div>
       </div>
 
+      {/* Rest of the component remains the same... */}
       {/* Stats Section */}
-      <div className="bg-white py-10">
+      <div className="bg-white dark:bg-gray-800 py-10">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div className="space-y-2">
-            <p className="text-4xl font-bold text-blue-600">98%</p>
-            <p className="text-gray-600">Customer Satisfaction</p>
+            <p className="text-4xl font-bold text-blue-600 dark:text-blue-400">98%</p>
+            <p className="text-gray-600 dark:text-gray-300">Customer Satisfaction</p>
           </div>
           <div className="space-y-2">
-            <p className="text-4xl font-bold text-green-600">10k+</p>
-            <p className="text-gray-600">Active Users</p>
+            <p className="text-4xl font-bold text-green-600 dark:text-green-400">10k+</p>
+            <p className="text-gray-600 dark:text-gray-300">Active Users</p>
           </div>
           <div className="space-y-2">
-            <p className="text-4xl font-bold text-purple-600">24/7</p>
-            <p className="text-gray-600">Support Available</p>
+            <p className="text-4xl font-bold text-purple-600 dark:text-purple-400">24/7</p>
+            <p className="text-gray-600 dark:text-gray-300">Support Available</p>
           </div>
           <div className="space-y-2">
-            <p className="text-4xl font-bold text-orange-600">50+</p>
-            <p className="text-gray-600">Integrations</p>
+            <p className="text-4xl font-bold text-orange-600 dark:text-orange-400">50+</p>
+            <p className="text-gray-600 dark:text-gray-300">Integrations</p>
           </div>
         </div>
       </div>
@@ -89,35 +93,35 @@ const LandingPage = () => {
       {/* Feature Highlights */}
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Powerful Features for Every Team</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">Everything you need to manage projects efficiently and collaborate effectively</p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Powerful Features for Every Team</h2>
+          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Everything you need to manage projects efficiently and collaborate effectively</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="group">
-            <div className="p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-300 border border-blue-100 h-full">
+            <div className="p-8 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/50 dark:to-blue-800/30 rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-300 border border-blue-100 dark:border-blue-800 h-full">
               <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center mb-6 transform group-hover:rotate-6 transition-transform">
                 <RocketIcon className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Fast & Efficient</h3>
-              <p className="text-gray-600">Streamlined workflows and intuitive interfaces ensure your team stays productive and focused on what matters.</p>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Fast & Efficient</h3>
+              <p className="text-gray-600 dark:text-gray-300">Streamlined workflows and intuitive interfaces ensure your team stays productive and focused on what matters.</p>
             </div>
           </div>
           <div className="group mt-8 md:mt-0">
-            <div className="p-8 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-300 border border-green-100 h-full">
+            <div className="p-8 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/50 dark:to-green-800/30 rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-300 border border-green-100 dark:border-green-800 h-full">
               <div className="w-14 h-14 bg-green-600 rounded-xl flex items-center justify-center mb-6 transform group-hover:rotate-6 transition-transform">
                 <ShieldCheckIcon className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Enterprise Security</h3>
-              <p className="text-gray-600">Rest easy knowing your data is protected with industry-leading security protocols and real-time monitoring.</p>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Enterprise Security</h3>
+              <p className="text-gray-600 dark:text-gray-300">Rest easy knowing your data is protected with industry-leading security protocols and real-time monitoring.</p>
             </div>
           </div>
           <div className="group mt-8 md:mt-0">
-            <div className="p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-300 border border-purple-100 h-full">
+            <div className="p-8 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/50 dark:to-purple-800/30 rounded-2xl shadow-md group-hover:shadow-xl transition-all duration-300 border border-purple-100 dark:border-purple-800 h-full">
               <div className="w-14 h-14 bg-purple-600 rounded-xl flex items-center justify-center mb-6 transform group-hover:rotate-6 transition-transform">
                 <UsersIcon className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Seamless Collaboration</h3>
-              <p className="text-gray-600">Bring your team together with real-time editing, commenting, and sharing to foster creativity and teamwork.</p>
+              <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Seamless Collaboration</h3>
+              <p className="text-gray-600 dark:text-gray-300">Bring your team together with real-time editing, commenting, and sharing to foster creativity and teamwork.</p>
             </div>
           </div>
         </div>
@@ -133,49 +137,49 @@ const LandingPage = () => {
           </div>
           
           <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-            <Card className="bg-white/95 backdrop-blur-sm border-none rounded-xl overflow-hidden shadow-2xl transform hover:translate-y-[-8px] transition-all duration-300">
+            <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-none rounded-xl overflow-hidden shadow-2xl transform hover:translate-y-[-8px] transition-all duration-300">
               <div className="h-2 bg-gradient-to-r from-blue-400 to-blue-600"></div>
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-2xl font-bold text-gray-900">Admin Portal</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">Admin Portal</CardTitle>
                   <BarChartIcon className="w-8 h-8 text-blue-500" />
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-600">Complete control over projects, teams, and resources with advanced analytics.</p>
+                <p className="text-gray-600 dark:text-gray-300">Complete control over projects, teams, and resources with advanced analytics.</p>
                 <div className="space-y-3 pt-2">
                   <Button variant="default" className="w-full bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center gap-2" asChild>
                     <a href="/admin/login">Admin Login <ArrowRightIcon className="w-4 h-4" /></a>
                   </Button>
-                  <Button variant="outline" className="w-full hover:bg-blue-50 rounded-lg text-blue-600 border-blue-200" asChild>
+                  <Button variant="outline" className="w-full hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800" asChild>
                     <a href="/admin/register">Create Admin Account</a>
                   </Button>
                 </div>
-                <div className="pt-2 text-sm text-gray-500">
+                <div className="pt-2 text-sm text-gray-500 dark:text-gray-400">
                   <p>Features include: Analytics Dashboard, Resource Management, Team Performance, and more.</p>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="bg-white/95 backdrop-blur-sm border-none rounded-xl overflow-hidden shadow-2xl transform hover:translate-y-[-8px] transition-all duration-300">
+            <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-none rounded-xl overflow-hidden shadow-2xl transform hover:translate-y-[-8px] transition-all duration-300">
               <div className="h-2 bg-gradient-to-r from-green-400 to-green-600"></div>
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-2xl font-bold text-gray-900">User Portal</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">User Portal</CardTitle>
                   <UsersIcon className="w-8 h-8 text-green-500" />
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-gray-600">Collaborate effectively with your team and track your assigned tasks and progress.</p>
+                <p className="text-gray-600 dark:text-gray-300">Collaborate effectively with your team and track your assigned tasks and progress.</p>
                 <div className="space-y-3 pt-2">
                   <Button variant="default" className="w-full bg-green-600 hover:bg-green-700 rounded-lg flex items-center justify-center gap-2" asChild>
                     <a href="/user/login">User Login <ArrowRightIcon className="w-4 h-4" /></a>
                   </Button>
-                  <Button variant="outline" className="w-full hover:bg-green-50 rounded-lg text-green-600 border-green-200" asChild>
+                  <Button variant="outline" className="w-full hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg text-green-600 dark:text-green-400 border-green-200 dark:border-green-800" asChild>
                     <a href="/user/register">Create User Account</a>
                   </Button>
                 </div>
-                <div className="pt-2 text-sm text-gray-500">
+                <div className="pt-2 text-sm text-gray-500 dark:text-gray-400">
                   <p>Features include: Task Management, Team Chat, File Sharing, and Calendar Integration.</p>
                 </div>
               </CardContent>
@@ -186,37 +190,37 @@ const LandingPage = () => {
 
       {/* Testimonial Section */}
       <div className="max-w-6xl mx-auto px-4 py-20">
-        <div className="bg-gradient-to-br from-gray-50 to-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100">
+        <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/3">
-              <div className="w-24 h-24 mx-auto bg-blue-100 rounded-full overflow-hidden">
+              <div className="w-24 h-24 mx-auto bg-blue-100 dark:bg-blue-900 rounded-full overflow-hidden">
                 <img src="/api/placeholder/150/150" alt="Customer" className="w-full h-full object-cover" />
               </div>
             </div>
             <div className="md:w-2/3 text-center md:text-left">
-              <div className="text-blue-600 flex justify-center md:justify-start mb-4">
+              <div className="text-blue-600 dark:text-blue-400 flex justify-center md:justify-start mb-4">
                 {[...Array(5)].map((_, i) => (
                   <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                     <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                   </svg>
                 ))}
               </div>
-              <p className="text-gray-700 text-lg italic mb-4">"CommitConquer has transformed how our team collaborates. The intuitive interface and powerful features have increased our productivity by 40%."</p>
-              <p className="font-semibold text-gray-900">Sarah Johnson</p>
-              <p className="text-sm text-gray-600">Project Manager, TechInnovate</p>
+              <p className="text-gray-700 dark:text-gray-300 text-lg italic mb-4">"CommitConquer has transformed how our team collaborates. The intuitive interface and powerful features have increased our productivity by 40%."</p>
+              <p className="font-semibold text-gray-900 dark:text-white">Sarah Johnson</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Project Manager, TechInnovate</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 py-16">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-900 py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-6">Ready to transform your workflow?</h2>
           <p className="text-blue-100 mb-8 max-w-2xl mx-auto">Join thousands of teams who have already improved their productivity with CommitConquer.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-blue-700 hover:bg-blue-50 rounded-full shadow-lg">Start Free 14-Day Trial</Button>
-            <Button size="lg" variant="outline" className="text-white border-white hover:bg-blue-700 rounded-full">Schedule a Demo</Button>
+            <Button size="lg" className="bg-white text-blue-700 hover:bg-blue-50 dark:bg-gray-900 dark:text-blue-400 dark:hover:bg-gray-800 rounded-full shadow-lg">Start Free 14-Day Trial</Button>
+            <Button size="lg" variant="outline" className="text-white border-white hover:bg-blue-700 dark:hover:bg-blue-800 rounded-full">Schedule a Demo</Button>
           </div>
         </div>
       </div>
