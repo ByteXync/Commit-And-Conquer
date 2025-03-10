@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 const LandingPage = () => {
     return (
         <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-400 to-blue-500">
-            {/* Main Content */}
+            
             <div className="flex-grow flex flex-col items-center justify-center p-8">
                 <h1 className="text-5xl font-extrabold text-white text-center mb-8 drop-shadow-lg">
                     Welcome to Our Innovative Platform
@@ -17,7 +17,7 @@ const LandingPage = () => {
                 </p>
                 
                 <div className="grid md:grid-cols-2 gap-8">
-                    {/* Admin Section */}
+                  
                     <Card className="shadow-lg hover:shadow-xl transition-shadow bg-blue-200 bg-opacity-90 transform hover:-translate-y-2 duration-300">
                         <CardHeader>
                             <CardTitle className="text-2xl text-blue-800">Admin Portal</CardTitle>
@@ -43,7 +43,7 @@ const LandingPage = () => {
                         </CardContent>
                     </Card>
 
-                    {/* User Section */}
+                    
                     <Card className="shadow-lg hover:shadow-xl transition-shadow bg-green-200 bg-opacity-90 transform hover:-translate-y-2 duration-300">
                         <CardHeader>
                             <CardTitle className="text-2xl text-green-800">User Portal</CardTitle>
@@ -70,7 +70,7 @@ const LandingPage = () => {
                     </Card>
                 </div>
 
-                {/* Footer */}
+               
                 <div className="mt-12 text-center text-white text-sm">
                     © 2024 Your Company Name. All rights reserved.
                 </div>
