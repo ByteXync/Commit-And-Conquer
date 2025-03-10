@@ -7,9 +7,9 @@ from api.auth.admin_auth import router as admin_auth_router
 from fastapi.middleware.cors import CORSMiddleware
 from api.blogs.blogs import router as blog_router
 from api.ats.resume_routes import router as ats_router
+from api.internships.deleteinternships import router as delete_router
 
 app = FastAPI()
-
 from api.auth.register import router as register_router
 
 db = Prisma()
@@ -39,3 +39,4 @@ app.include_router(addInternships_router)
 app.include_router(admin_auth_router)
 app.include_router(blog_router)
 app.include_router(ats_router)
+app.include_router(delete_router)

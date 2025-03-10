@@ -14,5 +14,5 @@ router = APIRouter()
 
 @router.get("/api/fetchinternships")
 async def fetch_internships():
-    data = await PrismaInternship.prisma().find_many()
+    data = await PrismaInternship.prisma().find_many(where={"isActive": True})
     return data

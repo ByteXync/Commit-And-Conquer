@@ -26,6 +26,7 @@ model Internship {
   location String
   stipend Int
   duration Int
+  isActive Boolean @default(true)
 }
 
 model Blog {
