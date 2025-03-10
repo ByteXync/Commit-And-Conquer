@@ -19,7 +19,7 @@ export function InternshipList() {
 
   useEffect(() => {
     async function fetchInternships() {
-      const response = await fetch("http://localhost:8000/api/fetchinternships")
+      const response = await fetch("http://localhost:3000/api/fetchinternships")
       const data = await response.json()
       setInternships(data)
     }

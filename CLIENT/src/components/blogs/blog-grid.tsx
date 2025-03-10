@@ -1,38 +1,38 @@
-"use client"
+import { useEffect, useState } from "react";
+import { BlogCard } from "@/components/blogs/blog-card";
+import { BlogPost } from "@/types/blog-post"; // Import the BlogPost interface
 
-import { useEffect, useState } from "react"
-import { BlogCard } from "@/components/blogs/blog-card"
+interface Blog extends BlogPost {
+  id: number;
+  // Add other properties of the blog object here
+}
 
 export function BlogGrid() {
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState<Blog[]>([]);
 
   useEffect(() => {
     async function fetchBlogs() {
       try {
-        const response = await fetch("http://localhost:8000/api/fetchblogs")
-        console.log(response)
+        const response = await fetch("http://localhost:3000/api/fetchblogs");
+        console.log(response);
         if (!response.ok) {
-          throw new Error("Failed to fetch blogs")
+          throw new Error("Failed to fetch blogs");
         }
-        const data = await response.json()
-        setBlogs(data)
+        const data = await response.json();
+        setBlogs(data);
       } catch (error) {
-        console.error("Error fetching blogs:", error)
+        console.error(error);
       }
     }
-    fetchBlogs()
-  }, [])
+
+    fetchBlogs();
+  }, []);
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {blogs.length > 0 ? (
-        blogs.map((blog) => (
-          <BlogCard key={blog.id} blog={blog} />
-        ))
-      ) : (
-        <p>No blogs available</p>
-      )}
+    <div>
+      {blogs.map((blog) => (
+        <BlogCard key={blog.id} blog={blog} />
+      ))}
     </div>
-  )
+  );
 }
-
