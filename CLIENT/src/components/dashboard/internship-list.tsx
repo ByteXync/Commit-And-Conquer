@@ -16,7 +16,7 @@ interface Internship {
   adminEmail: string // Admin Email
 }
 
-export function InternshipList() {
+export default function InternshipList() {
   const [internships, setInternships] = useState<Internship[]>([])
 
   useEffect(() => {
