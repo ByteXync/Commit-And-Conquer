@@ -128,33 +128,33 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Create an account</CardTitle>
-          <CardDescription className="text-center">Enter your details below to create your account</CardDescription>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-blue-400 to-purple-500 p-4">
+      <Card className="w-full max-w-md shadow-lg rounded-lg bg-white transition-transform hover:scale-105 duration-300">
+        <CardHeader className="space-y-1 p-6">
+          <CardTitle className="text-3xl font-bold text-center text-gray-800">Create an Account</CardTitle>
+          <CardDescription className="text-center text-gray-600">Enter your details below to create your account</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           {isSuccess ? (
             <div className="flex flex-col items-center justify-center py-4 text-center">
               <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
               <h3 className="text-xl font-semibold">Registration Successful!</h3>
-              <p className="text-muted-foreground mt-2">Your account has been created successfully.</p>
-              <Button className="mt-6" onClick={() =>{router.push('/login')} }>
+              <p className="text-gray-500 mt-2">Your account has been created successfully.</p>
+              <Button className="mt-6 bg-blue-600 hover:bg-blue-700 text-white focus:outline-none" onClick={() => { router.push('/login') }}>
                 Navigate to Login Page
               </Button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="fullName">Full Name</Label>
+                <Label htmlFor="fullName" className="text-gray-700">Full Name</Label>
                 <Input
                   id="fullName"
                   name="fullName"
                   placeholder="John Doe"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className={errors.fullName ? "border-red-500" : ""}
+                  className={`border ${errors.fullName ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.fullName && (
                   <div className="flex items-center text-red-500 text-sm mt-1">
@@ -165,7 +165,7 @@ export default function SignupPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-gray-700">Email</Label>
                 <Input
                   id="email"
                   name="email"
@@ -173,7 +173,7 @@ export default function SignupPage() {
                   placeholder="john.doe@example.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className={errors.email ? "border-red-500" : ""}
+                  className={`border ${errors.email ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.email && (
                   <div className="flex items-center text-red-500 text-sm mt-1">
@@ -184,7 +184,7 @@ export default function SignupPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-gray-700">Password</Label>
                 <Input
                   id="password"
                   name="password"
@@ -192,7 +192,7 @@ export default function SignupPage() {
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={handleChange}
-                  className={errors.password ? "border-red-500" : ""}
+                  className={`border ${errors.password ? "border-red-500" : "border-gray-300"} rounded-md p-2 transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500`}
                 />
                 {errors.password && (
                   <div className="flex items-center text-red-500 text-sm mt-1">
@@ -200,14 +200,14 @@ export default function SignupPage() {
                     <span>{errors.password}</span>
                   </div>
                 )}
-                <p className="text-xs text-muted-foreground mt-1">Password must be at least 8 characters long</p>
+                <p className="text-xs text-gray-500 mt-1">Password must be at least 8 characters long</p>
               </div>
             </form>
           )}
         </CardContent>
         {!isSuccess && (
           <CardFooter>
-            <Button className="w-full" type="submit" onClick={handleSubmit} disabled={isSubmitting}>
+            <Button className={`w-full bg-blue-600 hover:bg-blue-700 text-white transition duration-300 ease-in-out ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`} type="button" onClick={handleSubmit} disabled={isSubmitting}>
               {isSubmitting ? "Creating Account..." : "Sign Up"}
             </Button>
           </CardFooter>
@@ -216,4 +216,3 @@ export default function SignupPage() {
     </div>
   )
 }
-
