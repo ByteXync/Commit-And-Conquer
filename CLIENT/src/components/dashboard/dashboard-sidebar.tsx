@@ -22,7 +22,7 @@ export function BasicSidebar() {
               </Link>
             </li>
             <li>
-              <Link href="/blogs" className={`flex items-center gap-2 p-2 rounded-md ${pathname === "/blogs" ? "bg-gray-700" : "hover:bg-gray-700"}`}>
+              <Link href="/user/blogs" className={`flex items-center gap-2 p-2 rounded-md ${pathname === "/user/blogs" ? "bg-gray-700" : "hover:bg-gray-700"}`}>
                 <Newspaper className="h-5 w-5" />
                 <span>Blogs</span>
               </Link>
