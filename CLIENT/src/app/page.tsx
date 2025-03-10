@@ -1,29 +1,20 @@
-// app/page.tsx
-"use client";
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-center p-4">
       <div className="max-w-4xl w-full">
-        {/* Theme Toggle Button (positioned in top right corner) */}
-        <div className="absolute top-4 right-4">
-          <ThemeToggle />
-        </div>
-        
-        <h1 className="text-4xl font-bold text-center mb-8 text-foreground relative bottom-20">
+        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
           Welcome to Our Platform
         </h1>
         
         <div className="grid md:grid-cols-2 gap-6">
           {/* Admin Section */}
-          <Card className="shadow-lg hover:shadow-xl transition-shadow h-80">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
-              <CardTitle className="text-2xl text-center">Admin Portal</CardTitle>
+              <CardTitle className="text-2xl text-blue-600">Admin Portal</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex flex-col space-y-3">
@@ -47,9 +38,9 @@ const LandingPage = () => {
           </Card>
 
           {/* User Section */}
-          <Card className="shadow-lg hover:shadow-xl transition-shadow h-80">
+          <Card className="shadow-lg hover:shadow-xl transition-shadow">
             <CardHeader>
-              <CardTitle className="text-2xl text-center">User Portal</CardTitle>
+              <CardTitle className="text-2xl text-green-600">User Portal</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex flex-col space-y-3">
@@ -74,8 +65,8 @@ const LandingPage = () => {
         </div>
 
         {/* Footer */}
-        <div className="mt-8 text-center text-muted-foreground">
-          © 2025 Your Company Name. All rights reserved.
+        <div className="mt-8 text-center text-gray-500">
+          © 2024 Your Company Name. All rights reserved.
         </div>
       </div>
     </div>
