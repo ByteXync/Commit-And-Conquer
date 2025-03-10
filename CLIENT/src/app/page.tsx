@@ -1,76 +1,111 @@
+'use client';
+
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import Image from 'next/image';
 
-const LandingPage = () => {
+export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-center p-4">
-      <div className="max-w-4xl w-full">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
-          Welcome to Our Platform
-        </h1>
-        
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Admin Section */}
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="text-2xl text-blue-600">Admin Portal</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex flex-col space-y-3">
-                <a href="/admin/login" className="w-full">
-                  <Button variant="outline" className="w-full">
-                    Admin Login
-                  </Button>
-                </a>
-                <a href="/admin/register" className="w-full">
-                  <Button variant="outline" className="w-full">
-                    Admin Register
-                  </Button>
-                </a>
-                <a href="/admin/dashboard" className="w-full">
-                  <Button variant="outline" className="w-full">
-                    Admin Dashboard
-                  </Button>
-                </a>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* User Section */}
-          <Card className="shadow-lg hover:shadow-xl transition-shadow">
-            <CardHeader>
-              <CardTitle className="text-2xl text-green-600">User Portal</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex flex-col space-y-3">
-                <a href="/user/login" className="w-full">
-                  <Button variant="outline" className="w-full">
-                    User Login
-                  </Button>
-                </a>
-                <a href="/user/register" className="w-full">
-                  <Button variant="outline" className="w-full">
-                    User Register
-                  </Button>
-                </a>
-                <a href="/user/dashboard" className="w-full">
-                  <Button variant="outline" className="w-full">
-                    User Dashboard
-                  </Button>
-                </a>
-              </div>
-            </CardContent>
-          </Card>
+    <div className="landing-container">
+      {/* Hero Section */}
+      <section className="hero">
+        <div className="hero-content">
+          <h1 className="hero-title">Commit & Conquer</h1>
+          <p className="hero-subtitle">Master your development workflow with ease</p>
+          <div className="cta-buttons">
+            <Link href="/signup">
+              <button className="cta-primary">Get Started</button>
+            </Link>
+            <Link href="/dashboard">
+              <button className="cta-secondary">View Dashboard</button>
+            </Link>
+          </div>
         </div>
-
-        {/* Footer */}
-        <div className="mt-8 text-center text-gray-500">
-          © 2024 Your Company Name. All rights reserved.
+        <div className="hero-image">
+          <div style={{ position: 'relative', width: '100%', height: '300px' }}>
+            {/* You can replace this with your actual hero image */}
+            <div className="placeholder-image">
+              <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+                <rect x="50" y="50" width="300" height="200" fill="#e6f7ff" stroke="#3b82f6" strokeWidth="2" />
+                <circle cx="200" cy="150" r="80" fill="#3b82f6" fillOpacity="0.2" stroke="#3b82f6" strokeWidth="2" />
+                <path d="M120 180 L280 120" stroke="#3b82f6" strokeWidth="3" />
+                <text x="160" y="155" fill="#1f2937" fontSize="16" fontWeight="bold">Commit & Conquer</text>
+              </svg>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="features">
+        <h2 className="section-title">Why Choose Commit & Conquer?</h2>
+        <div className="feature-grid">
+          {[
+            {
+              title: 'Simplified Workflow',
+              description: 'Streamline your development process with intuitive tools',
+              icon: '⚡'
+            },
+            {
+              title: 'Real-time Collaboration',
+              description: 'Work seamlessly with your team members across projects',
+              icon: '👥'
+            },
+            {
+              title: 'Performance Tracking',
+              description: 'Monitor your productivity with detailed analytics',
+              icon: '📊'
+            },
+            {
+              title: 'Customizable Experience',
+              description: 'Tailor the platform to suit your specific needs',
+              icon: '🔧'
+            }
+          ].map((feature, index) => (
+            <div key={index} className="feature-card">
+              <div className="feature-icon">{feature.icon}</div>
+              <h3 className="feature-title">{feature.title}</h3>
+              <p className="feature-description">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="testimonials">
+        <h2 className="section-title">What Our Users Say</h2>
+        <div className="testimonial-carousel">
+          {[
+            {
+              quote: "Commit & Conquer has transformed how our team collaborates on projects. It's an essential tool in our development workflow.",
+              author: "Sarah Chen",
+              role: "Senior Developer at TechFlow"
+            },
+            {
+              quote: "The intuitive interface and powerful features make this platform stand out from the competition.",
+              author: "Marcus Johnson",
+              role: "CTO at DevInnovate"
+            }
+          ].map((testimonial, index) => (
+            <div key={index} className="testimonial-card">
+              <p className="testimonial-quote">"{testimonial.quote}"</p>
+              <div className="testimonial-author">{testimonial.author}</div>
+              <div className="testimonial-role">{testimonial.role}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="cta-section">
+        <div className="cta-content">
+          <h2 className="cta-title">Ready to transform your development experience?</h2>
+          <p className="cta-description">Join thousands of developers who've already improved their workflow.</p>
+          <Link href="/signup">
+            <button className="cta-button">Start Your Free Trial</button>
+          </Link>
+        </div>
+      </section>
     </div>
   );
-};
-
-export default LandingPage;
+}
