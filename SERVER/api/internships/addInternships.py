@@ -23,3 +23,4 @@ async def addInternships(internship:Internship):
         "duration": internship.duration
     })
     return {"title": prisma_internship.title, "description": prisma_internship.description, "company": prisma_internship.company, "location": prisma_internship.location, "stipend": prisma_internship.stipend, "duration": prisma_internship.duration}
+
