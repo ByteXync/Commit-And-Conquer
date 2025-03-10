@@ -122,7 +122,7 @@ repo-root/
 ## LeaderBoard 🏆
 
 <!-- LEADERBOARD_START -->
-1. SayGex: 25
+1. SayGex: 35
 2. Clueless : 10
 3. Talaash : 10
 4. CypherSquad: 0
