@@ -1,7 +1,7 @@
 # Commit And Conquer
 
 ## Overview
-The repository contains a full-stack application with a **Next.js** frontend and a **FastAPI** backend, with connection to a postgresql (use of neondb is recommended).
+The repository contains a full-stack application with a **Next.js** frontend and a **FastAPI** backend, with connection to a postgresql (use of neondb is recommended)..
 
 ## Folder Structure
 ```
@@ -198,5 +198,6 @@ repo-root/
 68. PR RANGERS: 0
 69. Leviathan Squad: 0
 70. Octagram: 0
+71. Gitcoders: 0
 <!-- LEADERBOARD_END -->
 
