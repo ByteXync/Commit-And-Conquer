@@ -30,7 +30,7 @@ export const InternshipCard: React.FC<InternshipCardProps> = ({ internship }) =>
         </div>
         <div className="flex items-center text-gray-600">
           <DollarSign className="w-4 h-4 mr-2" />
-          <span>${internship.stipend}/month</span>
+          <span>&#8377;{internship.stipend}/month</span>
         </div>
       </div>
 

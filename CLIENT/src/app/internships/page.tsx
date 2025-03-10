@@ -1,8 +1,8 @@
 "use client"
 import React, { useState, useMemo, useEffect } from 'react';
 import { Briefcase } from 'lucide-react';
-import axios from 'axios'
-import { Internship } from '../types/types'
+import axios from 'axios';
+import { Internship } from '../types/types';
 import { InternshipCard } from '@/components/internships/IntershipCard';
 import { Filters } from '@/components/internships/Filters';
 
@@ -11,46 +11,53 @@ function App() {
   const [selectedDuration, setSelectedDuration] = useState<number | ''>('');
   const [selectedCity, setSelectedCity] = useState('');
   const [internships, setInternships] = useState<Internship[]>([]);
+  const [stipendRange, setStipendRange] = useState<[number | '', number | '']>(['', '']);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-useEffect(() => {
-  const fetchInternships = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await axios.get<Internship[]>('http://localhost:8000/api/fetchinternships', {
-        params: {
-          searchQuery, 
-          duration: selectedDuration || undefined, 
-          selectedCity: selectedCity || undefined
-        },
-      });
-      setInternships(response.data);
-    } catch (err) {
-      setError('Failed to fetch internships. Please try again later.');
-      console.error('Error fetching internships:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchInternships = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await axios.get<Internship[]>('http://localhost:8000/api/fetchinternships', {
+          params: {
+            searchQuery, 
+            duration: selectedDuration || undefined, 
+            selectedCity: selectedCity || undefined,
+            minStipend: stipendRange[0] || undefined, 
+            maxStipend: stipendRange[1] || undefined,
+          },
+        });
+        setInternships(response.data);
+      } catch (err) {
+        setError('Failed to fetch internships. Please try again later.');
+        console.error('Error fetching internships:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchInternships();
-}, [searchQuery, selectedDuration, selectedCity]);
+    fetchInternships();
+  }, [searchQuery, selectedDuration, selectedCity, stipendRange]);
 
   const filteredInternships = useMemo(() => {
     return internships.filter(internship => {
-      const matchesSearch = internship.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      const matchesSearch =
+        internship.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         internship.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
         internship.description.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesDuration = !selectedDuration || internship.duration === selectedDuration;
-      const matchesCity = !selectedCity ||
-        internship.location.toLowerCase().includes(selectedCity.toLowerCase());
+      const matchesCity = !selectedCity || internship.location.toLowerCase().includes(selectedCity.toLowerCase());
 
-      return matchesSearch && matchesDuration && matchesCity;
+      const matchesStipend =
+        (stipendRange[0] === '' || internship.stipend >= stipendRange[0]) &&
+        (stipendRange[1] === '' || internship.stipend <= stipendRange[1]);
+
+      return matchesSearch && matchesDuration && matchesCity && matchesStipend;
     });
-  }, [internships, searchQuery, selectedDuration, selectedCity]);
+  }, [internships, searchQuery, selectedDuration, selectedCity, stipendRange]);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -73,6 +80,8 @@ useEffect(() => {
               setSelectedDuration={setSelectedDuration}
               selectedCity={selectedCity}
               setSelectedCity={setSelectedCity}
+              stipendRange={stipendRange}
+              setStipendRange={setStipendRange}
             />
           </div>
 
@@ -106,3 +115,4 @@ useEffect(() => {
 }
 
 export default App;
+
