@@ -52,3 +52,4 @@ async def upvote(id: str):
         data={"upvote": blog.upvote + 1}
     )
     return {"message": "Upvote added successfully", "upvote": updated_blog.upvote}
+
