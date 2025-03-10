@@ -8,6 +8,7 @@ import { BasicSidebar } from "@/components/dashboard/dashboard-sidebar"
 import { Search } from "@/components/dashboard/search"
 import { Button } from "@/components/ui/button"
 import { Filter, Menu } from "lucide-react"
+import { DarkModeToggle } from "../dashboard/DarkModeToggle"
 
 export default function Dashboard() {
   const [filterOpen, setFilterOpen] = useState(false)
@@ -25,6 +26,7 @@ export default function Dashboard() {
           <div className="ml-auto flex items-center space-x-4">
             <Search />
             <UserNav />
+            <DarkModeToggle /> {/* ✅ Added Dark Mode Toggle */}
           </div>
         </header>
         <main className="flex-1 p-6">
@@ -37,7 +39,6 @@ export default function Dashboard() {
           </div>
           {filterOpen && (
             <div className="mb-6 p-4 border rounded-lg bg-white shadow-sm">
-              {/* Add filter options here */}
               <p>Filter options will go here</p>
             </div>
           )}
@@ -47,4 +48,3 @@ export default function Dashboard() {
     </div>
   )
 }
-
