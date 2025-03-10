@@ -25,22 +25,72 @@ function LoginPage() {
     setError("")
 
     try {
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          role: "USER"
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        localStorage.setItem("token", data.token)
+        router.push("/dashboard")
+
       const userData = await login(email, password)
       
       // Check user role and redirect accordingly
       if (userData.role === "ADMIN") {
         router.push("/admin/dashboard")
+
       } else {
         router.push("/user/dashboard")
       }
+
     } catch (err: any) {
       setError(err.message || "An error occurred during login")
+
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
+
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold tracking-tight">Sign in to your account</CardTitle>
+          <CardDescription>Enter your email and password to access your account</CardDescription>
+        </CardHeader>
+        <form onSubmit={handleSubmit}>
+          <CardContent className="space-y-4">
+            {error && (
+              <Alert variant="destructive" role="alert" aria-live="assertive">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                disabled={isLoading}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
@@ -80,6 +130,7 @@ function LoginPage() {
                 />
               </div>
               <div>
+
                 <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
@@ -92,6 +143,40 @@ function LoginPage() {
                   required
                 />
               </div>
+
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                disabled={isLoading}
+                required
+              />
+            </div>
+          </CardContent>
+          <CardFooter className="flex flex-col space-y-4">
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Signing in...
+                </>
+              ) : (
+                "Sign in"
+              )}
+            </Button>
+            <div className="text-center text-sm">
+              Don't have an account?{" "}
+              <a href="/register" className="font-medium text-primary hover:underline">
+                Create an account
+              </a>
+            </div>
+          </CardFooter>
+        </form>
+      </Card>
+    </div>
+
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? (
                   <>
@@ -118,6 +203,7 @@ function LoginPage() {
         </main>
       </div>
     </section>
+       
   )
 }
 
