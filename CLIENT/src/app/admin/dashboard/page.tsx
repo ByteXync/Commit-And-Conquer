@@ -1,11 +1,28 @@
-import Dashboard from "@/components/dashboard/dashboard"
+import Head from 'next/head';
 
-function page() {
+function Dashboard() {
   return (
     <div>
-      <Dashboard/>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
+      <h1>Dashboard</h1>
+      <div className="dashboard-content">
+        <div className="card">
+          <h2>Card 1</h2>
+          <p>This is some text in card 1.</p>
+        </div>
+        <div className="card">
+          <h2>Card 2</h2>
+          <p>This is some text in card 2.</p>
+        </div>
+        <div className="card">
+          <h2>Card 3</h2>
+          <p>This is some text in card 3.</p>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default page
+export default Dashboard;
