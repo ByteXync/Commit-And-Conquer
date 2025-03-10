@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { BlogCard } from "@/components/blogs/blog-card"
+import { BlogCard } from "@/app/user/blogs/blog-card"
 
 export function BlogGrid() {
   const [blogs, setBlogs] = useState([])
