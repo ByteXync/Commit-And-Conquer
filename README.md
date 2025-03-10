@@ -122,50 +122,50 @@ repo-root/
 ## LeaderBoard 🏆
 
 <!-- LEADERBOARD_START -->
-1. SayGex: 35
-2. Clueless : 10
-3. Code 404: 10
-4. Talaash : 10
-5. CypherSquad: 0
-6. Abenders: 0
-7. DeVvoyagers: 0
-8. 404 Not Found : 0
-9. Anveshika: 0
-10. Low Day: 0
-11. BitbyBit: 0
-12. Codestorm : 0
-13. Bototrons: 0
-14. Anveshika : 0
-15. Team : 0
-16. Gitify: 0
-17. Thund3rbird : 0
-18. Aquaman: 0
-19. what is git?: 0
-20. Quark Script: 0
-21. Team 201: 0
-22. Team Mast Orbiters: 0
-23. Team UNO: 0
-24. Yeagerists: 0
-25. Kisi ka laptop kisi ka code: 0
-26. Bottle cap: 0
-27. Code phatt gya: 0
-28. oggy & the cockroaches : 0
-29. Non Coders: 0
-30. Kshitij Prasad : 0
-31. Merge Masters : 0
-32. Alpha four: 0
-33. OpnSrc: 0
-34. Merge Masters: 0
-35. code overflow: 0
-36. Dora team: 0
-37. Error : 0
-38. Tech Titans : 0
-39. Super queens: 0
-40. Codepushers: 0
-41. Ctrl + c & Ctrl + v: 0
-42. Strive Squad : 0
-43. Game changers: 0
-44. DQueen: 0
+1. SayGex: 45
+2. Code 404: 35
+3. Talaash : 30
+4. Clueless : 10
+5. DQueen: 5
+6. Gitcoders: 5
+7. Merge Masters: 0
+8. what is git?: 0
+9. 404 Not Found : 0
+10. Anveshika: 0
+11. Low Day: 0
+12. Tech Titans : 0
+13. Codestorm : 0
+14. Bototrons: 0
+15. Anveshika : 0
+16. Team : 0
+17. Gitify: 0
+18. Thund3rbird : 0
+19. Aquaman: 0
+20. Super queens: 0
+21. Quark Script: 0
+22. Team 201: 0
+23. Team Mast Orbiters: 0
+24. Team UNO: 0
+25. Yeagerists: 0
+26. Kisi ka laptop kisi ka code: 0
+27. Bottle cap: 0
+28. Code phatt gya: 0
+29. oggy & the cockroaches : 0
+30. Non Coders: 0
+31. Kshitij Prasad : 0
+32. Codepushers: 0
+33. Alpha four: 0
+34. OpnSrc: 0
+35. Abenders: 0
+36. code overflow: 0
+37. Dora team: 0
+38. Error : 0
+39. BitbyBit: 0
+40. DeVvoyagers: 0
+41. Merge Masters : 0
+42. Ctrl + c & Ctrl + v: 0
+43. Strive Squad : 0
+44. Game changers: 0
 45. RedEye: 0
 46. Aatu Jhaatu: 0
 47. Ace: 0
@@ -192,6 +192,6 @@ repo-root/
 68. PR RANGERS: 0
 69. Leviathan Squad: 0
 70. Octagram: 0
-71. Gitcoders: 0
+71. CypherSquad: 0
 <!-- LEADERBOARD_END -->
 

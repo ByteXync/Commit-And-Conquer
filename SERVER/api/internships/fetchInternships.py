@@ -16,8 +16,10 @@ class Internship(BaseModel):
 @router.get("/api/fetchinternships")
 async def fetch_internships(
     searchQuery: str = Query("", alias="searchQuery"),
-    duration: Optional[int] = Query(None, alias="duration"),  # Fixed Typing
-    city: str = Query("", alias="selectedCity")
+    duration: Optional[int] = Query(None, alias="duration"),
+    city: str = Query("", alias="selectedCity"),
+    minStipend: Optional[int] = Query(None, alias="minStipend"),
+    maxStipend: Optional[int] = Query(None, alias="maxStipend")
 ):
     filters = {}
 
@@ -33,6 +35,13 @@ async def fetch_internships(
 
     if city:
         filters["location"] = {"contains": city, "mode": "insensitive"}
+
+    if minStipend is not None or maxStipend is not None:
+        filters["stipend"] = {}
+        if minStipend is not None:
+            filters["stipend"]["gte"] = minStipend
+        if maxStipend is not None:
+            filters["stipend"]["lte"] = maxStipend
 
     internships = await PrismaInternship.prisma().find_many(where=filters)
     return internships

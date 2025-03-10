@@ -1,108 +1,161 @@
-"use client"
-import React, { useState, useMemo, useEffect } from 'react';
-import { Briefcase } from 'lucide-react';
-import axios from 'axios'
-import { Internship } from '../types/types'
-import { InternshipCard } from '@/components/internships/IntershipCard';
-import { Filters } from '@/components/internships/Filters';
+'use client'
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert } from "@/components/ui/alert";
 
-function App() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedDuration, setSelectedDuration] = useState<number | ''>('');
-  const [selectedCity, setSelectedCity] = useState('');
+interface Internship {
+  id?: number;
+  title: string;
+  description: string;
+  company: string;
+  location: string;
+  stipend: string;
+  duration: string;
+}
+
+const InternshipPage: React.FC = () => {
   const [internships, setInternships] = useState<Internship[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [editingInternship, setEditingInternship] = useState<Internship | null>(null);
+  const [formData, setFormData] = useState<Internship>({
+    title: "",
+    description: "",
+    company: "",
+    location: "",
+    stipend: "",
+    duration: ""
+  });
 
-useEffect(() => {
+  useEffect(() => {
+    fetchInternships();
+  }, []);
+
+  // ✅ Fetch internships from API
   const fetchInternships = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      setError(null);
-      const response = await axios.get<Internship[]>('http://localhost:8000/api/fetchinternships', {
-        params: {
-          searchQuery, 
-          duration: selectedDuration || undefined, 
-          selectedCity: selectedCity || undefined
-        },
-      });
-      setInternships(response.data);
+      const response = await fetch("http://localhost:8000/api/fetchinternships");
+      if (!response.ok) throw new Error("Failed to fetch internships");
+      const data: Internship[] = await response.json();
+      setInternships(data);
     } catch (err) {
-      setError('Failed to fetch internships. Please try again later.');
-      console.error('Error fetching internships:', err);
+      setError("Error fetching internships");
     } finally {
       setLoading(false);
     }
   };
 
-  fetchInternships();
-}, [searchQuery, selectedDuration, selectedCity]);
+  // ✅ Delete internship
+  const handleDelete = async (id: number) => {
+    if (!window.confirm("Are you sure you want to delete this internship?")) return;
+    try {
+      const response = await fetch(`http://localhost:8000/api/deleteinternship/${id}`, { method: "DELETE" });
+      if (!response.ok) throw new Error("Error deleting internship");
+      fetchInternships();
+    } catch (err) {
+      setError("Error deleting internship");
+    }
+  };
 
-  const filteredInternships = useMemo(() => {
-    return internships.filter(internship => {
-      const matchesSearch = internship.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        internship.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        internship.description.toLowerCase().includes(searchQuery.toLowerCase());
+  // ✅ Open edit modal
+  const handleEdit = (internship: Internship) => {
+    setEditingInternship(internship);
+    setFormData(internship);
+    setModalOpen(true);
+  };
 
-      const matchesDuration = !selectedDuration || internship.duration === selectedDuration;
-      const matchesCity = !selectedCity ||
-        internship.location.toLowerCase().includes(selectedCity.toLowerCase());
+  // ✅ Open create modal
+  const handleCreate = () => {
+    setEditingInternship(null);
+    setFormData({ title: "", description: "", company: "", location: "", stipend: "", duration: "" });
+    setModalOpen(true);
+  };
 
-      return matchesSearch && matchesDuration && matchesCity;
-    });
-  }, [internships, searchQuery, selectedDuration, selectedCity]);
+  // ✅ Handle form submission (Add/Edit internship)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const url = editingInternship ? `http://localhost:8000/api/updateinternship/${editingInternship.id}` : "http://localhost:8000/api/addinternships";
+    const method = editingInternship ? "PUT" : "POST";
+
+    try {
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Failed to submit internship");
+      }
+
+      setModalOpen(false);
+      fetchInternships();
+    } catch (err) {
+      setError("Failed to submit internship");
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center">
-            <Briefcase className="h-8 w-8 text-blue-600 mr-3" />
-            <h1 className="text-2xl font-bold text-gray-900">Internship Board</h1>
-          </div>
+    <div className="p-6">
+      <div className="flex justify-between mb-4">
+        <Button className="bg-blue-600 hover:bg-blue-700 text-white" onClick={handleCreate}>New Internship</Button>
+        <Button variant="outline" onClick={() => window.history.back()}>Back</Button>
+      </div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {internships.map((internship) => (
+            <Card key={internship.id} className="border border-blue-300 shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-blue-700">{internship.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p><strong>Company:</strong> {internship.company}</p>
+                <p><strong>Location:</strong> {internship.location}</p>
+                <p><strong>Stipend:</strong> ${internship.stipend}</p>
+                <p><strong>Duration:</strong> {internship.duration} months</p>
+                <div className="flex justify-between mt-4">
+                  <Button className="bg-blue-500 hover:bg-blue-600 text-white" onClick={() => handleEdit(internship)}>Edit</Button>
+                  <Button className="bg-red-500 hover:bg-red-600 text-white" onClick={() => handleDelete(internship.id!)}>Delete</Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-      </header>
+      )}
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          <div className="lg:col-span-1">
-            <Filters
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              selectedDuration={selectedDuration}
-              setSelectedDuration={setSelectedDuration}
-              selectedCity={selectedCity}
-              setSelectedCity={setSelectedCity}
-            />
-          </div>
-
-          <div className="lg:col-span-3">
-            {loading ? (
-              <div className="flex justify-center items-center h-64">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+        <DialogContent className="bg-blue-50">
+          <DialogHeader>
+            <DialogTitle className="text-blue-700">{editingInternship ? "Edit Internship" : "New Internship"}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {Object.keys(formData).map((key) => (
+              <div key={key}>
+                <Label htmlFor={key} className="text-blue-600">{key.charAt(0).toUpperCase() + key.slice(1)}</Label>
+                <Input
+                  id={key}
+                  className="border-blue-400 focus:ring-blue-500 focus:border-blue-500"
+                  value={formData[key as keyof Internship]}
+                  onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
+                  required
+                />
               </div>
-            ) : error ? (
-              <div className="text-center py-12">
-                <p className="text-red-500">{error}</p>
-              </div>
-            ) : (
-              <div className="space-y-6">
-                {filteredInternships.length === 0 ? (
-                  <div className="text-center py-12">
-                    <p className="text-gray-500 text-lg">No internships found matching your criteria.</p>
-                  </div>
-                ) : (
-                  filteredInternships.map(internship => (
-                    <InternshipCard key={internship.id} internship={internship} />
-                  ))
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      </main>
+            ))}
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white" type="submit">{editingInternship ? "Update" : "Create"}</Button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
-}
+};
 
-export default App;
+export default InternshipPage;
