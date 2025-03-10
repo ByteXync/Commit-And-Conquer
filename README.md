@@ -128,21 +128,21 @@ repo-root/
 ## LeaderBoard 🏆
 
 <!-- LEADERBOARD_START -->
-1. CypherSquad: 0
-2. Abenders: 0
-3. DeVvoyagers: 0
-4. 404 Not Found : 0
-5. Anveshika: 0
-6. Low Day: 0
-7. BitbyBit: 0
-8. Codestorm : 0
-9. Bototrons: 0
-10. Anveshika : 0
-11. Team : 0
-12. SayGex: 0
-13. Gitify: 0
-14. Thund3rbird : 0
-15. Clueless : 0
+1. SayGex: 15
+2. Clueless : 10
+3. CypherSquad: 0
+4. Abenders: 0
+5. DeVvoyagers: 0
+6. 404 Not Found : 0
+7. Anveshika: 0
+8. Low Day: 0
+9. BitbyBit: 0
+10. Codestorm : 0
+11. Bototrons: 0
+12. Anveshika : 0
+13. Team : 0
+14. Gitify: 0
+15. Thund3rbird : 0
 16. Aquaman: 0
 17. what is git?: 0
 18. Quark Script: 0
