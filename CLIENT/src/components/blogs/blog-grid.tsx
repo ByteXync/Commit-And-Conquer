@@ -1,16 +1,14 @@
-"use client"
-
 import { useEffect, useState } from "react"
 import { BlogCard } from "@/components/blogs/blog-card"
 
 export function BlogGrid() {
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchBlogs() {
       try {
         const response = await fetch("http://localhost:8000/api/fetchblogs")
-        console.log(response)
         if (!response.ok) {
           throw new Error("Failed to fetch blogs")
         }
@@ -18,19 +16,27 @@ export function BlogGrid() {
         setBlogs(data)
       } catch (error) {
         console.error("Error fetching blogs:", error)
+      } finally {
+        setLoading(false)
       }
     }
     fetchBlogs()
   }, [])
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {blogs.length > 0 ? (
-        blogs.map((blog) => (
-          <BlogCard key={blog.id} blog={blog} />
-        ))
+    <div className="p-6">
+      {loading ? (
+        <div className="flex justify-center py-10">
+          <div className="animate-spin h-8 w-8 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+        </div>
+      ) : blogs.length > 0 ? (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {blogs.map((blog) => (
+            <BlogCard key={blog.id} blog={blog} />
+          ))}
+        </div>
       ) : (
-        <p>No blogs available</p>
+        <p className="text-center text-gray-500">No blogs available</p>
       )}
     </div>
   )
