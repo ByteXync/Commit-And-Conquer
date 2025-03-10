@@ -1,9 +1,13 @@
 import AdminLoginPage from "@/components/adminLogin"
+import AuthNavbar from "@/components/AuthNavbar"
 
 function page() {
   return (
-    <div>
-      <AdminLoginPage/>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <AuthNavbar />
+      <div className="flex-1">
+        <AdminLoginPage/>
+      </div>
     </div>
   )
 }

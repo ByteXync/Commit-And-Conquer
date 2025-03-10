@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { AlertCircle, CheckCircle2 } from "lucide-react"
+import { AlertCircle, CheckCircle2, User, Mail, Lock, ArrowRight } from "lucide-react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 export default function SignupPage() {
   const router = useRouter()
@@ -128,91 +129,121 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Create an account</CardTitle>
-          <CardDescription className="text-center">Enter your details below to create your account</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {isSuccess ? (
-            <div className="flex flex-col items-center justify-center py-4 text-center">
-              <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
-              <h3 className="text-xl font-semibold">Registration Successful!</h3>
-              <p className="text-muted-foreground mt-2">Your account has been created successfully.</p>
-              <Button className="mt-6" onClick={() =>{router.push('/login')} }>
-                Navigate to Login Page
-              </Button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="fullName">Full Name</Label>
-                <Input
-                  id="fullName"
-                  name="fullName"
-                  placeholder="John Doe"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  className={errors.fullName ? "border-red-500" : ""}
-                />
-                {errors.fullName && (
-                  <div className="flex items-center text-red-500 text-sm mt-1">
-                    <AlertCircle className="h-4 w-4 mr-1" />
-                    <span>{errors.fullName}</span>
-                  </div>
-                )}
+    <div className="flex min-h-[calc(100vh-72px)] items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 p-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Join Us Today</h2>
+          <p className="text-gray-600">Create your account to get started</p>
+        </div>
+        
+        <Card className="w-full shadow-xl border-0 bg-white/80 backdrop-blur-sm">
+          <CardHeader className="space-y-1 pb-2">
+            <CardTitle className="text-2xl font-bold text-center">Create Account</CardTitle>
+            <CardDescription className="text-center">Enter your details to create your account</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {isSuccess ? (
+              <div className="flex flex-col items-center justify-center py-8 text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                  <CheckCircle2 className="h-10 w-10 text-[#4199ff]" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900">Registration Successful!</h3>
+                <p className="text-gray-600 mt-2 mb-6">Your account has been created successfully.</p>
+                <Button 
+                  className="bg-[#4199ff] hover:bg-blue-600 text-white font-medium transition-colors py-6 px-8" 
+                  onClick={() => router.push('/user/login')}
+                >
+                  Go to Login
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4 pt-4">
+                <div className="space-y-2">
+                  <Label htmlFor="fullName" className="text-sm font-medium">Full Name</Label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="fullName"
+                      name="fullName"
+                      placeholder="John Doe"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      className={`pl-10 py-6 bg-white border-gray-200 focus:border-[#4199ff] focus:ring-[#4199ff] ${errors.fullName ? "border-red-500" : ""}`}
+                    />
+                  </div>
+                  {errors.fullName && (
+                    <div className="flex items-center text-red-500 text-sm mt-1">
+                      <AlertCircle className="h-4 w-4 mr-1" />
+                      <span>{errors.fullName}</span>
+                    </div>
+                  )}
+                </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="john.doe@example.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={errors.email ? "border-red-500" : ""}
-                />
-                {errors.email && (
-                  <div className="flex items-center text-red-500 text-sm mt-1">
-                    <AlertCircle className="h-4 w-4 mr-1" />
-                    <span>{errors.email}</span>
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-sm font-medium">Email</Label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="john.doe@example.com"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className={`pl-10 py-6 bg-white border-gray-200 focus:border-[#4199ff] focus:ring-[#4199ff] ${errors.email ? "border-red-500" : ""}`}
+                    />
                   </div>
-                )}
-              </div>
+                  {errors.email && (
+                    <div className="flex items-center text-red-500 text-sm mt-1">
+                      <AlertCircle className="h-4 w-4 mr-1" />
+                      <span>{errors.email}</span>
+                    </div>
+                  )}
+                </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className={errors.password ? "border-red-500" : ""}
-                />
-                {errors.password && (
-                  <div className="flex items-center text-red-500 text-sm mt-1">
-                    <AlertCircle className="h-4 w-4 mr-1" />
-                    <span>{errors.password}</span>
+                <div className="space-y-2">
+                  <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Input
+                      id="password"
+                      name="password"
+                      type="password"
+                      placeholder="••••••••"
+                      value={formData.password}
+                      onChange={handleChange}
+                      className={`pl-10 py-6 bg-white border-gray-200 focus:border-[#4199ff] focus:ring-[#4199ff] ${errors.password ? "border-red-500" : ""}`}
+                    />
                   </div>
-                )}
-                <p className="text-xs text-muted-foreground mt-1">Password must be at least 8 characters long</p>
-              </div>
-            </form>
-          )}
-        </CardContent>
-        {!isSuccess && (
-          <CardFooter>
-            <Button className="w-full" type="submit" onClick={handleSubmit} disabled={isSubmitting}>
-              {isSubmitting ? "Creating Account..." : "Sign Up"}
-            </Button>
-          </CardFooter>
-        )}
-      </Card>
+                  {errors.password && (
+                    <div className="flex items-center text-red-500 text-sm mt-1">
+                      <AlertCircle className="h-4 w-4 mr-1" />
+                      <span>{errors.password}</span>
+                    </div>
+                  )}
+                  <p className="text-xs text-gray-500 mt-1">Password must be at least 8 characters long</p>
+                </div>
+                
+                <Button 
+                  className="w-full mt-6 bg-[#4199ff] hover:bg-blue-600 text-white font-medium transition-colors py-6" 
+                  type="submit" 
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Creating Account..." : "Create Account"}
+                </Button>
+                
+                <div className="text-center text-sm pt-2">
+                  Already have an account?{" "}
+                  <Link href="/user/login" className="font-medium text-[#4199ff] hover:text-blue-700 hover:underline transition-colors">
+                    Sign in
+                  </Link>
+                </div>
+              </form>
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }
