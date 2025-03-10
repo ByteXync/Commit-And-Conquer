@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeVvoyagers Auth Interface</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #050505;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .auth-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .auth-panel {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .auth-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+        }
+
+        .branding-panel {
+            color: #00ffff;
+            text-align: center;
+        }
+
+        .branding-panel h1 {
+            font-size: 3.5rem;
+            margin: 0 0 20px;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: neon-pulse 2s infinite;
+        }
+
+        @keyframes neon-pulse {
+            0% { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; }
+            50% { text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
+            100% { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; }
+        }
+
+        .branding-panel p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            max-width: 400px;
+            margin: 0 auto 30px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-container {
+            position: relative;
+        }
+
+        .form-box {
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-toggle {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            padding: 12px 30px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toggle-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+            z-index: -1;
+            transition: left 0.3s ease;
+        }
+
+        .toggle-btn:hover::before {
+            left: 0;
+        }
+
+        .toggle-btn.active {
+            color: #050505;
+        }
+
+        .toggle-btn.active::before {
+            left: 0;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            color: #00ffff;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #00ffff;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            font-size: 1.1rem;
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label {
+            top: 0;
+            font-size: 0.9rem;
+            color: #00ffff;
+            background: rgba(5, 5, 5, 0.9);
+            padding: 0 8px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .submit-btn:hover::before {
+            left: 0;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            display: grid;
+            place-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 2px solid transparent;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+            animation: border-pulse 1.5s infinite;
+        }
+
+        @keyframes border-pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.2); opacity: 0; }
+        }
+
+        .auth-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .auth-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .branding-panel {
+                display: none;
+            }
+        }
+
+        /* Liquid animation */
+        .blob {
+            position: absolute;
+            background: radial-gradient(circle at center, #00ffff80 0%, #ff00ff80 100%);
+            border-radius: 50%;
+            filter: blur(30px);
+            mix-blend-mode: lighten;
+            animation: move 5s linear infinite;
+        }
+
+        .blob:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: -50px;
+            left: -50px;
+            animation-duration: 8s;
+        }
+
+        .blob:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 30%;
+            right: -100px;
+            animation-duration: 6s;
+        }
+
+        .blob:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            bottom: -100px;
+            left: 50%;
+            animation-duration: 10s;
+        }
+
+        @keyframes move {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(100px, 100px) scale(1.2); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="neural-bg">
+        <div class="blob"></div>
+        <div class="blob"></div>
+        <div class="blob"></div>
+    </div>
+    
+    <div class="auth-container">
+        <div class="auth-panel branding-panel">
+            <h1>DeVvoyagers</h1>
+            <p>Next-gen authentication powered by neural networks and quantum encryption</p>
+            <div class="branding-features">
+                <div class="feature-item">
+                    <svg class="icon" viewBox="0 0 24 24" style="width: 40px; height: 40px;">
+                        <path fill="url(#neon-gradient)" d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-8h4v4h-4zm0-6h4v4h-4zm0 12h4v4h-4z"/>
+                    </svg>
+                    <p>Quantum-resistant encryption</p>
+                </div>
+                <div class="feature-item">
+                    <svg class="icon" viewBox="0 0 24 24" style="width: 40px; height: 40px;">
+                        <path fill="url(#neon-gradient)" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-8h4v4h-4zm0-6h4v4h-4zm0 12h4v4h-4z"/>
+                    </svg>
+                    <p>Neural network validation</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="auth-panel form-container">
+            <div class="form-toggle">
+                <button class="toggle-btn active" onclick="showForm('login')">Login</button>
+                <button class="toggle-btn" onclick="showForm('signup')">Sign Up</button>
+            </div>
+
+            <div id="loginForm" class="form-box">
+                <div class="form-group">
+                    <input type="email" required placeholder=" ">
+                    <label>Email</label>
+                </div>
+                <div class="form-group">
+                    <input type="password" required placeholder=" ">
+                    <label>Password</label>
+                </div>
+                <button class="submit-btn">Authenticate</button>
+                <div class="social-login">
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" fill="url(#neon-gradient)">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-1 14H5V8l7 5 7-5v10z"/>
+                        </svg>
+                    </div>
+                    <div class="social-icon">
+                        <svg viewBox="0 0 24 24" fill="url(#neon-gradient)">
+                            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.7 1.032 1.7 1.032 1.05 2.612 2.74 1.885 3.475.713.11-.546.047-1.232.013-1.463-2.782-.253-5.567-1.343-5.567-5.941 0-1.313.469-2.387 1.236-3.227-.123-.304-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.486 11.486 0 0112 3.818c1.02 0 2.041.138 3.004.404 2.293-1.552 3.297-1.23 3.297-1.23.653 1.652.242 2.872.118 3.176.77.84 1.235 1.914 1.235 3.227 0 4.609-2.806 5.624-5.478 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 2.291-1.025 4.206-2.566 4.206-5.091 0-2.194-1.373-4.066-3.34-4.893 2.561-.316 5.185.847 5.185.847.772 1.943 1.977 2.698 1.977 2.698.546 1.387.203 2.429.1 2.684.637.74 1.025 1.616 1.025 2.764 0 3.973-2.384 4.678-4.838 4.941.36.307.676.915.676 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.014 10.014 0 0022 12.017C22 6.484 17.523 2 12 2z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div id="signupForm" class="form-box" style="display: none;">
+                <div class="form-group">
+                    <input type="text" required placeholder=" ">
+                    <label>Name</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" required placeholder=" ">
+                    <label>Email</label>
+                </div>
+                <div class="form-group">
+                    <input type="password" required placeholder=" ">
+                    <label>Password</label>
+                </div>
+                <div class="form-group">
+                    <input type="password" required placeholder=" ">
+                    <label>Confirm Password</label>
+                </div>
+                <div class="form-group">
+                    <select required>
+                        <option value="">Select Role</option>
+                        <option value="admin">Neural Administrator</option>
+                        <option value="user">Regular User</option>
+                    </select>
+                </div>
+                <button class="submit-btn">Initialize Account</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-footer">
+        <p>© 2024 DeVvoyagers Security Systems. All rights reserved.</p>
+    </div>
+
+    <svg style="position: absolute; width: 0; height: 0;">
+        <defs>
+            <linearGradient id="neon-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#00ffff;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#ff00ff;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <script>
+        function showForm(formType) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const buttons = document.querySelectorAll('.toggle-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (formType === 'login') {
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+                buttons[0].classList.add('active');
+                setTimeout(() => loginForm.style.opacity = 1, 50);
+            } else {
+                signupForm.style.display = 'block';
+                loginForm.style.display = 'none';
+                buttons[1].classList.add('active');
+                setTimeout(() => signupForm.style.opacity = 1, 50);
+            }
+        }
+
+        document.querySelectorAll('.form-group input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.style.transform = 'scale(1.05)';
+                input.parentElement.style.transition = 'transform 0.3s';
+            });
+            
+            input.addEventListener('blur', () => {
+                input.parentElement.style.transform = 'scale(1)';
+            });
+        });
+
+        // Blob animation
+        document.querySelectorAll('.blob').forEach(blob => {
+            blob.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth - 0.5;
+                const y = e.clientY / window.innerHeight - 0.5;
+                blob.style.transform = `translate(${x * 200}px, ${y * 200}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
