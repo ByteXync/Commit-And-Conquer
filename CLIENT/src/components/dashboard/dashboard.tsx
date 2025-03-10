@@ -3,13 +3,19 @@
 import { useState } from "react"
 import { UserNav } from "@/components/dashboard/user-nav"
 import { MainNav } from "@/components/dashboard/main-nav"
-import  InternshipList  from "../../components/dashboard/internship-list"
+import InternshipList from "../../components/dashboard/internship-list"
 import { BasicSidebar } from "@/components/dashboard/dashboard-sidebar"
 import { Search } from "@/components/dashboard/search"
 import { Button } from "@/components/ui/button"
 import { Filter, Menu, Activity, BarChart, FileText } from "lucide-react"
 
-export default function Dashboard() {
+// Add interface for props
+export interface DashboardProps {
+  internships: any[]; // Replace 'any' with your actual internship type
+  loading: boolean;
+}
+
+export default function Dashboard({ internships, loading }: DashboardProps) {
   const [filterOpen, setFilterOpen] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(true)
 
@@ -49,7 +55,9 @@ export default function Dashboard() {
                 <h2 className="text-lg font-bold">Total Internships</h2>
                 <BarChart className="h-6 w-6 text-blue-600" />
               </div>
-              <p className="text-3xl font-bold text-gray-900">120</p>
+              <p className="text-3xl font-bold text-gray-900">
+                {loading ? "Loading..." : internships.length}
+              </p>
             </div>
             <div className="p-6 bg-white rounded-lg shadow-md">
               <div className="flex items-center justify-between mb-4">
@@ -71,36 +79,46 @@ export default function Dashboard() {
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-4">Recent Activities</h2>
             <div className="bg-white p-4 rounded-lg shadow-md">
-              <ul className="space-y-4">
-                <li className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-900 font-semibold">John Doe</p>
-                    <p className="text-gray-600 text-sm">Applied for Software Engineer Internship</p>
-                  </div>
-                  <p className="text-gray-500 text-sm">2 hours ago</p>
-                </li>
-                <li className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-900 font-semibold">Jane Smith</p>
-                    <p className="text-gray-600 text-sm">Updated profile information</p>
-                  </div>
-                  <p className="text-gray-500 text-sm">5 hours ago</p>
-                </li>
-                <li className="flex items-center justify-between">
-                  <div>
-                    <p className="text-gray-900 font-semibold">Michael Brown</p>
-                    <p className="text-gray-600 text-sm">Posted a new blog</p>
-                  </div>
-                  <p className="text-gray-500 text-sm">1 day ago</p>
-                </li>
-              </ul>
+              {loading ? (
+                <p className="text-center py-4">Loading activities...</p>
+              ) : (
+                <ul className="space-y-4">
+                  <li className="flex items-center justify-between">
+                    <div>
+                      <p className="text-gray-900 font-semibold">John Doe</p>
+                      <p className="text-gray-600 text-sm">Applied for Software Engineer Internship</p>
+                    </div>
+                    <p className="text-gray-500 text-sm">2 hours ago</p>
+                  </li>
+                  <li className="flex items-center justify-between">
+                    <div>
+                      <p className="text-gray-900 font-semibold">Jane Smith</p>
+                      <p className="text-gray-600 text-sm">Updated profile information</p>
+                    </div>
+                    <p className="text-gray-500 text-sm">5 hours ago</p>
+                  </li>
+                  <li className="flex items-center justify-between">
+                    <div>
+                      <p className="text-gray-900 font-semibold">Michael Brown</p>
+                      <p className="text-gray-600 text-sm">Posted a new blog</p>
+                    </div>
+                    <p className="text-gray-500 text-sm">1 day ago</p>
+                  </li>
+                </ul>
+              )}
             </div>
           </div>
 
           {/* Internship List Section */}
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-4">Internships</h2>
-            <InternshipList />
+            {loading ? (
+              <div className="bg-white p-4 rounded-lg shadow-md text-center">
+                <p>Loading internships...</p>
+              </div>
+            ) : (
+              <InternshipList internships={internships} />
+            )}
           </div>
 
           {/* Quick Links Section */}
@@ -117,4 +135,3 @@ export default function Dashboard() {
     </div>
   )
 }
-

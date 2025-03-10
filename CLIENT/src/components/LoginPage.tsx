@@ -1,3 +1,4 @@
+//CLIENT/src/components/LoginPage.tsx
 "use client"
 
 import { useState } from "react"
@@ -8,6 +9,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { useAuth } from "@/lib/auth-context"
 
 function LoginPage() {
   const [email, setEmail] = useState("")
@@ -15,6 +17,7 @@ function LoginPage() {
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -22,28 +25,16 @@ function LoginPage() {
     setError("")
 
     try {
-      const response = await fetch("http://localhost:8000/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          role: "USER"
-        }),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        localStorage.setItem("token", data.token)
-        router.push("/dashboard")
+      const userData = await login(email, password)
+      
+      // Check user role and redirect accordingly
+      if (userData.role === "ADMIN") {
+        router.push("/admin/dashboard")
       } else {
-        setError(data.error || "An error occurred")
+        router.push("/user/dashboard")
       }
-    } catch (err) {
-      setError("An error occurred")
+    } catch (err: any) {
+      setError(err.message || "An error occurred during login")
     } finally {
       setIsLoading(false)
     }
@@ -115,6 +106,11 @@ function LoginPage() {
                 Don't have an account?{' '}
                 <Link href="./register" className="font-medium text-primary hover:underline">
                   Create an account
+                </Link>
+              </p>
+              <p className="text-center text-sm">
+                <Link href="/admin/login" className="font-medium text-primary hover:underline">
+                  Admin Login
                 </Link>
               </p>
             </form>
