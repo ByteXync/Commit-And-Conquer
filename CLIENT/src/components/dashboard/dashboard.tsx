@@ -7,14 +7,15 @@ import { InternshipList } from "@/components/dashboard/internship-list"
 import { BasicSidebar } from "@/components/dashboard/dashboard-sidebar"
 import { Search } from "@/components/dashboard/search"
 import { Button } from "@/components/ui/button"
-import { Filter, Menu } from "lucide-react"
+import { Filter, Menu, Sun, Moon } from "lucide-react"
 
 export default function Dashboard() {
   const [filterOpen, setFilterOpen] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className={`flex min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-background text-black'}`}>
       <BasicSidebar/>
       <div className="flex-1 flex flex-col">
         <header className="sticky top-0 z-30 flex h-16 items-center border-b bg-background px-6">
@@ -24,6 +25,10 @@ export default function Dashboard() {
           <MainNav />
           <div className="ml-auto flex items-center space-x-4">
             <Search />
+            <Button variant="outline" onClick={() => setDarkMode(!darkMode)} className="flex items-center gap-2">
+              {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {darkMode ? 'Light Mode' : 'Dark Mode'}
+            </Button>
             <UserNav />
           </div>
         </header>
