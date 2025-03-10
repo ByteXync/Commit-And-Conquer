@@ -9,23 +9,53 @@ interface Internship {
   title: string
   company: string
   location: string
-  type: string
+  type: string // Note: This field might need to be added to your database schema
   duration: string
   description: string
+  stipend: number
+  isActive: boolean
 }
 
 export default function InternshipList() {
   const [internships, setInternships] = useState<Internship[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function fetchInternships() {
-      const response = await fetch("http://localhost:8000/api/fetchinternships")
-      const data = await response.json()
-      setInternships(data)
+      try {
+        setLoading(true)
+        const response = await fetch("http://localhost:8000/api/fetchinternships")
+        const data = await response.json()
+        
+        // Format the data as needed
+        const formattedData = data.map((item: any) => ({
+          ...item,
+          // Convert numeric duration to string with "months"
+          duration: typeof item.duration === 'number' ? 
+            `${item.duration} month${item.duration !== 1 ? 's' : ''}` : 
+            item.duration,
+          // Set a default type if not provided
+          type: item.type || "Remote"
+        }))
+        
+        setInternships(formattedData)
+      } catch (error) {
+        console.error("Error fetching internships:", error)
+      } finally {
+        setLoading(false)
+      }
     }
 
     fetchInternships()
   }, [])
+
+  if (loading) {
+    return <div className="text-center py-10">Loading internships...</div>
+  }
+
+  if (internships.length === 0) {
+    return <div className="text-center py-10">No active internships available at the moment.</div>
+  }
 
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -50,6 +80,9 @@ export default function InternshipList() {
               </div>
               <Badge className="w-fit mt-2">{internship.type}</Badge>
               <p className="mt-2 text-sm">{internship.description}</p>
+              {internship.stipend > 0 && (
+                <p className="text-sm font-medium mt-2">Stipend: ₹{internship.stipend}/month</p>
+              )}
             </div>
           </CardContent>
           <CardFooter>
@@ -60,4 +93,3 @@ export default function InternshipList() {
     </div>
   )
 }
-
