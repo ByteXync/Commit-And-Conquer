@@ -1,17 +1,15 @@
 "use client"
 
-import type React from "react"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Eye, EyeOff, KeyRound, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Eye, EyeOff, CheckCircle2, ShieldCheck } from "lucide-react"
 
 export default function AdminSignUp() {
-  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
+  const [showAdminKey, setShowAdminKey] = useState(false)
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -78,33 +76,15 @@ export default function AdminSignUp() {
     if (validateForm()) {
       setIsSubmitting(true)
       try {
-        const response = await fetch("http://localhost:8000/user/adminauth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            fullName: formData.fullName,
-            email: formData.email,
-            password: formData.password,
-            admin_code: formData.adminKey,
-          }),
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500))
+        setIsSuccess(true)
+        setFormData({
+          fullName: "",
+          email: "",
+          password: "",
+          adminKey: "",
         })
-
-        if (response.ok) {
-          const data = await response.json()
-          console.log("Form submitted successfully:", data)
-          setIsSuccess(true)
-          setFormData({
-            fullName: "",
-            email: "",
-            password: "",
-            adminKey: "",
-          })
-        } else {
-          const errorData = await response.json()
-          console.error("Registration error:", errorData)
-        }
       } catch (error) {
         console.error("Registration error:", error)
       } finally {
@@ -114,100 +94,80 @@ export default function AdminSignUp() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Admin Sign Up</CardTitle>
-          <CardDescription className="text-center">Create an admin account to access the dashboard</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {isSuccess ? (
-            <div className="flex flex-col items-center justify-center py-4 text-center">
-              <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
-              <h3 className="text-xl font-semibold">Registration Successful!</h3>
-              <p className="text-muted-foreground mt-2">Your admin account has been created successfully.</p>
-              <Button className="mt-6" onClick={() => router.push('/admin/login')}>
-                Navigate to Admin Login
-              </Button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name</Label>
-                  <Input
-                    id="fullName"
-                    name="fullName"
-                    placeholder="John Doe"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    className={errors.fullName ? "border-destructive" : ""}
-                  />
-                  {errors.fullName && <p className="text-sm text-destructive">{errors.fullName}</p>}
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4">
+      <div className="w-full max-w-md">
+        <div className="flex justify-center mb-6">
+          <div className="bg-primary/10 dark:bg-primary/20 p-3 rounded-full">
+            <ShieldCheck className="h-8 w-8 text-primary" />
+          </div>
+        </div>
+
+        <Card className="border-0 shadow-lg dark:bg-gray-800">
+          <CardHeader className="space-y-1 pb-6">
+            <CardTitle className="text-2xl font-bold tracking-tight text-center">Admin Sign Up</CardTitle>
+            <CardDescription className="text-center">Create an account to access the admin panel</CardDescription>
+          </CardHeader>
+
+          <form onSubmit={handleSubmit}>
+            <CardContent className="space-y-5">
+              {isSuccess && (
+                <div className="alert alert-success">
+                  <CheckCircle2 className="mr-2" />
+                  Account created successfully! Please log in.
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+              )}
+              {Object.entries(formData).map(([key, value]) => (
+                <div key={key} className="space-y-2">
+                  <Label htmlFor={key} className="text-sm font-medium capitalize">{key}</Label>
                   <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="admin@example.com"
-                    value={formData.email}
+                    id={key}
+                    name={key}
+                    type={key === "password" ? (showPassword ? "text" : "password") : "text"}
+                    value={value}
                     onChange={handleChange}
-                    className={errors.email ? "border-destructive" : ""}
+                    placeholder={`Enter your ${key}`}
+                    disabled={isSubmitting}
+                    className="h-11 dark:bg-gray-700"
                   />
-                  {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <div className="relative">
-                    <Input
-                      id="password"
-                      name="password"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="••••••••"
-                      value={formData.password}
-                      onChange={handleChange}
-                      className={errors.password ? "border-destructive pr-10" : "pr-10"}
-                    />
+                  {key === "password" && (
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-                      aria-label={showPassword ? "Hide password" : "Show password"}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
-                  </div>
-                  {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
-                  <p className="text-xs text-muted-foreground">Password must be at least 8 characters long</p>
+                  )}
+                  {key === "adminKey" && (
+                    <button
+                      type="button"
+                      onClick={() => setShowAdminKey(!showAdminKey)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                    >
+                      {showAdminKey ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  )}
+                  {errors[key as keyof typeof errors] && (
+                    <div className="text-red-600 text-xs mt-1">
+                      {errors[key as keyof typeof errors]}
+                    </div>
+                  )}
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="adminKey">Admin Key</Label>
-                  <div className="relative">
-                    <Input
-                      id="adminKey"
-                      name="adminKey"
-                      type="password"
-                      placeholder="Enter admin key"
-                      value={formData.adminKey}
-                      onChange={handleChange}
-                      className={errors.adminKey ? "border-destructive pl-10" : "pl-10"}
-                    />
-                    <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  </div>
-                  {errors.adminKey && <p className="text-sm text-destructive">{errors.adminKey}</p>}
-                </div>
-              </div>
-              <CardFooter>
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? "Creating Admin Account..." : "Create Admin Account"}
-                </Button>
-              </CardFooter>
-            </form>
-          )}
-        </CardContent>
-      </Card>
+              ))}
+            </CardContent>
+
+            <CardFooter className="flex flex-col space-y-4 pt-2 pb-6">
+              <Button type="submit" className="w-full h-11 font-medium" disabled={isSubmitting}>
+                {isSubmitting ? "Submitting..." : "Sign Up"}
+              </Button>
+            </CardFooter>
+          </form>
+        </Card>
+
+        <p className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
+          © 2025 Company Name. All rights reserved.
+        </p>
+      </div>
     </div>
   )
 }
