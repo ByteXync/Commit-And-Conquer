@@ -16,19 +16,19 @@ export function BasicSidebar() {
         <nav className="flex-1 p-4">
           <ul className="space-y-2">
             <li>
-              <Link href="/internships" className={`flex items-center gap-2 p-2 rounded-md ${pathname === "/internships" ? "bg-gray-700" : "hover:bg-gray-700"}`}>
+              <Link href="/user/internships" className={`flex items-center gap-2 p-2 rounded-md ${pathname === "/internships" ? "bg-gray-700" : "hover:bg-gray-700"}`}>
                 <Briefcase className="h-5 w-5" />
                 <span>Internships</span>
               </Link>
             </li>
             <li>
-              <Link href="/blogs" className={`flex items-center gap-2 p-2 rounded-md ${pathname === "/blogs" ? "bg-gray-700" : "hover:bg-gray-700"}`}>
+              <Link href="/user/blogs" className={`flex items-center gap-2 p-2 rounded-md ${pathname === "/blogs" ? "bg-gray-700" : "hover:bg-gray-700"}`}>
                 <Newspaper className="h-5 w-5" />
                 <span>Blogs</span>
               </Link>
             </li>
             <li>
-              <Link href="/resume" className={`flex items-center gap-2 p-2 rounded-md ${pathname === "/resume" ? "bg-gray-700" : "hover:bg-gray-700"}`}>
+              <Link href="/user/resume" className={`flex items-center gap-2 p-2 rounded-md ${pathname === "/resume" ? "bg-gray-700" : "hover:bg-gray-700"}`}>
                 <FileText className="h-5 w-5" />
                 <span>Resume</span>
               </Link>
