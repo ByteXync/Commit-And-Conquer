@@ -9,7 +9,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2 } from "lucide-react"
 
 function AdminLoginPage() {
-  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [adminKey, setAdminKey] = useState("")
   const [error, setError] = useState("")
@@ -22,7 +22,7 @@ function AdminLoginPage() {
     setError("")
 
     // Validate form
-    if (!username || !password) {
+    if (!email || !password) {
       setError("Please enter both username and password")
       return
     }
@@ -33,23 +33,30 @@ function AdminLoginPage() {
     try {
       // This is where you would typically make an API call to authenticate
       // For example:
-      // const response = await fetch('/api/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ username, password, adminKey }),
-      // });
+      const response = await fetch('http://localhost:8000/user/adminauth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          email:email, 
+          password:password, 
+          admin_code:adminKey 
+        }),
+      });
+      const data = await response.json();
 
-      // Simulate API call with timeout
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      if (!response.ok) {
+        throw new Error(data.detail || "Invalid credentials");
+      }
 
-      // If login is successful, you could redirect or update state
-      // window.location.href = '/dashboard';
+      console.log("Login successful:", data);
+      setIsLoading(false);
 
-      console.log("Login submitted:", { username, password, adminKey })
+      // Store token (example: in localStorage)
+      localStorage.setItem("token", data.token);
 
-      // For demo purposes, we'll just show a success message
-      setIsLoading(false)
-      setError("")
+      // Redirect to dashboard
+      window.location.href = "/admin/dashboard";
+      
     } catch (err) {
       // Handle login error
       setIsLoading(false)
@@ -73,12 +80,12 @@ function AdminLoginPage() {
               </Alert>
             )}
             <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username">Email</Label>
               <Input
-                id="username"
+                id="Email"
                 type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your username"
                 disabled={isLoading}
                 required
