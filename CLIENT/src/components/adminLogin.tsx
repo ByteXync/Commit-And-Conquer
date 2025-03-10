@@ -85,7 +85,7 @@ function AdminLoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="*******"
                 disabled={isLoading}
                 required
               />

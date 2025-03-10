@@ -165,7 +165,7 @@ export default function AdminSignUp() {
                       id="password"
                       name="password"
                       type={showPassword ? "text" : "password"}
-                      placeholder="••••••••"
+                      placeholder="********"
                       value={formData.password}
                       onChange={handleChange}
                       className={errors.password ? "border-destructive pr-10" : "pr-10"}
