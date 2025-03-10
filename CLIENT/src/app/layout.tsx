@@ -57,7 +57,6 @@ export default function RootLayout({
           <SonnerProvider />
           <Analytics />
           <ThemeToggleButton />
-
         </ThemeProvider>
       </body>
     </html>
