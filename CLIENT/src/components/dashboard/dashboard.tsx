@@ -7,11 +7,17 @@ import  InternshipList  from "../../components/dashboard/internship-list"
 import { BasicSidebar } from "@/components/dashboard/dashboard-sidebar"
 import { Search } from "@/components/dashboard/search"
 import { Button } from "@/components/ui/button"
+
+import { Filter, Menu } from "lucide-react"
+import { ProfilePage } from "@/components/dashboard/proflepage"
+
 import { Filter, Menu, Activity, BarChart, FileText } from "lucide-react"
+
 
 export default function Dashboard() {
   const [filterOpen, setFilterOpen] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [showProfile, setShowProfile] = useState(false) // New state for Profile Page
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -24,10 +30,32 @@ export default function Dashboard() {
           <MainNav />
           <div className="ml-auto flex items-center space-x-4">
             <Search />
-            <UserNav />
+            <UserNav setShowProfile={setShowProfile} /> {/* Pass state setter */}
           </div>
         </header>
+
         <main className="flex-1 p-6">
+
+          {showProfile ? (
+            <ProfilePage setShowProfile={setShowProfile} /> // Show Profile Page
+          ) : (
+            <>
+              <div className="flex items-center justify-between mb-6">
+                <h1 className="text-2xl font-bold">Internships</h1>
+                <Button variant="outline" onClick={() => setFilterOpen(!filterOpen)} className="flex items-center gap-2">
+                  <Filter className="h-4 w-4" />
+                  Filter
+                </Button>
+              </div>
+              {filterOpen && (
+                <div className="mb-6 p-4 border rounded-lg bg-white shadow-sm">
+                  <p>Filter options will go here</p>
+                </div>
+              )}
+              <InternshipList />
+            </>
+          )}
+
           {/* <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold">Dashboard</h1>
             <Button variant="outline" onClick={() => setFilterOpen(!filterOpen)} className="flex items-center gap-2">
@@ -112,9 +140,9 @@ export default function Dashboard() {
               <Button variant="outline" className="w-full">Manage Applications</Button>
             </div>
           </div>
+
         </main>
       </div>
     </div>
   )
 }
-
