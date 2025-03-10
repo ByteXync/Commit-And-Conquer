@@ -14,7 +14,7 @@ interface Internship {
   description: string
 }
 
-export function InternshipList() {
+export default function InternshipList() {
   const [internships, setInternships] = useState<Internship[]>([])
 
   useEffect(() => {
