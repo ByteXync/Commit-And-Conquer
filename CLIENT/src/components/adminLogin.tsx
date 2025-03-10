@@ -7,13 +7,17 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/lib/auth-context"
 
 function AdminLoginPage() {
-  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [adminKey, setAdminKey] = useState("")
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+  const { adminLogin } = useAuth()
 
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault()
@@ -22,8 +26,13 @@ function AdminLoginPage() {
     setError("")
 
     // Validate form
-    if (!email || !password) {
+    if (!username || !password) {
       setError("Please enter both username and password")
+      return
+    }
+
+    if (!adminKey) {
+      setError("Admin key is required")
       return
     }
 
@@ -31,36 +40,14 @@ function AdminLoginPage() {
     setIsLoading(true)
 
     try {
-      // This is where you would typically make an API call to authenticate
-      // For example:
-      const response = await fetch('http://localhost:8000/user/adminauth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          email:email, 
-          password:password, 
-          admin_code:adminKey 
-        }),
-      });
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.detail || "Invalid credentials");
-      }
-
-      console.log("Login successful:", data);
-      setIsLoading(false);
-
-      // Store token (example: in localStorage)
-      localStorage.setItem("token", data.token);
-
-      // Redirect to dashboard
-      window.location.href = "/admin/dashboard";
+      await adminLogin(username, password, adminKey)
       
-    } catch (err) {
+      // Redirect to admin dashboard after successful login
+      router.push("/admin/dashboard")
+    } catch (err: any) {
       // Handle login error
       setIsLoading(false)
-      setError("Invalid credentials")
+      setError(err.message || "Invalid credentials")
       console.error("Login error:", err)
     }
   }
@@ -82,11 +69,11 @@ function AdminLoginPage() {
             <div className="space-y-2">
               <Label htmlFor="username">Email</Label>
               <Input
-                id="Email"
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your username"
+                id="username"
+                type="email"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter your email"
                 disabled={isLoading}
                 required
               />
@@ -112,6 +99,7 @@ function AdminLoginPage() {
                 onChange={(e) => setAdminKey(e.target.value)}
                 placeholder="Enter admin key"
                 disabled={isLoading}
+                required
               />
             </div>
           </CardContent>
@@ -130,7 +118,7 @@ function AdminLoginPage() {
               <a href="/forgot-password" className="font-medium text-primary hover:underline">
                 Forgot password?
               </a>
-              <a href="/register" className="font-medium text-primary hover:underline">
+              <a href="/admin/register" className="font-medium text-primary hover:underline">
                 Request admin access
               </a>
             </div>
@@ -142,4 +130,3 @@ function AdminLoginPage() {
 }
 
 export default AdminLoginPage
-

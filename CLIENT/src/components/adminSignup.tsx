@@ -8,9 +8,11 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useAuth } from "@/lib/auth-context"
 
 export default function AdminSignUp() {
   const router = useRouter()
+  const { register } = useAuth()
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     fullName: "",
@@ -26,6 +28,7 @@ export default function AdminSignUp() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [serverError, setServerError] = useState("")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -74,39 +77,30 @@ export default function AdminSignUp() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setServerError("")
 
     if (validateForm()) {
       setIsSubmitting(true)
       try {
-        const response = await fetch("http://localhost:8000/user/adminauth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            fullName: formData.fullName,
-            email: formData.email,
-            password: formData.password,
-            admin_code: formData.adminKey,
-          }),
+        // Using the register function from auth context
+        await register(
+          formData.fullName,
+          formData.email,
+          formData.password,
+          "ADMIN", // Set role as ADMIN
+          formData.adminKey // Pass admin_code as additional parameter
+        )
+        
+        setIsSuccess(true)
+        setFormData({
+          fullName: "",
+          email: "",
+          password: "",
+          adminKey: "",
         })
-
-        if (response.ok) {
-          const data = await response.json()
-          console.log("Form submitted successfully:", data)
-          setIsSuccess(true)
-          setFormData({
-            fullName: "",
-            email: "",
-            password: "",
-            adminKey: "",
-          })
-        } else {
-          const errorData = await response.json()
-          console.error("Registration error:", errorData)
-        }
-      } catch (error) {
+      } catch (error: any) {
         console.error("Registration error:", error)
+        setServerError(error.message || "Registration failed. Please try again.")
       } finally {
         setIsSubmitting(false)
       }
@@ -121,6 +115,12 @@ export default function AdminSignUp() {
           <CardDescription className="text-center">Create an admin account to access the dashboard</CardDescription>
         </CardHeader>
         <CardContent>
+          {serverError && (
+            <div className="bg-destructive/15 text-destructive text-sm p-3 rounded-md mb-4">
+              {serverError}
+            </div>
+          )}
+          
           {isSuccess ? (
             <div className="flex flex-col items-center justify-center py-4 text-center">
               <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
