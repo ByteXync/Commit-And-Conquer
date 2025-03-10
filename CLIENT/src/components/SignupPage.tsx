@@ -1,12 +1,12 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { AlertCircle, CheckCircle2 } from "lucide-react"
+import { AlertCircle, CheckCircle2, Eye, EyeOff } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 export default function SignupPage() {
@@ -25,6 +25,7 @@ export default function SignupPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -113,19 +114,25 @@ export default function SignupPage() {
         const data = await response.json()
         setErrors((prev) => ({
           ...prev,
-          email: data.error || "An error occurred",
+          email: data.error || "An error occurred. Please try again.",
         }))
       }
     } catch (error) {
       console.error("Signup error:", error)
       setErrors((prev) => ({
         ...prev,
-        email: "An error occurred",
+        email: "Network error. Please check your connection and try again.",
       }))
     } finally {
       setIsSubmitting(false)
     }
   }
+
+  // Auto-focus fullName input on mount
+  useEffect(() => {
+    const fullNameInput = document.getElementById("fullName")
+    fullNameInput?.focus()
+  }, [])
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
@@ -140,24 +147,27 @@ export default function SignupPage() {
               <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
               <h3 className="text-xl font-semibold">Registration Successful!</h3>
               <p className="text-muted-foreground mt-2">Your account has been created successfully.</p>
-              <Button className="mt-6" onClick={() =>{router.push('/login')} }>
+              <Button className="mt-6" onClick={() => router.push('/login')}>
                 Navigate to Login Page
               </Button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="fullName">Full Name</Label>
+                <Label htmlFor="fullName" className="text-sm font-medium">Full Name</Label>
                 <Input
                   id="fullName"
                   name="fullName"
                   placeholder="John Doe"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className={errors.fullName ? "border-red-500" : ""}
+                  className={`transition-colors focus:ring-2 focus:ring-primary ${errors.fullName ? "border-red-500" : ""}`}
+                  disabled={isSubmitting}
+                  aria-invalid={!!errors.fullName}
+                  aria-describedby={errors.fullName ? "fullName-error" : undefined}
                 />
                 {errors.fullName && (
-                  <div className="flex items-center text-red-500 text-sm mt-1">
+                  <div id="fullName-error" className="flex items-center text-red-500 text-sm mt-1">
                     <AlertCircle className="h-4 w-4 mr-1" />
                     <span>{errors.fullName}</span>
                   </div>
@@ -165,7 +175,7 @@ export default function SignupPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-sm font-medium">Email</Label>
                 <Input
                   id="email"
                   name="email"
@@ -173,10 +183,13 @@ export default function SignupPage() {
                   placeholder="john.doe@example.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className={errors.email ? "border-red-500" : ""}
+                  className={`transition-colors focus:ring-2 focus:ring-primary ${errors.email ? "border-red-500" : ""}`}
+                  disabled={isSubmitting}
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "email-error" : undefined}
                 />
                 {errors.email && (
-                  <div className="flex items-center text-red-500 text-sm mt-1">
+                  <div id="email-error" className="flex items-center text-red-500 text-sm mt-1">
                     <AlertCircle className="h-4 w-4 mr-1" />
                     <span>{errors.email}</span>
                   </div>
@@ -184,30 +197,51 @@ export default function SignupPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className={errors.password ? "border-red-500" : ""}
-                />
+                <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={`transition-colors focus:ring-2 focus:ring-primary pr-10 ${errors.password ? "border-red-500" : ""}`}
+                    disabled={isSubmitting}
+                    aria-invalid={!!errors.password}
+                    aria-describedby={errors.password ? "password-error" : undefined}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
                 {errors.password && (
-                  <div className="flex items-center text-red-500 text-sm mt-1">
+                  <div id="password-error" className="flex items-center text-red-500 text-sm mt-1">
                     <AlertCircle className="h-4 w-4 mr-1" />
                     <span>{errors.password}</span>
                   </div>
                 )}
-                <p className="text-xs text-muted-foreground mt-1">Password must be at least 8 characters long</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Use at least 8 characters, including uppercase, numbers, and symbols
+                </p>
               </div>
             </form>
           )}
         </CardContent>
         {!isSuccess && (
-          <CardFooter>
-            <Button className="w-full" type="submit" onClick={handleSubmit} disabled={isSubmitting}>
+          <CardFooter className="pt-6">
+            <Button
+              className="w-full"
+              type="submit"
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              variant={isSubmitting ? "ghost" : "default"}
+            >
               {isSubmitting ? "Creating Account..." : "Sign Up"}
             </Button>
           </CardFooter>
@@ -216,4 +250,3 @@ export default function SignupPage() {
     </div>
   )
 }
-
