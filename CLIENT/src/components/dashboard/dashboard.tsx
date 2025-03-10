@@ -11,16 +11,13 @@ import { Filter, Menu, Activity, BarChart, FileText } from "lucide-react"
 
 export default function Dashboard() {
   const [filterOpen, setFilterOpen] = useState(false)
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
     <div className="flex min-h-screen bg-background">
       <BasicSidebar />
       <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
         <header className="sticky top-0 z-30 flex h-16 items-center border-b bg-background px-6">
-          {/* <Button variant="outline" onClick={() => setSidebarOpen(!sidebarOpen)} className="flex items-center gap-2">
-            <Menu className="h-4 w-4" />
-          </Button> */}
           <MainNav />
           <div className="ml-auto flex items-center space-x-4">
             <Search />
@@ -28,13 +25,6 @@ export default function Dashboard() {
           </div>
         </header>
         <main className="flex-1 p-6">
-          {/* <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold">Dashboard</h1>
-            <Button variant="outline" onClick={() => setFilterOpen(!filterOpen)} className="flex items-center gap-2">
-              <Filter className="h-4 w-4" />
-              Filter
-            </Button>
-          </div> */}
           {filterOpen && (
             <div className="mb-6 p-4 border rounded-lg bg-white shadow-sm">
               {/* Add filter options here */}
@@ -117,4 +107,3 @@ export default function Dashboard() {
     </div>
   )
 }
-
