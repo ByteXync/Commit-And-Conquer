@@ -1,8 +1,9 @@
 import React from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RocketIcon, ShieldCheckIcon, UsersIcon, ArrowRightIcon, BarChartIcon, CodeIcon } from 'lucide-react';
-
+//
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-green-50 dark:from-blue-950 dark:via-slate-900 dark:to-green-950">
@@ -16,8 +17,12 @@ const LandingPage = () => {
             <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600 text-transparent bg-clip-text">Internship Portal</div>
           </div>
           <div className="hidden md:flex space-x-1">
-            <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Features</Button>
-            <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Pricing</Button>
+            <Link href="/features">
+              <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Features</Button>
+            </Link>
+            <Link href="/pricing">
+              <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Pricing</Button>
+            </Link>
             <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">About</Button>
             <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Contact</Button>
           </div>
