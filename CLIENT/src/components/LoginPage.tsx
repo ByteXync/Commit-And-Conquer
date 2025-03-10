@@ -14,6 +14,7 @@ function LoginPage() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false) // for toggling password visibility
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -39,12 +40,13 @@ function LoginPage() {
       if (response.ok) {
         // Save the token and redirect to the dashboard or home page
         localStorage.setItem("token", data.token)
-        router.push("/dashboard")
+        router.push("/user/dashboard")
       } else {
+        // Show API-specific error message, or generic message
         setError(data.error || "An error occurred")
       }
     } catch (err) {
-      setError("An error occurred")
+      setError("An error occurred while processing your request.")
     } finally {
       setIsLoading(false)
     }
@@ -83,17 +85,26 @@ function LoginPage() {
                   Forgot password?
                 </a>
               </div>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                disabled={isLoading}
-                required
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"} // toggle password visibility
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  disabled={isLoading}
+                  required
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <Loader2 className="h-4 w-4" /> : "Show"}
+                </button>
+              </div>
             </div>
-            
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
             <Button type="submit" className="w-full" disabled={isLoading}>
@@ -108,7 +119,7 @@ function LoginPage() {
             </Button>
             <div className="text-center text-sm">
               Don't have an account?{" "}
-              <a href="/register" className="font-medium text-primary hover:underline">
+              <a href="/user/register" className="font-medium text-primary hover:underline">
                 Create an account
               </a>
             </div>
@@ -120,4 +131,3 @@ function LoginPage() {
 }
 
 export default LoginPage
-

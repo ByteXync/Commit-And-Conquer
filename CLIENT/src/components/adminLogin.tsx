@@ -53,7 +53,7 @@ function AdminLoginPage() {
         setError("") // Reset error if successful
         console.log("Login successful:", data)
         // Redirect to the dashboard or wherever appropriate
-        window.location.href = '/dashboard' // You can update this URL as per your needs
+        window.location.href = '/user/dashboard' // You can update this URL as per your needs
       } else {
         // Handle failed login
         throw new Error(data.message || 'Login failed')
