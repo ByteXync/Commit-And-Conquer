@@ -25,14 +25,16 @@ export function BlogGrid() {
 
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {blogs.length > 0 ? (
-        blogs.map((blog) => (
-          <BlogCard key={blog.id} blog={blog} />
-        ))
-      ) : (
-        <p>No blogs available</p>
-      )}
+  {blogs.length > 0 ? (
+    blogs.map((blog) => (
+      <BlogCard key={blog.id} blog={blog} />
+    ))
+  ) : (
+    <div className="col-span-1 sm:col-span-2 lg:col-span-3 text-center">
+      <p className="text-gray-500">No blogs available</p>
     </div>
+  )}
+</div>
   )
 }
 
