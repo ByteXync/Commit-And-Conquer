@@ -1,3 +1,5 @@
+"use client"; 
+
 import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -57,6 +59,7 @@ export default function InternshipList() {
           </CardFooter>
         </Card>
       ))}
+      <div>Hello in internship</div>
     </div>
   )
 }
