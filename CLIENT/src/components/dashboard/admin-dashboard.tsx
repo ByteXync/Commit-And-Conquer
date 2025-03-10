@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Building2, Clock, MapPin, Plus, RefreshCw } from "lucide-react"
+import { toast } from "@/components/ui/use-toast" // Import toast if available, or remove if not
 
 interface Internship {
   id: number
@@ -14,7 +15,7 @@ interface Internship {
   company: string
   location: string
   type: string
-  duration: string
+  duration: string | number
   description: string
   isActive: boolean
   stipend: number
@@ -33,20 +34,43 @@ export default function AdminDashboard() {
     stipend: 0
   })
   const [isLoading, setIsLoading] = useState(false)
+  const [isToggling, setIsToggling] = useState<number | null>(null)
 
   const fetchInternships = async () => {
     try {
+      console.log("Fetching internships...")
+      
       // Fetch active internships
       const activeResponse = await fetch("http://localhost:8000/api/fetchinternships")
+      if (!activeResponse.ok) {
+        throw new Error(`Failed to fetch active internships: ${activeResponse.status}`)
+      }
       const activeData = await activeResponse.json()
+      console.log("Active internships:", activeData)
       setActiveInternships(activeData)
 
       // Fetch inactive internships
       const inactiveResponse = await fetch("http://localhost:8000/api/fetchdeletedinternships")
+      if (!inactiveResponse.ok) {
+        throw new Error(`Failed to fetch inactive internships: ${inactiveResponse.status}`)
+      }
       const inactiveData = await inactiveResponse.json()
+      console.log("Inactive internships:", inactiveData)
       setInactiveInternships(inactiveData)
+      
     } catch (error) {
       console.error("Error fetching internships:", error)
+      // If toast is available
+      try {
+        toast({
+          title: "Error fetching internships",
+          description: error instanceof Error ? error.message : "Unknown error",
+          variant: "destructive",
+        })
+      } catch (e) {
+        // If toast is not available, just log
+        console.error("Toast error:", e)
+      }
     }
   }
 
@@ -65,6 +89,7 @@ export default function AdminDashboard() {
   const handleAddInternship = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    console.log("Adding internship:", newInternship)
 
     try {
       const response = await fetch("http://localhost:8000/api/addinternships", {
@@ -75,7 +100,12 @@ export default function AdminDashboard() {
         body: JSON.stringify(newInternship),
       })
 
+      console.log("Add response status:", response.status)
+      
       if (response.ok) {
+        const data = await response.json()
+        console.log("Add response data:", data)
+        
         // Reset form and refresh data
         setNewInternship({
           title: "",
@@ -86,31 +116,89 @@ export default function AdminDashboard() {
           description: "",
           stipend: 0
         })
+        
+        // Show success message if toast is available
+        try {
+          toast({
+            title: "Success",
+            description: "Internship added successfully",
+          })
+        } catch (e) {
+          console.log("Internship added successfully")
+        }
+        
         await fetchInternships()
       } else {
-        console.error("Failed to add internship")
+        const errorText = await response.text()
+        throw new Error(`Failed to add internship: ${response.status} - ${errorText}`)
       }
     } catch (error) {
       console.error("Error adding internship:", error)
+      // If toast is available
+      try {
+        toast({
+          title: "Error adding internship",
+          description: error instanceof Error ? error.message : "Unknown error",
+          variant: "destructive",
+        })
+      } catch (e) {
+        // If toast is not available, just log to console
+        console.error("Toast error:", e)
+      }
     } finally {
       setIsLoading(false)
     }
   }
 
   const toggleInternshipStatus = async (id: number) => {
+    setIsToggling(id)
+    console.log("Toggling internship status, ID:", id)
+    
     try {
       const response = await fetch(`http://localhost:8000/api/toggleinternship/${id}`, {
-        method: "PUT"
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        }
       })
 
+      console.log("Toggle response status:", response.status)
+      
       if (response.ok) {
+        const data = await response.json()
+        console.log("Toggle response data:", data)
+        
+        // Show success message if toast is available
+        try {
+          toast({
+            title: "Success",
+            description: data.message || "Internship status updated",
+          })
+        } catch (e) {
+          console.log("Internship status updated successfully")
+        }
+        
         // Refresh data after toggle
         await fetchInternships()
       } else {
-        console.error("Failed to toggle internship status")
+        const errorText = await response.text()
+        throw new Error(`Failed to toggle status: ${response.status} - ${errorText}`)
       }
     } catch (error) {
       console.error("Error toggling status:", error)
+      // If toast is available
+      try {
+        toast({
+          title: "Error updating status",
+          description: error instanceof Error ? error.message : "Unknown error",
+          variant: "destructive",
+        })
+      } catch (e) {
+        // If toast is not available, just log
+        console.error("Toast error:", e)
+      }
+    } finally {
+      setIsToggling(null)
     }
   }
 
@@ -138,9 +226,11 @@ export default function AdminDashboard() {
           </div>
           <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <Clock className="h-4 w-4" />
-            {internship.duration}
+            {typeof internship.duration === 'number' 
+              ? `${internship.duration} month${internship.duration !== 1 ? 's' : ''}` 
+              : internship.duration}
           </div>
-          <Badge className="w-fit mt-2">{internship.type}</Badge>
+          <Badge className="w-fit mt-2">{internship.type || 'Remote'}</Badge>
           <p className="mt-2 text-sm">{internship.description}</p>
           {internship.stipend > 0 && (
             <p className="text-sm font-medium">Stipend: ₹{internship.stipend}/month</p>
@@ -152,8 +242,9 @@ export default function AdminDashboard() {
           onClick={() => toggleInternshipStatus(internship.id)} 
           variant={isActive ? "destructive" : "default"} 
           className="w-full"
+          disabled={isToggling === internship.id}
         >
-          {isActive ? "Deactivate" : "Activate"}
+          {isToggling === internship.id ? "Updating..." : (isActive ? "Deactivate" : "Activate")}
         </Button>
       </div>
     </Card>
@@ -262,6 +353,7 @@ export default function AdminDashboard() {
                     <Input 
                       id="duration" 
                       name="duration" 
+                      type="number"
                       value={newInternship.duration} 
                       onChange={handleInputChange} 
                       required

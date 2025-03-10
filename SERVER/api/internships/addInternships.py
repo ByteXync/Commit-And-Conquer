@@ -9,6 +9,7 @@ class Internship(BaseModel):
     location:str
     stipend:int
     duration:int
+    
 
 router = APIRouter()
 
@@ -21,5 +22,6 @@ async def addInternships(internship:Internship):
         "location": internship.location,
         "stipend": internship.stipend,
         "duration": internship.duration
+        "isActive": True
     })
     return {"title": prisma_internship.title, "description": prisma_internship.description, "company": prisma_internship.company, "location": prisma_internship.location, "stipend": prisma_internship.stipend, "duration": prisma_internship.duration}
