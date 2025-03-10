@@ -1,12 +1,13 @@
 import React from 'react';
-import { Building2, MapPin, Clock, DollarSign } from 'lucide-react';
+import { Building2, MapPin, Clock, DollarSign, User } from 'lucide-react';
 import { Internship } from '../../app/types/types';
 
 interface InternshipCardProps {
   internship: Internship;
+  isAdmin?: boolean; // Optional prop to control admin credentials visibility
 }
 
-export const InternshipCard: React.FC<InternshipCardProps> = ({ internship }) => {
+export const InternshipCard: React.FC<InternshipCardProps> = ({ internship, isAdmin = false }) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
       <div className="flex justify-between items-start">
@@ -35,6 +36,17 @@ export const InternshipCard: React.FC<InternshipCardProps> = ({ internship }) =>
       </div>
 
       <p className="mt-4 text-gray-600">{internship.description}</p>
+
+      {isAdmin && internship.admin && (
+        <div className="mt-4 pt-4 border-t border-gray-200">
+          <div className="flex items-center text-gray-500 text-sm">
+            <User className="w-4 h-4 mr-2" />
+            <span>
+              <strong>Admin:</strong> {internship.admin.name} ({internship.admin.email})
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
