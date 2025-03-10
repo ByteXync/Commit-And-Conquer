@@ -13,8 +13,8 @@ export default function LandingPage() {
       <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
-            <Image src="/placeholder.svg" alt="Logo" width={32} height={32} className="rounded" />
-            <span className="text-lg font-bold">Your Brand</span>
+            <Image src="/vercel.svg" alt="Logo" width={32} height={32} className="rounded" />
+            <span className="text-lg font-bold">Thalaash</span>
           </div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
@@ -37,14 +37,7 @@ export default function LandingPage() {
                 A modern, responsive platform with dedicated portals for both administrators and users.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 mt-6">
-              <Button size="lg" className="gap-1">
-                Get Started <ArrowRight className="h-4 w-4 ml-1" />
-              </Button>
-              <Button size="lg" variant="outline">
-                Learn More
-              </Button>
-            </div>
+            
           </div>
         </div>
       </section>
@@ -236,7 +229,7 @@ export default function LandingPage() {
                   <div className="flex items-start gap-4">
                     <div className="relative h-10 w-10 overflow-hidden rounded-full">
                       <Image
-                        src={`/placeholder.svg?height=40&width=40`}
+                        src={`/vercel.svg?height=40&width=40`}
                         alt="Avatar"
                         width={40}
                         height={40}
@@ -265,8 +258,8 @@ export default function LandingPage() {
       <footer className="border-t py-6 md:py-8">
         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex items-center gap-2">
-            <Image src="/placeholder.svg" alt="Logo" width={24} height={24} className="rounded" />
-            <span className="text-lg font-bold">Your Brand</span>
+            <Image src="/vercel.svg" alt="Logo" width={24} height={24} className="rounded" />
+            <span className="text-lg font-bold">Thalaashr</span>
           </div>
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <Link href="/terms" className="hover:underline">
@@ -280,13 +273,13 @@ export default function LandingPage() {
             </Link>
           </div>
           <div className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Your Company. All rights reserved.
+            © {new Date().getFullYear()} Thalaash. All rights reserved.
           </div>
         </div>
       </footer>
 
       {/* Floating Theme Toggle Button */}
-      <ThemeToggleButton />
+      
     </div>
   )
 }

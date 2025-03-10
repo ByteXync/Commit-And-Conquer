@@ -32,7 +32,7 @@ export function BlogCard({ blog }: BlogCardProps) {
   const likes = blog.likes || Math.floor(Math.random() * 100)
   const views = blog.views || Math.floor(Math.random() * 1000)
   const comments = blog.comments || Math.floor(Math.random() * 20)
-  const image = blog.image || "/placeholder.svg?height=200&width=400"
+  const image = blog.image || "/vercel.svg?height=200&width=400"
   
   const handleShare = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -58,7 +58,7 @@ export function BlogCard({ blog }: BlogCardProps) {
     <Card className="overflow-hidden transition-all hover:shadow-md h-full flex flex-col group">
       <div className="relative h-48 overflow-hidden">
         <img 
-          src={image || "/placeholder.svg"} 
+          src={image || "/vercel.svg"} 
           alt={blog.title} 
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
@@ -106,7 +106,7 @@ export function BlogCard({ blog }: BlogCardProps) {
       <CardFooter className="flex items-center justify-between border-t p-4">
         <div className="flex items-center space-x-2">
           <Avatar className="h-6 w-6">
-            <AvatarImage src="/placeholder.svg" alt={blog.author} />
+            <AvatarImage src="/vercel.svg" alt={blog.author} />
             <AvatarFallback>{blog.author.charAt(0)}</AvatarFallback>
           </Avatar>
           <span className="text-xs font-medium">{blog.author}</span>

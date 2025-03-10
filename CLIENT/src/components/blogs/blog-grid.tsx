@@ -23,7 +23,7 @@ const mockBlogs = [
     likes: 87,
     views: 1243,
     comments: 15,
-    image: "/placeholder.svg?height=200&width=400&text=Next.js+%26+Tailwind"
+    image: "/vercel.svg?height=200&width=400&text=Next.js+%26+Tailwind"
   },
   {
     id: 2,
@@ -40,7 +40,7 @@ const mockBlogs = [
     likes: 62,
     views: 876,
     comments: 9,
-    image: "/placeholder.svg?height=200&width=400&text=TypeScript"
+    image: "/vercel.svg?height=200&width=400&text=TypeScript"
   },
   {
     id: 3,
@@ -57,7 +57,7 @@ const mockBlogs = [
     likes: 124,
     views: 2156,
     comments: 23,
-    image: "/placeholder.svg?height=200&width=400&text=UI+Design"
+    image: "/vercel.svg?height=200&width=400&text=UI+Design"
   },
   {
     id: 4,
@@ -74,7 +74,7 @@ const mockBlogs = [
     likes: 93,
     views: 1567,
     comments: 12,
-    image: "/placeholder.svg?height=200&width=400&text=Accessibility"
+    image: "/vercel.svg?height=200&width=400&text=Accessibility"
   },
   {
     id: 5,
@@ -91,7 +91,7 @@ const mockBlogs = [
     likes: 78,
     views: 1342,
     comments: 18,
-    image: "/placeholder.svg?height=200&width=400&text=React+State"
+    image: "/vercel.svg?height=200&width=400&text=React+State"
   },
   {
     id: 6,
@@ -108,7 +108,7 @@ const mockBlogs = [
     likes: 105,
     views: 1876,
     comments: 14,
-    image: "/placeholder.svg?height=200&width=400&text=Performance"
+    image: "/vercel.svg?height=200&width=400&text=Performance"
   },
   {
     id: 7,
@@ -125,7 +125,7 @@ const mockBlogs = [
     likes: 89,
     views: 1432,
     comments: 16,
-    image: "/placeholder.svg?height=200&width=400&text=GraphQL"
+    image: "/vercel.svg?height=200&width=400&text=GraphQL"
   },
   {
     id: 8,
@@ -142,7 +142,7 @@ const mockBlogs = [
     likes: 112,
     views: 1987,
     comments: 21,
-    image: "/placeholder.svg?height=200&width=400&text=Responsive"
+    image: "/vercel.svg?height=200&width=400&text=Responsive"
   }
 ];
 
@@ -260,7 +260,7 @@ export function BlogGrid({
       
       if (tagNames.length > 0) {
         result = result.filter(blog => 
-          blog.tags && blog.tags.some((tag) => tagNames.includes(tag as typeof tagNames[number]))
+          blog.tags && blog.tags.some((tag:any) => tagNames.includes(tag as typeof tagNames[number]))
         );
       }
     }

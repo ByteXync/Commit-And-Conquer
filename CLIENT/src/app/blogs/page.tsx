@@ -26,7 +26,7 @@ export default function BlogsPage() {
               <div className="relative h-60 md:h-auto bg-muted">
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-background/20 md:hidden" />
                 <img
-                  src="/placeholder.svg?height=600&width=800"
+                  src="/vercel.svg?height=600&width=800"
                   alt="Featured blog post"
                   className="h-full w-full object-cover"
                 />
@@ -49,7 +49,7 @@ export default function BlogsPage() {
                 <div className="mt-6 flex items-center gap-2">
                   <div className="h-8 w-8 rounded-full bg-muted overflow-hidden">
                     <img
-                      src="/placeholder.svg?height=32&width=32"
+                      src="/vercel.svg?height=32&width=32"
                       alt="Author"
                       className="h-full w-full object-cover"
                     />
@@ -96,7 +96,7 @@ export default function BlogsPage() {
                 <div className="relative h-60 md:h-auto bg-muted">
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-background/20 md:hidden" />
                   <img
-                    src="/placeholder.svg?height=600&width=800"
+                    src="/vercel.svg?height=600&width=800"
                     alt="Featured blog post"
                     className="h-full w-full object-cover"
                   />
@@ -119,7 +119,7 @@ export default function BlogsPage() {
                   <div className="mt-6 flex items-center gap-2">
                     <div className="h-8 w-8 rounded-full bg-muted overflow-hidden">
                       <img
-                        src="/placeholder.svg?height=32&width=32"
+                        src="/vercel.svg?height=32&width=32"
                         alt="Author"
                         className="h-full w-full object-cover"
                       />
@@ -138,7 +138,7 @@ export default function BlogsPage() {
                 <div className="relative h-60 md:h-auto bg-muted">
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-background/20 md:hidden" />
                   <img
-                    src="/placeholder.svg?height=600&width=800"
+                    src="/vercel.svg?height=600&width=800"
                     alt="Featured blog post"
                     className="h-full w-full object-cover"
                   />
@@ -161,7 +161,7 @@ export default function BlogsPage() {
                   <div className="mt-6 flex items-center gap-2">
                     <div className="h-8 w-8 rounded-full bg-muted overflow-hidden">
                       <img
-                        src="/placeholder.svg?height=32&width=32"
+                        src="/vercel.svg?height=32&width=32"
                         alt="Author"
                         className="h-full w-full object-cover"
                       />

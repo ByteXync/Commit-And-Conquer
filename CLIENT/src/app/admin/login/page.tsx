@@ -32,7 +32,7 @@ export default function AdminLoginPage() {
       {/* Right side - Image */}
       <div className="hidden lg:block relative bg-muted">
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-background/20" />
-        <Image src="/placeholder.svg?height=1080&width=1920" alt="Admin Login" fill className="object-cover" priority />
+        <Image src="/vercel.svg?height=1080&width=1920" alt="Admin Login" fill className="object-cover" priority />
         <div className="relative z-10 flex flex-col justify-end h-full p-8 xl:p-12">
           <div className="max-w-md bg-background/80 backdrop-blur-sm p-6 rounded-xl border shadow-lg">
             <blockquote className="space-y-2">
