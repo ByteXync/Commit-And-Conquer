@@ -1,22 +1,37 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Loader2 } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2 } from "lucide-react";
+import DarkModeToggle from "@/components/DarkModeToggle";
 
 function AdminLoginPage() {
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [adminKey, setAdminKey] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [adminKey, setAdminKey] = useState("")
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = async (e:React.FormEvent) => {
-    e.preventDefault()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+
+    if (!username || !password) {
+      setError("Please enter both username and password");
+      return;
 
     // Reset error state
     setError("")
@@ -25,12 +40,18 @@ function AdminLoginPage() {
     if (!email || !password) {
       setError("Please enter both username and password")
       return
+
     }
 
-    // Show loading state
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("Login submitted:", { username, password, adminKey });
+      setIsLoading(false);
+      setError("");
+
       // This is where you would typically make an API call to authenticate
       // For example:
       const response = await fetch('http://localhost:8000/user/adminauth/login', {
@@ -56,21 +77,23 @@ function AdminLoginPage() {
 
       // Redirect to dashboard
       window.location.href = "/admin/dashboard";
-      
+
     } catch (err) {
-      // Handle login error
-      setIsLoading(false)
-      setError("Invalid credentials")
-      console.error("Login error:", err)
+      setIsLoading(false);
+      setError("Invalid credentials");
+      console.error("Login error:", err);
     }
-  }
+  };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-900 px-4 py-12 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold tracking-tight">Admin Sign In</CardTitle>
           <CardDescription>Enter your credentials to access the admin panel</CardDescription>
+          <div className="flex justify-end">
+            <DarkModeToggle />
+          </div>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
@@ -138,8 +161,7 @@ function AdminLoginPage() {
         </form>
       </Card>
     </div>
-  )
+  );
 }
 
-export default AdminLoginPage
-
+export default AdminLoginPage;
