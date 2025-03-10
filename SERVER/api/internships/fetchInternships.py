@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
+from SERVER.api.internships import fetchInternships
 from prisma.models import Internship as PrismaInternship
 
 class Internship(BaseModel):
