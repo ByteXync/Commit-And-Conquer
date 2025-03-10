@@ -1,12 +1,9 @@
 import AdminSignUp from "@/components/adminSignup"
-
-
-function page() {
+function Page() {
   return (
     <div>
       <AdminSignUp/>
     </div>
   )
 }
-
-export default page
+export default Page;

@@ -1,6 +1,6 @@
 import Dashboard from "@/components/dashboard/dashboard"
 
-function page() {
+function Page() {
   return (
     <div>
       <Dashboard/>
@@ -8,4 +8,4 @@ function page() {
   )
 }
 
-export default page
+export default Page;
