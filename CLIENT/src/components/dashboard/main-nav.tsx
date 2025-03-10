@@ -1,4 +1,6 @@
 import Link from "next/link"
+import DarkModeToggle from "./DarkModeToggle";
+
 
 export function MainNav() {
   return (
@@ -6,6 +8,7 @@ export function MainNav() {
       <Link href="/" className="text-sm font-medium transition-colors hover:text-primary">
         Dashboard
       </Link>
+      <DarkModeToggle />
     </div>
   )
 }
