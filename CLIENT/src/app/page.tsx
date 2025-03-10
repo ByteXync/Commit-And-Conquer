@@ -20,7 +20,9 @@ const LandingPage = () => {
             <Link href="/features">
               <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Features</Button>
             </Link>
-            <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Pricing</Button>
+            <Link href="/pricing">
+              <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Pricing</Button>
+            </Link>
             <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">About</Button>
             <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Contact</Button>
           </div>
