@@ -60,7 +60,7 @@ const LandingPage = () => {
 
         {/* Footer */}
         <div className="mt-8 text-center text-gray-500 dark:text-gray-400">
-          © 2024 Your Company. All rights reserved.
+          © 2024 Your Company. All rights reserved..
         </div>
       </div>
     </div>
