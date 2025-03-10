@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/lib/auth-context"
 
 function AdminLoginPage() {
   const [username, setUsername] = useState("")
@@ -14,6 +16,8 @@ function AdminLoginPage() {
   const [adminKey, setAdminKey] = useState("")
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+  const { adminLogin } = useAuth()
 
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault()
@@ -27,33 +31,23 @@ function AdminLoginPage() {
       return
     }
 
+    if (!adminKey) {
+      setError("Admin key is required")
+      return
+    }
+
     // Show loading state
     setIsLoading(true)
 
     try {
-      // This is where you would typically make an API call to authenticate
-      // For example:
-      // const response = await fetch('/api/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ username, password, adminKey }),
-      // });
-
-      // Simulate API call with timeout
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // If login is successful, you could redirect or update state
-      // window.location.href = '/dashboard';
-
-      console.log("Login submitted:", { username, password, adminKey })
-
-      // For demo purposes, we'll just show a success message
-      setIsLoading(false)
-      setError("")
-    } catch (err) {
+      await adminLogin(username, password, adminKey)
+      
+      // Redirect to admin dashboard after successful login
+      router.push("/admin/dashboard")
+    } catch (err: any) {
       // Handle login error
       setIsLoading(false)
-      setError("Invalid credentials")
+      setError(err.message || "Invalid credentials")
       console.error("Login error:", err)
     }
   }
@@ -73,13 +67,13 @@ function AdminLoginPage() {
               </Alert>
             )}
             <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username">Email</Label>
               <Input
                 id="username"
-                type="text"
+                type="email"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Enter your username"
+                placeholder="Enter your email"
                 disabled={isLoading}
                 required
               />
@@ -105,6 +99,7 @@ function AdminLoginPage() {
                 onChange={(e) => setAdminKey(e.target.value)}
                 placeholder="Enter admin key"
                 disabled={isLoading}
+                required
               />
             </div>
           </CardContent>
@@ -123,7 +118,7 @@ function AdminLoginPage() {
               <a href="/forgot-password" className="font-medium text-primary hover:underline">
                 Forgot password?
               </a>
-              <a href="/register" className="font-medium text-primary hover:underline">
+              <a href="/admin/register" className="font-medium text-primary hover:underline">
                 Request admin access
               </a>
             </div>
@@ -135,4 +130,3 @@ function AdminLoginPage() {
 }
 
 export default AdminLoginPage
-

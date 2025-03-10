@@ -122,76 +122,76 @@ repo-root/
 ## LeaderBoard 🏆
 
 <!-- LEADERBOARD_START -->
-1. SayGex: 15
-2. Clueless : 10
-3. Talaash : 10
-4. CypherSquad: 0
-5. Abenders: 0
-6. DeVvoyagers: 0
-7. 404 Not Found : 0
-8. Anveshika: 0
-9. Low Day: 0
-10. BitbyBit: 0
-11. Codestorm : 0
-12. Bototrons: 0
-13. Anveshika : 0
-14. Team : 0
-15. Gitify: 0
-16. Thund3rbird : 0
-17. Aquaman: 0
-18. what is git?: 0
-19. Quark Script: 0
-20. Team 201: 0
-21. Team Mast Orbiters: 0
-22. Team UNO: 0
-23. Yeagerists: 0
-24. Kisi ka laptop kisi ka code: 0
-25. Bottle cap: 0
-26. Code phatt gya: 0
-27. oggy & the cockroaches : 0
-28. Non Coders: 0
-29. Kshitij Prasad : 0
-30. Merge Masters : 0
-31. Alpha four: 0
-32. OpnSrc: 0
-33. Code 404: 0
-34. Merge Masters: 0
-35. code overflow: 0
-36. Dora team: 0
-37. Error : 0
-38. Tech Titans : 0
-39. Super queens: 0
-40. Codepushers: 0
-41. Ctrl + c & Ctrl + v: 0
-42. Strive Squad : 0
-43. Game changers: 0
-44. DQueen: 0
-45. RedEye: 0
-46. Aatu Jhaatu: 0
-47. Ace: 0
-48. Binary: 0
-49. Tech Titans: 0
-50. Cyber_Coders: 0
-51. Batch D2: 0
-52. Code-Cartel: 0
-53. Hackity: 0
-54. AS: 0
-55. Ujwal Kumar B R : 0
-56. SYNTAX ERROR: 0
-57. Hack: 0
-58. TEAM NDC: 0
-59. Vinith Chavan : 0
-60. Sujeet: 0
-61. BugSync: 0
-62. Byte Jinx: 0
-63. Caffeine Overdose : 0
-64. Dev cardio: 0
-65. Tech Titans : 0
-66. It'sworkingsomehow : 0
-67. Hacktivate: 0
-68. PR RANGERS: 0
-69. Leviathan Squad: 0
-70. Octagram: 0
-71. Gitcoders: 0
+1. SayGex: 45
+2. Code 404: 20
+3. Talaash : 20
+4. Clueless : 10
+5. Gitcoders: 5
+6. Merge Masters: 0
+7. Aquaman: 0
+8. DeVvoyagers: 0
+9. 404 Not Found : 0
+10. Anveshika: 0
+11. Low Day: 0
+12. BitbyBit: 0
+13. Codestorm : 0
+14. Bototrons: 0
+15. Anveshika : 0
+16. Team : 0
+17. Gitify: 0
+18. Thund3rbird : 0
+19. Tech Titans : 0
+20. what is git?: 0
+21. Quark Script: 0
+22. Team 201: 0
+23. Team Mast Orbiters: 0
+24. Team UNO: 0
+25. Yeagerists: 0
+26. Kisi ka laptop kisi ka code: 0
+27. Bottle cap: 0
+28. Code phatt gya: 0
+29. oggy & the cockroaches : 0
+30. Non Coders: 0
+31. Kshitij Prasad : 0
+32. Merge Masters : 0
+33. Alpha four: 0
+34. OpnSrc: 0
+35. CypherSquad: 0
+36. Super queens: 0
+37. Dora team: 0
+38. Strive Squad : 0
+39. Abenders: 0
+40. code overflow: 0
+41. Codepushers: 0
+42. Ctrl + c & Ctrl + v: 0
+43. Error : 0
+44. Game changers: 0
+45. DQueen: 0
+46. RedEye: 0
+47. Aatu Jhaatu: 0
+48. Ace: 0
+49. Binary: 0
+50. Tech Titans: 0
+51. Cyber_Coders: 0
+52. Batch D2: 0
+53. Code-Cartel: 0
+54. Hackity: 0
+55. AS: 0
+56. Ujwal Kumar B R : 0
+57. SYNTAX ERROR: 0
+58. Hack: 0
+59. TEAM NDC: 0
+60. Vinith Chavan : 0
+61. Sujeet: 0
+62. BugSync: 0
+63. Byte Jinx: 0
+64. Caffeine Overdose : 0
+65. Dev cardio: 0
+66. Tech Titans : 0
+67. It'sworkingsomehow : 0
+68. Hacktivate: 0
+69. PR RANGERS: 0
+70. Leviathan Squad: 0
+71. Octagram: 0
 <!-- LEADERBOARD_END -->
 
