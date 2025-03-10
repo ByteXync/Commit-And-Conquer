@@ -45,3 +45,8 @@ async def login(admin: AdminLogin):
     else:
         return {"error":"Incorrect credentials"}
         
+
+
+@router.get("/user/protected")
+async def protected_route(user: dict = Depends(verify_token)):
+    return {"message": "Access granted", "user": user}
