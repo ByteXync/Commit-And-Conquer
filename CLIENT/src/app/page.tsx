@@ -1,107 +1,236 @@
-"use client";
+"use client"
 
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { ChevronRight } from 'lucide-react';
+import { useState, useEffect } from "react"
+import { UserNav } from "@/components/dashboard/user-nav"
+import { MainNav } from "@/components/dashboard/main-nav"
+import { InternshipList } from "@/components/dashboard/internship-list"
+import { BasicSidebar } from "@/components/dashboard/dashboard-sidebar"
+import { Search } from "@/components/dashboard/search"
+import { Button } from "@/components/ui/button"
+import { Filter, Menu, Plus, BriefcaseBusiness, Laptop } from "lucide-react"
+// Explicitly import Sun and Moon icons
+import { Sun, Moon } from "lucide-react"
 
-const LandingPage = () => {
+// Theme Toggle Component with Dropdown
+const ThemeToggle = () => {
+  const [theme, setTheme] = useState("system")
+  const [isOpen, setIsOpen] = useState(false)
+  
+  useEffect(() => {
+    // Check for stored preference
+    const savedTheme = localStorage.getItem("theme") || "system"
+    setTheme(savedTheme)
+    
+    if (savedTheme === "dark" || 
+        (savedTheme === "system" && 
+         window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark")
+    } else {
+      document.documentElement.classList.remove("dark")
+    }
+    
+    // Listen for system preference changes
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+    const handleChange = () => {
+      if (theme === "system") {
+        document.documentElement.classList.toggle("dark", mediaQuery.matches)
+      }
+    }
+    
+    mediaQuery.addEventListener("change", handleChange)
+    return () => mediaQuery.removeEventListener("change", handleChange)
+  }, [theme])
+  
+  const setMode = (mode) => {
+    setTheme(mode)
+    localStorage.setItem("theme", mode)
+    
+    if (mode === "dark" || 
+        (mode === "system" && 
+         window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      document.documentElement.classList.add("dark")
+    } else {
+      document.documentElement.classList.remove("dark")
+    }
+    
+    setIsOpen(false)
+  }
+  
+  // Function to render the appropriate icon
+  const renderThemeIcon = () => {
+    if (theme === "light") {
+      return <Sun className="h-5 w-5 text-amber-500" />
+    } else if (theme === "dark") {
+      return <Moon className="h-5 w-5 text-indigo-400" />
+    } else {
+      return <Laptop className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+    }
+  }
+  
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-background/90 flex flex-col items-center justify-center p-4">
-      {/* Header with theme toggle */}
-      <header className="fixed top-0 w-full bg-background/90 backdrop-blur-sm z-10 border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center">
-            <div className="h-8 w-8 rounded-md bg-gradient-to-tr from-blue-600 to-purple-600 mr-3"></div>
-            <span className="font-bold text-lg text-foreground">Platform</span>
-          </div>
-          <ThemeToggle />
-        </div>
-      </header>
+    <div className="relative">
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="rounded-full h-10 w-10"
+        aria-label="Change theme"
+      >
+        {renderThemeIcon()}
+      </Button>
       
-      <div className="max-w-5xl w-full pt-20 pb-12">
-        {/* Main title section */}
-        <div className="text-center mb-12 pb-6 border-b border-border/40">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-            Welcome to the Platform
-          </h1>
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50">
+          <button 
+            className="flex items-center w-full px-3 py-2 text-sm text-left hover:bg-gray-100 dark:hover:bg-gray-700"
+            onClick={() => setMode("light")}
+          >
+            <Sun className="h-4 w-4 mr-2 text-amber-500" />
+            Light
+          </button>
+          <button 
+            className="flex items-center w-full px-3 py-2 text-sm text-left hover:bg-gray-100 dark:hover:bg-gray-700"
+            onClick={() => setMode("dark")}
+          >
+            <Moon className="h-4 w-4 mr-2 text-indigo-400" />
+            Dark
+          </button>
+          <button 
+            className="flex items-center w-full px-3 py-2 text-sm text-left hover:bg-gray-100 dark:hover:bg-gray-700"
+            onClick={() => setMode("system")}
+          >
+            <Laptop className="h-4 w-4 mr-2 text-gray-600 dark:text-gray-300" />
+            System
+          </button>
         </div>
-        
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Admin Section */}
-          <Card className="shadow-lg border border-border/50 overflow-hidden group hover:border-blue-500/30 transition-all duration-300">
-            <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-600"></div>
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl text-center">Admin Portal</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 pt-2">
-              <div className="flex flex-col space-y-3">
-                <a href="/admin/login" className="w-full">
-                  <Button variant="outline" className="w-full justify-between group-hover:border-blue-200 dark:group-hover:border-blue-800 transition-colors">
-                    <span>Admin Login</span>
-                    <ChevronRight className="h-4 w-4 opacity-70" />
-                  </Button>
-                </a>
-                <a href="/admin/register" className="w-full">
-                  <Button variant="outline" className="w-full justify-between group-hover:border-blue-200 dark:group-hover:border-blue-800 transition-colors">
-                    <span>Admin Register</span>
-                    <ChevronRight className="h-4 w-4 opacity-70" />
-                  </Button>
-                </a>
-                <a href="/admin/dashboard" className="w-full">
-                  <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 border-0 text-white">
-                    Go to Admin Dashboard
-                  </Button>
-                </a>
-              </div>
-            </CardContent>
-          </Card>
+      )}
+    </div>
+  )
+}
 
-          {/* User Section */}
-          <Card className="shadow-lg border border-border/50 overflow-hidden group hover:border-purple-500/30 transition-all duration-300">
-            <div className="h-2 bg-gradient-to-r from-purple-500 to-pink-600"></div>
-            <CardHeader className="pb-4">
-              <CardTitle className="text-2xl text-center">User Portal</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 pt-2">
-              <div className="flex flex-col space-y-3">
-                <a href="/user/login" className="w-full">
-                  <Button variant="outline" className="w-full justify-between group-hover:border-purple-200 dark:group-hover:border-purple-800 transition-colors">
-                    <span>User Login</span>
-                    <ChevronRight className="h-4 w-4 opacity-70" />
-                  </Button>
-                </a>
-                <a href="/user/register" className="w-full">
-                  <Button variant="outline" className="w-full justify-between group-hover:border-purple-200 dark:group-hover:border-purple-800 transition-colors">
-                    <span>User Register</span>
-                    <ChevronRight className="h-4 w-4 opacity-70" />
-                  </Button>
-                </a>
-                <a href="/user/dashboard" className="w-full">
-                  <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transition-all duration-300 border-0 text-white">
-                    Go to User Dashboard
-                  </Button>
-                </a>
-              </div>
-            </CardContent>
-          </Card>
+export default function Dashboard() {
+  const [filterOpen, setFilterOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(true)
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-950 flex flex-col">
+      <div className="flex flex-1">
+        {/* Sidebar with transition */}
+        <div className={`transition-all duration-300 ease-in-out ${sidebarOpen ? 'w-64' : 'w-0 -ml-6'} hidden md:block`}>
+          <BasicSidebar />
         </div>
         
-        {/* Footer */}
-        <footer className="mt-16 pt-8 border-t border-border/40 text-center text-muted-foreground">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div>© 2025 All rights reserved.</div>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
-              <a href="#" className="hover:text-foreground transition-colors">Terms</a>
-              <a href="#" className="hover:text-foreground transition-colors">Contact</a>
+        <div className="flex-1 flex flex-col">
+          {/* Enhanced header with theme toggle */}
+          <header className="sticky top-0 z-30 flex h-16 items-center border-b bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm px-6 shadow-sm">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => setSidebarOpen(!sidebarOpen)} 
+              className="mr-4 md:flex hidden"
+            >
+              <Menu className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+            </Button>
+            
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => setSidebarOpen(!sidebarOpen)} 
+              className="mr-4 md:hidden flex"
+            >
+              <Menu className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+            </Button>
+            
+            <div className="flex items-center">
+              <div className="h-8 w-8 rounded-md bg-gradient-to-tr from-blue-600 to-purple-600 mr-3"></div>
+              <span className="font-bold text-lg text-foreground">Platform</span>
             </div>
+            
+            <div className="ml-6 hidden md:block">
+              <MainNav />
+            </div>
+            
+            <div className="ml-auto flex items-center space-x-4">
+              <Search />
+              <ThemeToggle />
+              <UserNav />
+            </div>
+          </header>
+          
+          {/* Mobile navigation for small screens */}
+          <div className="md:hidden border-b bg-white/90 dark:bg-gray-900/90 px-6 py-2">
+            <MainNav />
           </div>
-        </footer>
+          
+          {/* Main content */}
+          <main className="flex-1 p-6 md:p-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+              <div className="flex items-center">
+                <BriefcaseBusiness className="h-8 w-8 mr-3 text-indigo-600 dark:text-indigo-400" />
+                <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Internships</h1>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setFilterOpen(!filterOpen)} 
+                  className={`flex items-center gap-2 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 ${filterOpen ? 'bg-gray-100 dark:bg-gray-800' : ''}`}
+                >
+                  <Filter className="h-4 w-4" />
+                  Filters
+                </Button>
+                
+                <Button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white">
+                  <Plus className="h-4 w-4" />
+                  New Internship
+                </Button>
+              </div>
+            </div>
+            
+            {/* Filter section with animation */}
+            {filterOpen && (
+              <div className="mb-6 p-5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 shadow-sm animate-in fade-in duration-300">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <h3 className="font-medium text-sm text-gray-500 dark:text-gray-400">Location</h3>
+                    <select className="w-full rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2 text-sm">
+                      <option>All Locations</option>
+                      <option>Remote</option>
+                      <option>New York</option>
+                      <option>San Francisco</option>
+                    </select>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="font-medium text-sm text-gray-500 dark:text-gray-400">Duration</h3>
+                    <select className="w-full rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2 text-sm">
+                      <option>Any Duration</option>
+                      <option>1-3 months</option>
+                      <option>3-6 months</option>
+                      <option>6+ months</option>
+                    </select>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="font-medium text-sm text-gray-500 dark:text-gray-400">Field</h3>
+                    <select className="w-full rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2 text-sm">
+                      <option>All Fields</option>
+                      <option>Software Engineering</option>
+                      <option>Design</option>
+                      <option>Marketing</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Main content area with subtle shadow and rounded corners */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-1">
+              <InternshipList />
+            </div>
+          </main>
+        </div>
       </div>
     </div>
-  );
-};
-
-export default LandingPage;
+  )
+}
