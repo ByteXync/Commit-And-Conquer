@@ -1,19 +1,18 @@
 "use client"
 
-import { Toaster as SonnerToaster } from "sonner"
-import { useTheme } from "@/components/theme-provider"
+import { Toaster } from "sonner"
+import { useTheme } from "next-themes"
 
 export function SonnerProvider() {
   const { theme } = useTheme()
 
   return (
-    <SonnerToaster
+    <Toaster
       position="top-right"
       theme={theme as "light" | "dark" | "system"}
-      closeButton
+      className="z-50"
       richColors
-      expand={false}
-      duration={4000}
+      closeButton
     />
   )
 }
