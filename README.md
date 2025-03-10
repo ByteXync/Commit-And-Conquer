@@ -122,39 +122,39 @@ repo-root/
 ## LeaderBoard 🏆
 
 <!-- LEADERBOARD_START -->
-1. SayGex: 15
+1. SayGex: 35
 2. Clueless : 10
-3. Talaash : 10
-4. CypherSquad: 0
-5. Abenders: 0
-6. DeVvoyagers: 0
-7. 404 Not Found : 0
-8. Anveshika: 0
-9. Low Day: 0
-10. BitbyBit: 0
-11. Codestorm : 0
-12. Bototrons: 0
-13. Anveshika : 0
-14. Team : 0
-15. Gitify: 0
-16. Thund3rbird : 0
-17. Aquaman: 0
-18. what is git?: 0
-19. Quark Script: 0
-20. Team 201: 0
-21. Team Mast Orbiters: 0
-22. Team UNO: 0
-23. Yeagerists: 0
-24. Kisi ka laptop kisi ka code: 0
-25. Bottle cap: 0
-26. Code phatt gya: 0
-27. oggy & the cockroaches : 0
-28. Non Coders: 0
-29. Kshitij Prasad : 0
-30. Merge Masters : 0
-31. Alpha four: 0
-32. OpnSrc: 0
-33. Code 404: 0
+3. Code 404: 10
+4. Talaash : 10
+5. CypherSquad: 0
+6. Abenders: 0
+7. DeVvoyagers: 0
+8. 404 Not Found : 0
+9. Anveshika: 0
+10. Low Day: 0
+11. BitbyBit: 0
+12. Codestorm : 0
+13. Bototrons: 0
+14. Anveshika : 0
+15. Team : 0
+16. Gitify: 0
+17. Thund3rbird : 0
+18. Aquaman: 0
+19. what is git?: 0
+20. Quark Script: 0
+21. Team 201: 0
+22. Team Mast Orbiters: 0
+23. Team UNO: 0
+24. Yeagerists: 0
+25. Kisi ka laptop kisi ka code: 0
+26. Bottle cap: 0
+27. Code phatt gya: 0
+28. oggy & the cockroaches : 0
+29. Non Coders: 0
+30. Kshitij Prasad : 0
+31. Merge Masters : 0
+32. Alpha four: 0
+33. OpnSrc: 0
 34. Merge Masters: 0
 35. code overflow: 0
 36. Dora team: 0
