@@ -22,7 +22,7 @@ function LoginPage() {
     setError("")
 
     try {
-      const response = await fetch("http://localhost:8000/user/login", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,14 +37,14 @@ function LoginPage() {
       const data = await response.json()
 
       if (response.ok) {
-        // Save the token and redirect to the dashboard or home page
         localStorage.setItem("token", data.token)
         router.push("/dashboard")
       } else {
         setError(data.error || "An error occurred")
       }
     } catch (err) {
-      setError("An error occurred")
+      console.error(err) // Log the error for debugging
+      setError("An error occurred while trying to log in.")
     } finally {
       setIsLoading(false)
     }
@@ -60,7 +60,7 @@ function LoginPage() {
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             {error && (
-              <Alert variant="destructive">
+              <Alert variant="destructive" role="alert" aria-live="assertive">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
@@ -93,7 +93,6 @@ function LoginPage() {
                 required
               />
             </div>
-            
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
             <Button type="submit" className="w-full" disabled={isLoading}>
@@ -120,4 +119,3 @@ function LoginPage() {
 }
 
 export default LoginPage
-
