@@ -1,62 +1,45 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Loader2 } from "lucide-react"
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2 } from "lucide-react";
 
 function AdminLoginPage() {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [adminKey, setAdminKey] = useState("")
-  const [error, setError] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [adminKey, setAdminKey] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showAdminKey, setShowAdminKey] = useState(false);
 
-  const handleSubmit = async (e:React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
 
-    // Reset error state
-    setError("")
-
-    // Validate form
     if (!username || !password) {
-      setError("Please enter both username and password")
-      return
+      setError("Please enter both username and password");
+      return;
     }
 
-    // Show loading state
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-      // This is where you would typically make an API call to authenticate
-      // For example:
-      // const response = await fetch('/api/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ username, password, adminKey }),
-      // });
-
-      // Simulate API call with timeout
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // If login is successful, you could redirect or update state
-      // window.location.href = '/dashboard';
-
-      console.log("Login submitted:", { username, password, adminKey })
-
-      // For demo purposes, we'll just show a success message
-      setIsLoading(false)
-      setError("")
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("Login submitted:", { username, password, adminKey });
+      setIsLoading(false);
+      setError("");
     } catch (err) {
-      // Handle login error
-      setIsLoading(false)
-      setError("Invalid credentials")
-      console.error("Login error:", err)
+      setIsLoading(false);
+      setError("Invalid credentials");
+      console.error("Login error:", err);
     }
-  }
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
@@ -84,28 +67,42 @@ function AdminLoginPage() {
                 required
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 relative">
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 disabled={isLoading}
                 required
               />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <EyeOff /> : <Eye />}
+              </button>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 relative">
               <Label htmlFor="admin-key">Admin Key</Label>
               <Input
                 id="admin-key"
-                type="password"
+                type={showAdminKey ? "text" : "password"}
                 value={adminKey}
                 onChange={(e) => setAdminKey(e.target.value)}
                 placeholder="Enter admin key"
                 disabled={isLoading}
               />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
+                onClick={() => setShowAdminKey(!showAdminKey)}
+              >
+                {showAdminKey ? <EyeOff /> : <Eye />}
+              </button>
             </div>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
@@ -131,8 +128,7 @@ function AdminLoginPage() {
         </form>
       </Card>
     </div>
-  )
+  );
 }
 
-export default AdminLoginPage
-
+export default AdminLoginPage;

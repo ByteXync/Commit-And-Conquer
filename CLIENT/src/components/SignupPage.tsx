@@ -1,152 +1,129 @@
-"use client"
+"use client";
+import Image from 'next/image';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Eye, EyeOff, CheckCircle2, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { AlertCircle, CheckCircle2 } from "lucide-react"
-import { useRouter } from "next/navigation"
 
 export default function SignupPage() {
-  const router = useRouter()
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-  })
-
-  const [errors, setErrors] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-  })
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({ fullName: "", email: "", password: "" });
+  const [errors, setErrors] = useState<{
+    fullName?: string;
+    email?: string;
+    password?: string;
+    server?: string;
+  }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Clear error when user types
     if (errors[name as keyof typeof errors]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }))
+      setErrors((prev) => ({ ...prev, [name as keyof typeof errors]: "" }));
     }
-  }
+  };
 
   const validateForm = () => {
-    let isValid = true
-    const newErrors = { ...errors }
+    let isValid = true;
+    const newErrors: { fullName?: string; email?: string; password?: string } = {};
 
-    // Full name validation
     if (!formData.fullName.trim()) {
-      newErrors.fullName = "Full name is required"
-      isValid = false
+      newErrors.fullName = "Full name is required";
+      isValid = false;
     } else if (formData.fullName.length < 3) {
-      newErrors.fullName = "Full name must be at least 3 characters"
-      isValid = false
+      newErrors.fullName = "Full name must be at least 3 characters";
+      isValid = false;
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
-      isValid = false
+      newErrors.email = "Email is required";
+      isValid = false;
     } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address"
-      isValid = false
+      newErrors.email = "Enter a valid email address";
+      isValid = false;
     }
 
-    // Password validation
     if (!formData.password) {
-      newErrors.password = "Password is required"
-      isValid = false
+      newErrors.password = "Password is required";
+      isValid = false;
     } else if (formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters"
-      isValid = false
+      newErrors.password = "Password must be at least 8 characters";
+      isValid = false;
     }
 
-    setErrors(newErrors)
-    return isValid
-  }
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (!validateForm()) return
-
-    setIsSubmitting(true)
+    e.preventDefault();
+    if (!validateForm()) return;
+    setIsSubmitting(true);
 
     try {
       const response = await fetch("http://localhost:8000/user/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          password: formData.password,
-          role: "USER",
-        }),
-      })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, role: "USER" }),
+      });
 
       if (response.ok) {
-        // Handle successful signup
-        setIsSuccess(true)
-
-        // Reset form after successful submission
-        setFormData({
-          fullName: "",
-          email: "",
-          password: "",
-        })
+        setIsSuccess(true);
+        setFormData({ fullName: "", email: "", password: "" });
       } else {
-        const data = await response.json()
-        setErrors((prev) => ({
-          ...prev,
-          email: data.error || "An error occurred",
-        }))
+        const data = await response.json();
+        setErrors((prev) => ({ ...prev, server: data.error || "An error occurred" }));
       }
     } catch (error) {
-      console.error("Signup error:", error)
-      setErrors((prev) => ({
-        ...prev,
-        email: "An error occurred",
-      }))
+      console.error("Signup error:", error);
+      setErrors((prev) => ({ ...prev, server: "An error occurred" }));
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Create an account</CardTitle>
-          <CardDescription className="text-center">Enter your details below to create your account</CardDescription>
+    <div
+      className="flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat p-6 relative"
+      style={{ backgroundImage: `url('/backgroundimage.jpg')` }}
+    >
+      <div className="absolute top-4 left-4">
+        <Image src="/logo.png" alt="Logo" width={100} height={50} />
+      </div>
+      <Card className="w-full max-w-lg shadow-xl rounded-lg bg-white p-6">
+        <CardHeader className="text-center">
+          <CardTitle className="text-3xl font-semibold">Sign Up</CardTitle>
+          <CardDescription>Enter your details to create an account</CardDescription>
         </CardHeader>
         <CardContent>
           {isSuccess ? (
-            <div className="flex flex-col items-center justify-center py-4 text-center">
-              <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
-              <h3 className="text-xl font-semibold">Registration Successful!</h3>
-              <p className="text-muted-foreground mt-2">Your account has been created successfully.</p>
-              <Button className="mt-6" onClick={() =>{router.push('/login')} }>
-                Navigate to Login Page
+            <div className="flex flex-col items-center text-center space-y-4">
+              <CheckCircle2 className="h-16 w-16 text-green-500" />
+              <h3 className="text-2xl font-semibold">Registration Successful!</h3>
+              <p className="text-gray-600">Your account has been created successfully.</p>
+              <Button className="w-full" onClick={() => router.push("/login")}>
+                Go to Login
               </Button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {errors.server && <p className="text-sm text-destructive">{errors.server}</p>}
+              <div>
                 <Label htmlFor="fullName">Full Name</Label>
                 <Input
                   id="fullName"
@@ -154,7 +131,7 @@ export default function SignupPage() {
                   placeholder="John Doe"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className={errors.fullName ? "border-red-500" : ""}
+                  className={`border ${errors.fullName ? "border-red-500" : ""}`}
                 />
                 {errors.fullName && (
                   <div className="flex items-center text-red-500 text-sm mt-1">
@@ -164,7 +141,7 @@ export default function SignupPage() {
                 )}
               </div>
 
-              <div className="space-y-2">
+              <div>
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
@@ -173,7 +150,7 @@ export default function SignupPage() {
                   placeholder="john.doe@example.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className={errors.email ? "border-red-500" : ""}
+                  className={`border ${errors.email ? "border-red-500" : ""}`}
                 />
                 {errors.email && (
                   <div className="flex items-center text-red-500 text-sm mt-1">
@@ -183,37 +160,42 @@ export default function SignupPage() {
                 )}
               </div>
 
-              <div className="space-y-2">
+              <div>
                 <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className={errors.password ? "border-red-500" : ""}
-                />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={`border ${errors.password ? "border-red-500" : ""}`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
                 {errors.password && (
                   <div className="flex items-center text-red-500 text-sm mt-1">
                     <AlertCircle className="h-4 w-4 mr-1" />
                     <span>{errors.password}</span>
                   </div>
                 )}
-                <p className="text-xs text-muted-foreground mt-1">Password must be at least 8 characters long</p>
+                <p className="text-xs text-gray-500 mt-1">Password must be at least 8 characters long</p>
               </div>
+
+              <Button className="w-full" type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Creating Account..." : "Sign Up"}
+              </Button>
             </form>
           )}
         </CardContent>
-        {!isSuccess && (
-          <CardFooter>
-            <Button className="w-full" type="submit" onClick={handleSubmit} disabled={isSubmitting}>
-              {isSubmitting ? "Creating Account..." : "Sign Up"}
-            </Button>
-          </CardFooter>
-        )}
       </Card>
     </div>
-  )
+  );
 }
-
