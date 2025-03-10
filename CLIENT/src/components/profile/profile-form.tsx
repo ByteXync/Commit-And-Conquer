@@ -34,7 +34,7 @@ export function ProfileForm() {
   };
 
   return (
-    <Card className="max-w-2xl w-full mx-auto shadow-lg rounded-2xl border border-border/40 bg-white overflow-hidden">
+    <Card className="max-w-2xl w-full mx-auto shadow-lg rounded-2xl border border-border/40 bg-white overflow-hidden mt-10">
       <CardHeader className="text-center pb-4 border-b bg-muted/30">
         <div className="flex flex-col items-center gap-4">
           <div className="relative group">
