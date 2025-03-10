@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Building2, Clock, MapPin } from "lucide-react"
+import { Building2, Clock, MapPin, User } from "lucide-react"
 
 interface Internship {
   id: number
@@ -12,6 +12,8 @@ interface Internship {
   type: string
   duration: string
   description: string
+  adminName: string // Admin Name
+  adminEmail: string // Admin Email
 }
 
 export function InternshipList() {
@@ -50,6 +52,15 @@ export function InternshipList() {
               </div>
               <Badge className="w-fit mt-2">{internship.type}</Badge>
               <p className="mt-2 text-sm">{internship.description}</p>
+
+              {/* Admin Information (only visible to users with admin role) */}
+              <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
+                <User className="h-4 w-4" />
+                <div>
+                  <p>Admin: {internship.adminName}</p>
+                  <p>Email: {internship.adminEmail}</p>
+                </div>
+              </div>
             </div>
           </CardContent>
           <CardFooter>
@@ -60,4 +71,3 @@ export function InternshipList() {
     </div>
   )
 }
-

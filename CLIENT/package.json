@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "type": "module", 
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -19,6 +20,7 @@
     "@radix-ui/react-tooltip": "^1.1.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.4.10",
     "lucide-react": "^0.477.0",
     "next": "15.2.0",
     "react": "^19.0.0",

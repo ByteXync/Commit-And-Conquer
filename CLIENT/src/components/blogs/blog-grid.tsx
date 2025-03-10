@@ -15,7 +15,6 @@ export function BlogGrid() {
           throw new Error("Failed to fetch blogs")
         }
         const data = await response.json()
-        console.log(data)
         setBlogs(data)
       } catch (error) {
         console.error("Error fetching blogs:", error)
@@ -27,9 +26,8 @@ export function BlogGrid() {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {blogs.length > 0 ? (
-        blogs.map((blog,index) => (
-          <BlogCard key={blogs.id} blog={blog} />
-
+        blogs.map((blog) => (
+          <BlogCard key={blog.id} blog={blog} />
         ))
       ) : (
         <p>No blogs available</p>
