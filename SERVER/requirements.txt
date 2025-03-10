@@ -27,3 +27,6 @@ tomlkit==0.13.2
 typing_extensions==4.12.2
 uuid==1.30
 uvicorn==0.34.0
+passlib
+passlib[bcrypt]
+pydantic[email]
