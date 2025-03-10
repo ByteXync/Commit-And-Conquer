@@ -10,28 +10,74 @@ import { Loader2 } from "lucide-react";
 import DarkModeToggle from "@/components/DarkModeToggle";
 
 function AdminLoginPage() {
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [adminKey, setAdminKey] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [adminKey, setAdminKey] = useState("")
+  const [error, setError] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
+
     if (!username || !password) {
       setError("Please enter both username and password");
       return;
+
+    // Reset error state
+    setError("")
+
+    // Validate form
+    if (!email || !password) {
+      setError("Please enter both username and password")
+      return
+
     }
 
     setIsLoading(true);
 
     try {
+
       await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log("Login submitted:", { username, password, adminKey });
       setIsLoading(false);
       setError("");
+
+      // This is where you would typically make an API call to authenticate
+      // For example:
+      const response = await fetch('http://localhost:8000/user/adminauth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          email:email, 
+          password:password, 
+          admin_code:adminKey 
+        }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.detail || "Invalid credentials");
+      }
+
+      console.log("Login successful:", data);
+      setIsLoading(false);
+
+      // Store token (example: in localStorage)
+      localStorage.setItem("token", data.token);
+
+      // Redirect to dashboard
+      window.location.href = "/admin/dashboard";
+
     } catch (err) {
       setIsLoading(false);
       setError("Invalid credentials");
@@ -57,12 +103,12 @@ function AdminLoginPage() {
               </Alert>
             )}
             <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username">Email</Label>
               <Input
-                id="username"
+                id="Email"
                 type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your username"
                 disabled={isLoading}
                 required
