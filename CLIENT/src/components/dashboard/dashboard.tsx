@@ -3,142 +3,105 @@
 import { useState } from "react"
 import { UserNav } from "@/components/dashboard/user-nav"
 import { MainNav } from "@/components/dashboard/main-nav"
-import { InternshipList } from "@/components/dashboard/internship-list"
+import  InternshipList  from "../../components/dashboard/internship-list"
 import { BasicSidebar } from "@/components/dashboard/dashboard-sidebar"
 import { Search } from "@/components/dashboard/search"
 import { Button } from "@/components/ui/button"
-import { Filter, Menu, X } from "lucide-react"
+import { Filter, Menu, Activity, BarChart, FileText } from "lucide-react"
 
 export default function Dashboard() {
   const [filterOpen, setFilterOpen] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="flex h-screen w-full bg-gray-100 text-gray-800 overflow-hidden">
-      {/* Sidebar */}
-      <div
-        className={`fixed inset-y-0 left-0 z-40 w-64 transition-transform transform md:relative md:translate-x-0 bg-gray-800 border-r shadow-lg ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
-      >
-        <BasicSidebar />
-      </div>
-
-      {/* Overlay for mobile */}
-      {sidebarOpen && (
-        <div
-          className="fixed inset-0 z-30 bg-black/40 md:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Main Content */}
-      <div className="flex flex-col flex-1 h-full overflow-hidden">
-        <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b bg-white px-4 md:px-6 shadow-sm">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="md:hidden"
-            >
-              {sidebarOpen ? <X className="h-5 w-5 text-gray-800" /> : <Menu className="h-5 w-5 text-gray-800" />}
-            </Button>
-            <MainNav />
-          </div>
-          <div className="flex items-center gap-4">
+    <div className="flex min-h-screen bg-background">
+      <BasicSidebar />
+      <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
+        <header className="sticky top-0 z-30 flex h-16 items-center border-b bg-background px-6">
+          <MainNav />
+          <div className="ml-auto flex items-center space-x-4">
             <Search />
             <UserNav />
           </div>
         </header>
-
-        <main className="flex-1 overflow-y-auto px-4 md:px-8 py-6 bg-gray-50">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-            <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900">Internships</h1>
-            <Button
-              variant="outline"
-              onClick={() => setFilterOpen(!filterOpen)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-200 text-gray-800"
-            >
-              <Filter className="h-4 w-4 text-gray-800" />
-              <span className="text-sm font-medium">Filter</span>
-            </Button>
+        <main className="flex-1 p-6">
+          {filterOpen && (
+            <div className="mb-6 p-4 border rounded-lg bg-white shadow-sm">
+              {/* Add filter options here */}
+              <p>Filter options will go here</p>
+            </div>
+          )}
+          
+          {/* Statistics Section */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="p-6 bg-white rounded-lg shadow-md">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold">Total Internships</h2>
+                <BarChart className="h-6 w-6 text-blue-600" />
+              </div>
+              <p className="text-3xl font-bold text-gray-900">120</p>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-md">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold">Applications</h2>
+                <FileText className="h-6 w-6 text-green-600" />
+              </div>
+              <p className="text-3xl font-bold text-gray-900">45</p>
+            </div>
+            <div className="p-6 bg-white rounded-lg shadow-md">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-bold">Active Users</h2>
+                <Activity className="h-6 w-6 text-purple-600" />
+              </div>
+              <p className="text-3xl font-bold text-gray-900">1,200</p>
+            </div>
           </div>
 
-          {/* Filter Panel */}
-          {filterOpen && (
-  <div className="mb-6 rounded-lg bg-gray-800 p-6 shadow-lg text-white">
-    <h3 className="text-2xl font-semibold mb-4 text-primary-400">Refine Your Search</h3>
-    <p className="text-sm mb-6 text-gray-300">
-      Narrow down your options and discover the internships that suit you best. Apply the filters below and get closer to your dream role!
-    </p>
-    
-    <div className="space-y-6">
-      <div className="space-y-2">
-        <p className="text-lg font-medium text-gray-200">Where Do You Want to Work?</p>
-        <input
-          type="text"
-          placeholder="Enter your preferred location"
-          className="w-full p-3 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
-        />
-      </div>
+          {/* Recent Activities Section */}
+          <div className="mb-6">
+            <h2 className="text-xl font-bold mb-4">Recent Activities</h2>
+            <div className="bg-white p-4 rounded-lg shadow-md">
+              <ul className="space-y-4">
+                <li className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-900 font-semibold">John Doe</p>
+                    <p className="text-gray-600 text-sm">Applied for Software Engineer Internship</p>
+                  </div>
+                  <p className="text-gray-500 text-sm">2 hours ago</p>
+                </li>
+                <li className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-900 font-semibold">Jane Smith</p>
+                    <p className="text-gray-600 text-sm">Updated profile information</p>
+                  </div>
+                  <p className="text-gray-500 text-sm">5 hours ago</p>
+                </li>
+                <li className="flex items-center justify-between">
+                  <div>
+                    <p className="text-gray-900 font-semibold">Michael Brown</p>
+                    <p className="text-gray-600 text-sm">Posted a new blog</p>
+                  </div>
+                  <p className="text-gray-500 text-sm">1 day ago</p>
+                </li>
+              </ul>
+            </div>
+          </div>
 
-      <div className="space-y-2">
-        <p className="text-lg font-medium text-gray-200">Which Industry Sparks Your Interest?</p>
-        <select className="w-full p-3 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500">
-          <option className="text-gray-900">Select an industry</option>
-          <option className="text-gray-900">Tech</option>
-          <option className="text-gray-900">Marketing</option>
-          <option className="text-gray-900">Finance</option>
-          <option className="text-gray-900">Design</option>
-          <option className="text-gray-900">Human Resources</option>
-        </select>
-      </div>
+          {/* Internship List Section */}
+          <div className="mb-6">
+            <h2 className="text-xl font-bold mb-4">Internships</h2>
+            <InternshipList />
+          </div>
 
-      <div className="space-y-2">
-        <p className="text-lg font-medium text-gray-200">How Long Do You Want to Stay?</p>
-        <select className="w-full p-3 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500">
-          <option className="text-gray-900">Select internship duration</option>
-          <option className="text-gray-900">1 month</option>
-          <option className="text-gray-900">3 months</option>
-          <option className="text-gray-900">6 months</option>
-          <option className="text-gray-900">12 months</option>
-        </select>
-      </div>
-
-      <div className="space-y-2">
-        <p className="text-lg font-medium text-gray-200">What’s Your Desired Stipend?</p>
-        <input
-          type="range"
-          min="0"
-          max="5000"
-          step="100"
-          className="w-full text-white"
-        />
-        <div className="flex justify-between text-sm text-gray-400">
-          <span>$0</span>
-          <span>$5000</span>
-        </div>
-      </div>
-    </div>
-
-    <p className="text-sm mt-6 text-gray-300">
-      Once you’ve set your filters, click the "Apply Filters" button and find the perfect match for your internship journey!
-    </p>
-
-    <div className="mt-6 flex justify-end">
-      <Button
-        variant="outline"
-        className="px-6 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-lg"
-      >
-        Apply Filters
-      </Button>
-    </div>
-  </div>
-)}
-
-
-
-
-          <InternshipList />
+          {/* Quick Links Section */}
+          <div className="mb-6">
+            <h2 className="text-xl font-bold mb-4">Quick Links</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Button variant="outline" className="w-full">View All Internships</Button>
+              <Button variant="outline" className="w-full">Create New Internship</Button>
+              <Button variant="outline" className="w-full">Manage Applications</Button>
+            </div>
+          </div>
         </main>
       </div>
     </div>
