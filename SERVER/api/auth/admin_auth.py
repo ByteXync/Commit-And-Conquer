@@ -1,47 +1,93 @@
-from fastapi import APIRouter
-from pydantic import BaseModel
-from prisma.models import User as PrismaUser
+from fastapi import APIRouter, HTTPException, Depends
+from pydantic import BaseModel, EmailStr
+from prisma import Prisma
 import jwt
+import os
+from passlib.context import CryptContext
 
-admin_key = "admin123"
+# Load secret keys from environment
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "supersecretkey")
+ADMIN_KEY = os.getenv("ADMIN_SECRET", "admin123")
 
-class Admin(BaseModel):
+# Prisma ORM instance
+db = Prisma()
+
+# Password hashing setup
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+router = APIRouter()
+
+class AdminRegister(BaseModel):
     fullName: str
-    email: str
+    email: EmailStr
     password: str
     admin_code: str
 
 class AdminLogin(BaseModel):
-    email: str
+    email: EmailStr
     password: str
     admin_code: str
 
-router = APIRouter()
-
 @router.post("/user/adminauth/register")
-async def register(admin: Admin):
-    if admin.admin_code == admin_key:
-        prisma_user = await PrismaUser.prisma().create(data={
-            "fullName": admin.fullName,
-            "email": admin.email,
-            "password": admin.password,
-            "role": "ADMIN"
-        })
-        return {
-            "fullName": prisma_user.fullName,
-            "email": prisma_user.email,
-            "role": "ADMIN"
-        }
-    else:
-        return {"message": "Invalid Admin Code"}
-    
+async def register(admin: AdminRegister):
+    """Register an Admin User"""
+    await db.connect()
+
+    # Validate admin code
+    if admin.admin_code != ADMIN_KEY:
+        raise HTTPException(status_code=403, detail="Invalid Admin Code")
+
+    # Check if user already exists
+    existing_user = await db.user.find_unique(where={"email": admin.email})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="User already exists")
+
+    # Hash the password before storing
+    hashed_password = pwd_context.hash(admin.password)
+
+    # Create user with Prisma
+    prisma_user = await db.user.create(data={
+        "fullName": admin.fullName,
+        "email": admin.email,
+        "password": hashed_password,
+        "role": "ADMIN"
+    })
+
+    await db.disconnect()
+
+    return {
+        "fullName": prisma_user.fullName,
+        "email": prisma_user.email,
+        "role": "ADMIN"
+    }
+
 @router.post("/user/adminauth/login")
 async def login(admin: AdminLogin):
-    prisma_user = await PrismaUser.prisma().find_unique(where={"email": admin.email})
-    if(admin.password == prisma_user.password and admin.admin_code == admin_key):
-        payload={"id":prisma_user.id,"email":prisma_user.email,"role":prisma_user.role}
-        token=jwt.encode(payload,'jaidboss',algorithm='HS256')
-        return {"fullName":prisma_user.fullName,"email":prisma_user.email,"role":prisma_user.role,"token":token}
-    else:
-        return {"error":"Incorrect credentials"}
-        
+    """Admin Login with JWT Token"""
+    await db.connect()
+
+    # Find user
+    prisma_user = await db.user.find_unique(where={"email": admin.email})
+    if not prisma_user:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    # Verify password
+    if not pwd_context.verify(admin.password, prisma_user.password):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    # Validate admin code
+    if admin.admin_code != ADMIN_KEY:
+        raise HTTPException(status_code=403, detail="Invalid Admin Code")
+
+    # Generate JWT token
+    payload = {"id": prisma_user.id, "email": prisma_user.email, "role": prisma_user.role}
+    token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+
+    await db.disconnect()
+
+    return {
+        "fullName": prisma_user.fullName,
+        "email": prisma_user.email,
+        "role": prisma_user.role,
+        "token": token
+    }
