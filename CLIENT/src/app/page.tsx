@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RocketIcon, ShieldCheckIcon, UsersIcon, ArrowRightIcon, BarChartIcon, CodeIcon } from 'lucide-react';
@@ -16,7 +17,9 @@ const LandingPage = () => {
             <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600 text-transparent bg-clip-text">Internship Portal</div>
           </div>
           <div className="hidden md:flex space-x-1">
-            <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Features</Button>
+            <Link href="/features">
+              <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Features</Button>
+            </Link>
             <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Pricing</Button>
             <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">About</Button>
             <Button variant="ghost" className="rounded-full text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Contact</Button>
