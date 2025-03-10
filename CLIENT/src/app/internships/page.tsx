@@ -14,23 +14,29 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchInternships = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const response = await axios.get<Internship[]>('http://localhost:8000/api/fetchinternships');
-        setInternships(response.data);
-      } catch (err) {
-        setError('Failed to fetch internships. Please try again later.');
-        console.error('Error fetching internships:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+useEffect(() => {
+  const fetchInternships = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await axios.get<Internship[]>('http://localhost:8000/api/fetchinternships', {
+        params: {
+          searchQuery, 
+          duration: selectedDuration || undefined, 
+          selectedCity: selectedCity || undefined
+        },
+      });
+      setInternships(response.data);
+    } catch (err) {
+      setError('Failed to fetch internships. Please try again later.');
+      console.error('Error fetching internships:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchInternships();
-  }, []);
+  fetchInternships();
+}, [searchQuery, selectedDuration, selectedCity]);
 
   const filteredInternships = useMemo(() => {
     return internships.filter(internship => {
