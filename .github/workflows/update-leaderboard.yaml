@@ -17,9 +17,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Fetch leaderboard
+        env:
+          LB_SERVER: ${{ secrets.LB_SERVER }}
         id: fetch-leaderboard
         run: |
-          curl -s https://864f-2409-40f2-346-6d40-35b8-f2a9-7ee1-da98.ngrok-free.app/leaderboard -o leaderboard.json
+          curl -s ${{ LB_SERVER }} -o leaderboard.json
       - name: Update README.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
