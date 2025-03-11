@@ -124,7 +124,7 @@ repo-root/
 <!-- LEADERBOARD_START -->
 1. SayGex: 45
 2. Talaash : 35
-3. Code 404: 30
+3. Code 404: 32
 4. Clueless : 10
 5. DQueen: 5
 6. Gitcoders: 5
